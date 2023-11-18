@@ -8,12 +8,15 @@ public class Player {
     private String name;
     private ArrayList<Card> hand;
     private ArrayList<Card> stuff;
+    private String gameClass, ethnicity;
 
     Player(String name){
         level = 1;
         this.name = name;
         hand = new ArrayList<>();
         stuff = new ArrayList<>();
+        gameClass = null;
+        ethnicity = null;
     }
 
     public int power(){
@@ -22,16 +25,17 @@ public class Player {
 
     @Override
     public String toString(){
-        String output = new String();
-        output += name + "Level : " + level + "\n";
-        output += "Hand : ";
+        String output = name + "\n\tLevel : " + level + "\n";
+        output += "\tHand : ";
         for(Card card : hand){
             output += card + " | ";
         }
-        output += "\nStuff : ";
+        output += "\n\tStuff : ";
         for(Card card : stuff){
             output += card + " | ";
         }
+        output += "\n\tClass : " + gameClass;
+        output += "\n\tEthnicity : " + ethnicity;
         return output;
     }
 }

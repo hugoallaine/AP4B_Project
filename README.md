@@ -7,7 +7,7 @@ Rendu:
 - Video_AP4B_NomEquipe.mp4
 - Code_AP4B_NomEquipe.zip
 
-Rapport :
+Rapport:
 - Intro
 - Phase conception
 - Phase Dev
