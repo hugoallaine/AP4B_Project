@@ -5,3 +5,4 @@ public abstract class TreasureCard extends Card{
         super("Test", "Desc");
     }   
 }
+

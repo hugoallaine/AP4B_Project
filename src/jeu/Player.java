@@ -22,6 +22,12 @@ public class Player {
     public int power(){
         return level;
     }
+    public int getlevel(){
+        return level;
+    }
+    public void level_up(int i){
+        this.level+=i;
+    }
 
     @Override
     public String toString(){
