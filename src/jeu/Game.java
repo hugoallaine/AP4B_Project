@@ -5,18 +5,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private ArrayList<Player> players;
-    private ArrayDeque<Card> treasureCards;
-    private ArrayDeque<Card> eventCards;
-    private ArrayDeque<Card> discardPile;
+    private static final int MAX_PLAYER_NUM = 6;
+    private static final int MIN_PLAYER_NUM = 3;
+    private final ArrayList<Player> players;
+    private final ArrayDeque<Card> treasureCards;
+    private final ArrayDeque<Card> eventCards;
+    private final ArrayDeque<Card> discardPile;
 
     public Game(){
         players = new ArrayList<>();
+        treasureCards = new ArrayDeque<>();
+        eventCards = new ArrayDeque<>();
+        discardPile = new ArrayDeque<>();
     }
 
-    public void addPLayer(String playerName){
-        if(players.size() > 6){
-            return;
+    private void addPLayer(String playerName) throws Error{
+        if(players.size() > MAX_PLAYER_NUM){
+            throw new Error("There are already 6 players in the game, cannot add more");
         }
         this.players.add(new Player(playerName));
     }
@@ -25,8 +30,8 @@ public class Game {
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
         boolean startGame = false;
-        while (this.players.size() < 6) {
-            if (this.players.size() >= 3) {
+        while (this.players.size() < MAX_PLAYER_NUM) {
+            if (this.players.size() >= MIN_PLAYER_NUM) {
                 String ans = "";
                 do {
                     System.out.println("There are enough players to start the game. Do you want to start now? [y/n]");
@@ -60,8 +65,6 @@ public class Game {
         }
         return out;
     }
-
-
 
     public void discardCard(Card card){
         this.discardPile.add(card);
