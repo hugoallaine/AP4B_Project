@@ -6,8 +6,11 @@ import java.util.ArrayList;
 public class Player {
     private int level;
     private final String name;
-    private ArrayList<Card> hand;
-    private ArrayList<Card> stuff;
+    public String getName(){
+        return this.name;
+    }
+    private final ArrayList<Card> hand;
+    private final ArrayList<Card> stuff;
     private String gameClass, ethnicity;
 
     Player(String name){
@@ -31,17 +34,18 @@ public class Player {
 
     @Override
     public String toString(){
-        String output = name + "\n- Level : " + level + "\n";
-        output += "- Hand : ";
+        StringBuffer output = new StringBuffer();
+        output.append(name + "\n- Level : " + level + "\n");
+        output.append("- Hand : ");
         for(Card card : hand){
-            output += card + " | ";
+            output.append(card + " | ");
         }
-        output += "\n- Stuff : ";
+        output.append("\n- Stuff : ");
         for(Card card : stuff){
-            output += card + " | ";
+            output.append(card + " | ");
         }
-        output += "\n- Class : " + gameClass;
-        output += "\n- Ethnicity : " + ethnicity;
-        return output;
+        output.append("\n- Class : " + gameClass);
+        output.append("\n- Ethnicity : " + ethnicity);
+        return output.toString();
     }
 }
