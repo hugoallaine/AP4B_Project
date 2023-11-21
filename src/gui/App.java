@@ -16,28 +16,33 @@ public final class App extends GameWindow {
     }
 
     private void nameInputHandler(){
-        String text = this.textField.getText();
-        this.textField.setText("");
+        String text = this.mainMenu.textField.getText();
+        this.mainMenu.textField.setText("");
         try{
             game.addPlayer(text);
-            this.textArea.setText("Current players :\n" + game.getPlayerString());
+            this.mainMenu.textArea.setText("Current players :\n" + game.getPlayerString());
             if(this.game.getPlayerNum() >= 3){
-                this.startGameButton.addActionListener(e -> this.game.start());
-                this.startGameButton.MKShow();
+                this.mainMenu.startGameButton.addActionListener(e -> this.startGame());
+                this.mainMenu.startGameButton.MKShow();
             }
         }
         catch(SamePlayerException spex){
             this.announce("Cannot add player: " + text + "\nThis name is already in use!\n");
         }
         catch(Exception ex){
-            this.addPlayerButton.removeActionListener(e -> nameInputHandler());
-            this.addPlayerButton.MKHide();
+            this.mainMenu.addPlayerButton.removeActionListener(e -> nameInputHandler());
+            this.mainMenu.addPlayerButton.MKHide();
             this.announce("Cannot add player: " + text + "\nThere already are 6 players!\n");
         }
     }
 
     public void launch(){
-        this.textField.addActionListener(e -> nameInputHandler());
-        this.addPlayerButton.addActionListener(e -> nameInputHandler());
+        this.mainMenu.textField.addActionListener(e -> nameInputHandler());
+        this.mainMenu.addPlayerButton.addActionListener(e -> nameInputHandler());
+    }
+
+    public void startGame(){
+        this.game.start();
+        super.mainMenu.hide();
     }
 }

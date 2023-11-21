@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class represents the game and also contains the methods to display it in a console environement
+ */
 public class Game {
     private static final int MAX_PLAYER_NUM = 6;
     private static final int MIN_PLAYER_NUM = 3;
@@ -55,7 +58,7 @@ public class Game {
         this.players.add(new Player(playerName));
     }
 
-    private void readFromConsole(){
+    private void registerPlayers(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
         boolean startGame = false;
