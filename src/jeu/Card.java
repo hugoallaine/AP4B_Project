@@ -9,7 +9,7 @@ public abstract class Card{
         this.description = description;
     }
 
-    abstract public void effect();
+    abstract public void effect(Player target);
 
     abstract public void discard();
 }

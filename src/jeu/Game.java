@@ -1,6 +1,5 @@
 package src.jeu;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,17 +11,17 @@ public class Game {
     private static final int MAX_PLAYER_NUM = 6;
     private static final int MIN_PLAYER_NUM = 3;
     private final ArrayList<Player> players;
-    private final ArrayDeque<Card> treasureCards;
-    private final ArrayDeque<Card> eventCards;
-    private final ArrayDeque<Card> discardPile;
+    private final CardStack treasureCards;
+    private final CardStack eventCards;
+    private final CardStack discardPile;
     private Player currentPlayer;
     private final Random random;
 
     public Game(){
         players = new ArrayList<>();
-        treasureCards = new ArrayDeque<>();
-        eventCards = new ArrayDeque<>();
-        discardPile = new ArrayDeque<>();
+        treasureCards = new CardStack();
+        eventCards = new CardStack();
+        discardPile = new CardStack();
         random = new Random();
         currentPlayer = null;
     }
@@ -106,9 +105,30 @@ public class Game {
     }
 
     public void start(){
+        for(Player player : players){
+            for(int i = 0; i < 2; i++){
+                player.addCard(treasureCards.draw());
+                player.addCard(eventCards.draw());
+            }
+        }
         System.out.println(this);
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
         System.out.println("The first player is : " + this.currentPlayer.getName());
+    }
+
+    public boolean isGameFinsihed(){
+        for(Player player : players){
+            if(player.getlevel() == 10){
+                System.out.println("Game should be finished");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void createCards(){
+        // TODO
+
     }
 
     @Override
