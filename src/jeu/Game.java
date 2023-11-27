@@ -16,7 +16,7 @@ public class Game {
     private final ArrayDeque<Card> eventCards;
     private final ArrayDeque<Card> discardPile;
     private Player currentPlayer;
-    private Random random;
+    private final Random random;
 
     public Game(){
         players = new ArrayList<>();
@@ -48,9 +48,19 @@ public class Game {
         return this.players.size();
     }
 
-    public void addPlayer(String playerName) throws Exception, SamePlayerException{
+    /**
+     * 
+     * @param playerName
+     * @throws Exception
+     * @throws SamePlayerException
+     * @throws InvalidPlayerNameException
+     */
+    public void addPlayer(String playerName) throws Exception, SamePlayerException, InvalidPlayerNameException{
         if(this.players.size() >= MAX_PLAYER_NUM){
             throw new Exception();
+        }
+        if(!this.isNameValid(playerName)){
+            throw new InvalidPlayerNameException();
         }
         if(this.playerAlreadyExists(playerName)){
             throw new SamePlayerException();
@@ -82,15 +92,17 @@ public class Game {
             try{
                 addPlayer(scan.nextLine());
             }
+            catch(InvalidPlayerNameException invalidNameEx){
+                System.out.println("The name you entered is invalid!");
+            }
             catch(SamePlayerException spex){
-                System.out.println("This name is already in use");
+                System.out.println("This name is already in use!");
             }
             catch(Exception ex){
                 break;
             }
         }
         scan.close();
-        this.start();
     }
 
     public void start(){
@@ -101,11 +113,15 @@ public class Game {
 
     @Override
     public String toString(){
-        String out = "There are " + this.players.size() + " players\n";
+        StringBuffer out = new StringBuffer("There are " + this.players.size() + " players\n");
         for(Player p : this.players){
-            out += p + "\n";
+            out.append(p + "\n");
         }
-        return out;
+        return out.toString();
+    }
+
+    private boolean isNameValid(String name){
+        return name != null && name.matches("^[a-zA-Z0-9]+$");
     }
 
     public void discardCard(Card card){

@@ -2,9 +2,8 @@ package src.jeu;
 
 abstract public class EventCard extends Card {
     
-    EventCard(){
+    protected EventCard(){
         super("Test", "Description");
     }
 
-    
 }
