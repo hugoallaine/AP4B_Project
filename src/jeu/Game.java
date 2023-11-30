@@ -1,25 +1,27 @@
 package src.jeu;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class represents the game and also contains the methods to display it in a console environement
+ */
 public class Game {
     private static final int MAX_PLAYER_NUM = 6;
     private static final int MIN_PLAYER_NUM = 3;
     private final ArrayList<Player> players;
-    private final ArrayDeque<Card> treasureCards;
-    private final ArrayDeque<Card> eventCards;
-    private final ArrayDeque<Card> discardPile;
+    private final CardStack treasureCards;
+    private final CardStack eventCards;
+    private final CardStack discardPile;
     private Player currentPlayer;
-    private Random random;
+    private final Random random;
 
     public Game(){
         players = new ArrayList<>();
-        treasureCards = new ArrayDeque<>();
-        eventCards = new ArrayDeque<>();
-        discardPile = new ArrayDeque<>();
+        treasureCards = new CardStack();
+        eventCards = new CardStack();
+        discardPile = new CardStack();
         random = new Random();
         currentPlayer = null;
     }
@@ -45,9 +47,19 @@ public class Game {
         return this.players.size();
     }
 
-    public void addPlayer(String playerName) throws Exception, SamePlayerException{
+    /**
+     * 
+     * @param playerName
+     * @throws Exception
+     * @throws SamePlayerException
+     * @throws InvalidPlayerNameException
+     */
+    public void addPlayer(String playerName) throws Exception, SamePlayerException, InvalidPlayerNameException{
         if(this.players.size() >= MAX_PLAYER_NUM){
             throw new Exception();
+        }
+        if(!this.isNameValid(playerName)){
+            throw new InvalidPlayerNameException();
         }
         if(this.playerAlreadyExists(playerName)){
             throw new SamePlayerException();
@@ -55,7 +67,7 @@ public class Game {
         this.players.add(new Player(playerName));
     }
 
-    private void readFromConsole(){
+    private void registerPlayers(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
         boolean startGame = false;
@@ -79,30 +91,57 @@ public class Game {
             try{
                 addPlayer(scan.nextLine());
             }
+            catch(InvalidPlayerNameException invalidNameEx){
+                System.out.println("The name you entered is invalid!");
+            }
             catch(SamePlayerException spex){
-                System.out.println("This name is already in use");
+                System.out.println("This name is already in use!");
             }
             catch(Exception ex){
                 break;
             }
         }
         scan.close();
-        this.start();
     }
 
     public void start(){
+        for(Player player : players){
+            for(int i = 0; i < 2; i++){
+                player.addCard(treasureCards.draw());
+                player.addCard(eventCards.draw());
+            }
+        }
         System.out.println(this);
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
         System.out.println("The first player is : " + this.currentPlayer.getName());
     }
 
+    public boolean isGameFinsihed(){
+        for(Player player : players){
+            if(player.getlevel() == 10){
+                System.out.println("Game should be finished");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void createCards(){
+        // TODO
+
+    }
+
     @Override
     public String toString(){
-        String out = "There are " + this.players.size() + " players\n";
+        StringBuffer out = new StringBuffer("There are " + this.players.size() + " players\n");
         for(Player p : this.players){
-            out += p + "\n";
+            out.append(p + "\n");
         }
-        return out;
+        return out.toString();
+    }
+
+    private boolean isNameValid(String name){
+        return name != null && name.matches("^[a-zA-Z0-9]+$");
     }
 
     public void discardCard(Card card){

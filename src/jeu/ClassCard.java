@@ -1,17 +1,19 @@
 package src.jeu;
 
-public class ClassCard extends EventCard{
+public final class ClassCard extends EventCard{
+    GameClass gameClass;
+    
+    public ClassCard(String className) {
+        this.gameClass = GameClass.getClassFromName(className);
+    }
 
     @Override
     public void discard() {
         // TODO
-        
     }
 
     @Override
-    public void effect() {
-        // TODO
-        
+    public void effect(Player target) {
+        target.setClass(this.gameClass);
     }
-    
 }

@@ -1,7 +1,8 @@
 package src.jeu;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
+
+import org.w3c.dom.events.EventTarget;
 
 public class Player {
     private int level;
@@ -11,7 +12,8 @@ public class Player {
     }
     private final ArrayList<Card> hand;
     private final ArrayList<Card> stuff;
-    private String gameClass, ethnicity;
+    private GameClass gameClass;
+    private Ethnicity ethnicity;
 
     Player(String name){
         level = 1;
@@ -30,6 +32,14 @@ public class Player {
     }
     public void level_up(int i){
         this.level+=i;
+    }
+
+    public void addCard(Card card){
+        this.hand.add(card);
+    }
+
+    public void setClass(GameClass gameClass){
+        this.gameClass = gameClass;
     }
 
     @Override
