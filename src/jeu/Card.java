@@ -1,15 +1,21 @@
 package src.jeu;
 
 public abstract class Card{
-    protected String name;
-    protected String description;
+    protected final String name;
+    protected final String description;
+    protected EffectFunction effectFunction;
 
     protected Card(String name, String description){
         this.name = name;
         this.description = description;
+        this.effectFunction = null;
     }
 
-    abstract public void effect(Player target);
+    protected final void setEffectFunction(EffectFunction ef) {
+        this.effectFunction = ef;
+    }
+
+    abstract public void applyEffect(Player target);
 
     abstract public void discard();
 }

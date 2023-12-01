@@ -1,12 +1,12 @@
 package src.jeu;
 
 // TODO
-public enum Ethnicity {
+public enum Ethnicities {
     ELF("Elf"),;
 
 
     private final String ethString;
-    Ethnicity(String ethnicity){
+    Ethnicities(String ethnicity){
         this.ethString = ethnicity;
     }
 
@@ -15,8 +15,8 @@ public enum Ethnicity {
         return this.ethString;
     }
 
-    public static Ethnicity getClassFromName(String className){
-        for(Ethnicity c : Ethnicity.values()){
+    public static Ethnicities getEthnicityFromName(String className){
+        for(Ethnicities c : Ethnicities.values()){
             if(c.ethString.equals(className)){
                 return c;
             }

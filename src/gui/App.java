@@ -1,6 +1,11 @@
 package src.gui;
 
+import java.awt.event.ActionListener;
+
+import src.jeu.ClassCard;
+import src.jeu.EventCard;
 import src.jeu.Game;
+import src.jeu.GameClasses;
 import src.jeu.InvalidPlayerNameException;
 import src.jeu.SamePlayerException;
 
@@ -37,7 +42,7 @@ public final class App extends GameWindow {
             super.announce("Cannot add player: " + text + "\nThis name is already in use!");
         }
         catch(Exception ex){
-            super.mainMenu.addPlayerButton.removeActionListener(e -> nameInputHandler());
+            super.mainMenu.addPlayerButton.removeActionListener(e -> this.nameInputHandler());
             super.mainMenu.addPlayerButton.setEnabled(false);
             super.announce("Cannot add player: " + text + "\nThere already are 6 players!");
         }
@@ -49,7 +54,9 @@ public final class App extends GameWindow {
     }
 
     public void startGame(){
-        this.game.start();
         super.mainMenu.hide();
+        this.game.start();
+        // ClassCard ec = new ClassCard("Barbarian");
+        // ec.applyEffect(this.game.getCurrentPLayer());
     }
 }

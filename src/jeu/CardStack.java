@@ -1,18 +1,18 @@
 package src.jeu;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
-public class CardStack{
-    private final Stack<Card> stack;
-    CardStack(){
-        this.stack = new Stack<>();
+public class CardStack<T extends Card>{
+    private final ArrayDeque<T> stack;
+    CardStack() {
+        this.stack = new ArrayDeque<>();
     }
 
-    public Card draw(){
+    public T draw(){
         return this.stack.pop();
     }
 
-    public void add(Card card){
+    public void add(T card){
         this.stack.add(card);
     }
 }

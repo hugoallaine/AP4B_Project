@@ -1,10 +1,12 @@
 package src.jeu;
 
 public final class ClassCard extends EventCard{
-    GameClass gameClass;
+    GameClasses gameClass;
     
     public ClassCard(String className) {
-        this.gameClass = GameClass.getClassFromName(className);
+        super();
+        this.setEffectFunction((player) -> this.changePlayerClass(player));
+        this.gameClass = GameClasses.getClassFromName(className);
     }
 
     @Override
@@ -13,7 +15,11 @@ public final class ClassCard extends EventCard{
     }
 
     @Override
-    public void effect(Player target) {
-        target.setClass(this.gameClass);
+    public void applyEffect(Player target) {
+        this.effectFunction.effect(target);
+    }
+
+    private void changePlayerClass(Player p){
+        p.setClass(this.gameClass);
     }
 }

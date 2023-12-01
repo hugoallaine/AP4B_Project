@@ -7,7 +7,7 @@ public abstract class Levelupcard extends TreasureCard {
         gain_level=i;
     }
 
-    public void effect(Player target){
+    public void applyEffect(Player target){
         target.level_up(gain_level);
     }
 

@@ -12,8 +12,8 @@ public class Player {
     }
     private final ArrayList<Card> hand;
     private final ArrayList<Card> stuff;
-    private GameClass gameClass;
-    private Ethnicity ethnicity;
+    private GameClasses gameClass;
+    private Ethnicities ethnicity;
 
     Player(String name){
         level = 1;
@@ -38,7 +38,7 @@ public class Player {
         this.hand.add(card);
     }
 
-    public void setClass(GameClass gameClass){
+    public void setClass(GameClasses gameClass){
         this.gameClass = gameClass;
     }
 

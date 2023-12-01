@@ -10,18 +10,19 @@ import java.util.Scanner;
 public class Game {
     private static final int MAX_PLAYER_NUM = 6;
     private static final int MIN_PLAYER_NUM = 3;
+    private static final int CARD_COUNT = 0;
     private final ArrayList<Player> players;
-    private final CardStack treasureCards;
-    private final CardStack eventCards;
-    private final CardStack discardPile;
+    private final CardStack<TreasureCard> treasureCards;
+    private final CardStack<EventCard> eventCards;
+    private final CardStack<Card> discardPile;
     private Player currentPlayer;
     private final Random random;
 
     public Game(){
         players = new ArrayList<>();
-        treasureCards = new CardStack();
-        eventCards = new CardStack();
-        discardPile = new CardStack();
+        treasureCards = new CardStack<>();
+        eventCards = new CardStack<>();
+        discardPile = new CardStack<>();
         random = new Random();
         currentPlayer = null;
     }
@@ -104,19 +105,23 @@ public class Game {
         scan.close();
     }
 
-    public void start(){
+    public void start() {
+        // this.distributeCards();
+        System.out.println(this);
+        this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
+        System.out.println("The first player is : " + this.currentPlayer.getName());
+    }
+
+    private void distributeCards() {
         for(Player player : players){
             for(int i = 0; i < 2; i++){
                 player.addCard(treasureCards.draw());
                 player.addCard(eventCards.draw());
             }
         }
-        System.out.println(this);
-        this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
-        System.out.println("The first player is : " + this.currentPlayer.getName());
     }
 
-    public boolean isGameFinsihed(){
+    public boolean isGameFinsihed() {
         for(Player player : players){
             if(player.getlevel() == 10){
                 System.out.println("Game should be finished");
@@ -146,5 +151,9 @@ public class Game {
 
     public void discardCard(Card card){
         this.discardPile.add(card);
+    }
+
+    public Player getCurrentPLayer(){
+        return this.currentPlayer;
     }
 }
