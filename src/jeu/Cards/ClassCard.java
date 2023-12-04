@@ -1,12 +1,15 @@
-package src.jeu;
+package src.jeu.Cards;
+
+import src.jeu.GameClasses;
+import src.jeu.Player;
 
 public final class ClassCard extends EventCard{
     GameClasses gameClass;
     
-    public ClassCard(String className) {
-        super();
-        this.setEffectFunction((player) -> this.changePlayerClass(player));
+    public ClassCard(String name, String desc, String className) {
+        super(name, desc);
         this.gameClass = GameClasses.getClassFromName(className);
+        this.setEffectFunction((Player player) -> this.changePlayerClass(player));
     }
 
     @Override

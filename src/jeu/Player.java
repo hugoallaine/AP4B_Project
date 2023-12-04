@@ -2,7 +2,7 @@ package src.jeu;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.events.EventTarget;
+import src.jeu.Cards.Card;
 
 public class Player {
     private int level;
@@ -15,20 +15,20 @@ public class Player {
     private GameClasses gameClass;
     private Ethnicities ethnicity;
 
-    Player(String name){
-        level = 1;
+    public Player(String name){
+        this.level = 1;
         this.name = name;
-        hand = new ArrayList<>();
-        stuff = new ArrayList<>();
-        gameClass = null;
-        ethnicity = null;
+        this.hand = new ArrayList<>();
+        this.stuff = new ArrayList<>();
+        this.gameClass = null;
+        this.ethnicity = null;
     }
 
     public int power(){
-        return level;
+        return this.level;
     }
     public int getlevel(){
-        return level;
+        return this.level;
     }
     public void level_up(int i){
         this.level+=i;
@@ -40,6 +40,14 @@ public class Player {
 
     public void setClass(GameClasses gameClass){
         this.gameClass = gameClass;
+    }
+
+    public ArrayList<Card> getHand() {
+        return this.hand;
+    }
+
+    public ArrayList<Card> getStuff() {
+        return this.stuff;
     }
 
     @Override
@@ -57,5 +65,9 @@ public class Player {
         output.append("\n- Class : " + gameClass);
         output.append("\n- Ethnicity : " + ethnicity);
         return output.toString();
+    }
+
+    public void removeCardFromHand(Card card) {
+        this.hand.remove(card);
     }
 }

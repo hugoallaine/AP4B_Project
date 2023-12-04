@@ -1,5 +1,6 @@
 package src.gui;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -11,6 +12,7 @@ public class MKButton extends JButton implements EasyBkgImg{
     public MKButton(String text){
         super(text);
         img = null;
+        super.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     public void MKShow(){

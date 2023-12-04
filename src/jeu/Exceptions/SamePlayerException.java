@@ -1,7 +1,7 @@
-package src.jeu;
+package src.jeu.Exceptions;
 
 public class SamePlayerException extends Exception {
-    SamePlayerException(){
+    public SamePlayerException(){
         super();
     }
 }

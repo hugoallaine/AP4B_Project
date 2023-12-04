@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import src.jeu.Cards.Card;
+import src.jeu.Cards.ClassCard;
+import src.jeu.Cards.EventCard;
+import src.jeu.Cards.XpCard;
+import src.jeu.Cards.TreasureCard;
+import src.jeu.Exceptions.InvalidPlayerNameException;
+import src.jeu.Exceptions.SamePlayerException;
+import src.jeu.Exceptions.TooManyCardsInHandException;
+import src.jeu.Exceptions.TooManyPlayersException;
+
 /**
  * This class represents the game and also contains the methods to display it in a console environement
  */
 public class Game {
     private static final int MAX_PLAYER_NUM = 6;
     private static final int MIN_PLAYER_NUM = 3;
-    private static final int CARD_COUNT = 0;
+    public static final int MAX_CARD_IN_HAND = 5;
     private final ArrayList<Player> players;
     private final CardStack<TreasureCard> treasureCards;
     private final CardStack<EventCard> eventCards;
@@ -55,9 +65,9 @@ public class Game {
      * @throws SamePlayerException
      * @throws InvalidPlayerNameException
      */
-    public void addPlayer(String playerName) throws Exception, SamePlayerException, InvalidPlayerNameException{
+    public void addPlayer(String playerName) throws TooManyPlayersException, SamePlayerException, InvalidPlayerNameException{
         if(this.players.size() >= MAX_PLAYER_NUM){
-            throw new Exception();
+            throw new TooManyPlayersException();
         }
         if(!this.isNameValid(playerName)){
             throw new InvalidPlayerNameException();
@@ -106,7 +116,10 @@ public class Game {
     }
 
     public void start() {
-        // this.distributeCards();
+        this.createCards();
+        this.eventCards.shuffle();
+        this.treasureCards.shuffle();
+        this.distributeCards();
         System.out.println(this);
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
         System.out.println("The first player is : " + this.currentPlayer.getName());
@@ -133,12 +146,31 @@ public class Game {
 
     private void createCards(){
         // TODO
+        // Hashtable<String, ArrayList<String>> cardData = JSONReader.readCSV("/home/olivier/Documents/Code/Java/AP4B_project/cards.csv");
+        // cardData.forEach((k,v) -> {
+        //     v.forEach(elm -> {
+        //         if(k.equals("Amount")){
+        //             int j = Integer.parseInt(elm);
+        //         }
+        //     });
+        // });
 
+        for(int i = 0; i < 80; i++) {
+            this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian"));
+            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1));
+        }
+    }
+
+    public void nextTurn() throws TooManyCardsInHandException{
+        if(this.canFinishTurn()){
+            int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
+            this.currentPlayer = this.players.get((currentPlayerIndex + 1) % this.players.size());
+        }
     }
 
     @Override
     public String toString(){
-        StringBuffer out = new StringBuffer("There are " + this.players.size() + " players\n");
+        StringBuilder out = new StringBuilder("There are " + this.players.size() + " players\n");
         for(Player p : this.players){
             out.append(p + "\n");
         }
@@ -153,7 +185,23 @@ public class Game {
         this.discardPile.add(card);
     }
 
-    public Player getCurrentPLayer(){
+    public Player getCurrentPlayer(){
         return this.currentPlayer;
     }
+
+    public void drawFromEventStack() {
+        this.currentPlayer.addCard(this.eventCards.draw());
+    }
+
+    public void drawFromTreasureStack() {
+        this.currentPlayer.addCard(this.treasureCards.draw());
+    }
+
+    public boolean canFinishTurn() throws TooManyCardsInHandException{
+        if(this.currentPlayer.getHand().size() > Game.MAX_CARD_IN_HAND){
+            throw new TooManyCardsInHandException();
+        }
+        return true;
+    }
+
 }

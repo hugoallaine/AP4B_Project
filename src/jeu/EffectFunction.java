@@ -6,5 +6,5 @@ package src.jeu;
 // Faire gaffe a des potentiels problemes
 @FunctionalInterface
 public interface EffectFunction {
-    public void effect(Player target);
+    public abstract void effect(Player target);
 }

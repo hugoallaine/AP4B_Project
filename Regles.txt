@@ -73,9 +73,8 @@ Argent:
 - 1000 pieces pour XP niv 9 max
 
 
-
-Choix d'implémentation:
-- Utilisation d'une interface fonctionnelle pour pouvoir définir les effets des cartes
+Quand qqun sur une carte dans sa main:
+- Si elle a pour cible lui meme
 
 
             

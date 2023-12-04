@@ -1,4 +1,4 @@
-package src.jeu;
+package src.jeu.Exceptions;
 
 public class InvalidPlayerNameException extends Exception{
     public InvalidPlayerNameException(){

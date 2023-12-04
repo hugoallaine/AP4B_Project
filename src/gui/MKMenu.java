@@ -2,7 +2,7 @@ package src.gui;
 
 import javax.swing.JPanel;
 
-public abstract class Menu {
+public abstract class MKMenu {
     public static final int MAIN_MENU = 0;
     public static final int PLAY_MENU = 1;
     public abstract void hide();

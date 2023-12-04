@@ -18,7 +18,7 @@ public enum GameClasses {
 
     public static GameClasses getClassFromName(String className){
         for(GameClasses c : GameClasses.values()){
-            if(c.name.equals(className)){
+            if(c.name.equalsIgnoreCase(className)){
                 return c;
             }
         }
