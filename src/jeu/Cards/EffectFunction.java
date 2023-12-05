@@ -1,5 +1,6 @@
-package src.jeu;
+package src.jeu.Cards;
 
+import src.jeu.Player;
 
 // TODO: pour faire en sorte que les cartes puissent accepter des fonctions en arguments
 // Afin de pouvoir définir les effets des cartes a part

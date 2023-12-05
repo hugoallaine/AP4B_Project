@@ -1,9 +1,12 @@
 package src.gui;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import src.jeu.Game;
+import src.jeu.Player;
 import src.jeu.Cards.Card;
+import src.jeu.Cards.CardTargetMode;
 import src.jeu.Exceptions.InvalidPlayerNameException;
 import src.jeu.Exceptions.SamePlayerException;
 import src.jeu.Exceptions.TooManyCardsInHandException;
@@ -46,7 +49,7 @@ public final class App extends GameWindow {
         catch(TooManyPlayersException ex){
             super.mainMenu.addPlayerButton.removeActionListener(e -> this.nameInputHandler());
             super.mainMenu.addPlayerButton.setEnabled(false);
-            super.announce("Cannot add player: " + text + "\nThere already are 6 players!");
+            super.announce("Cannot add player: " + text + "\nThere already is 6 players!");
         }
     }
 
@@ -62,12 +65,14 @@ public final class App extends GameWindow {
         this.update();
         super.playingMenu.getNextPlayerButton().addActionListener(e -> this.nextTurn());
         super.playingMenu.getPlayCardButton().addActionListener(e -> this.playSelectedCard());
+        super.playingMenu.getDrawEventCardButton().addActionListener(e -> this.drawFromEventStack());
+        
+        super.playingMenu.getDrawTreasureCardButton().addActionListener(e -> this.drawFromTreasureStack());
     }
 
     private void updateDisplay() {
         super.playingMenu.getNameLabel().setText(this.game.getCurrentPlayer().getName()+"'s turn");
         super.playingMenu.clearCardButtons();
-        // faire en sorte qu'il puisse y avoir plus de 5 cartes sur l'écran pour quand le joueur pioche
         ArrayList<Card> currentPlayerHand = this.game.getCurrentPlayer().getHand();
         for(Card c : currentPlayerHand) {
             CardButton cardButton = new CardButton(c);
@@ -95,28 +100,33 @@ public final class App extends GameWindow {
     }
 
     private void drawFromEventStack() {
+        System.out.println("Hey");
         this.game.drawFromEventStack();
         this.update();
     }
 
     private void drawFromTreasureStack() {
-        this.game.drawFromTreasureStack();
-        this.update();
+        try{
+            this.game.drawFromTreasureStack();
+            this.updateDisplay();
+        }catch(NoSuchElementException ex) {
+            super.announce("Cannot draw from the treasure card stack");
+        }
     }
 
     private void playSelectedCard(){
-        if(this.selectedCardButton == null){
+        if(this.selectedCardButton == null) {
             super.announce("Cannot play a card because none are selected!");
             return;
         }
-        this.selectedCardButton.getCard().applyEffect(this.game.getCurrentPlayer());
+        this.selectedCardButton.getCard().applyEffect(this.askForTargets());
         this.game.getCurrentPlayer().removeCardFromHand(this.selectedCardButton.getCard());
         this.unselectCardButton(selectedCardButton);
         this.update();
     }
 
     private void selectCardButton(CardButton cb) {
-        if(this.selectedCardButton != null){
+        if(this.selectedCardButton != null) {
             this.unselectCardButton(this.selectedCardButton);
         }
         cb.highlight();
@@ -127,13 +137,24 @@ public final class App extends GameWindow {
     }
 
     private void unselectCardButton(CardButton cb) {
-        if(cb == null) {
-            System.err.println("[ERROR] Ayayayo");
-        }
         cb.removeHighlight();
         this.selectedCardButton = null;
         cb.clearListeners();
         cb.addActionListener(e -> this.selectCardButton(cb));
         super.repaint();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    private ArrayList<Player> askForTargets() {
+        ArrayList<Player> targets = new ArrayList<>(1);
+        if(this.selectedCardButton.getCard().getTargetMode() == CardTargetMode.SELF) {
+            targets.add(this.game.getCurrentPlayer());
+            return targets;
+        }
+        return null;
     }
 }

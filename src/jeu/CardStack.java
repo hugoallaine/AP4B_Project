@@ -1,6 +1,7 @@
 package src.jeu;
 
 import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 import src.jeu.Cards.Card;
@@ -11,7 +12,7 @@ public class CardStack<T extends Card>{
         this.stack = new ArrayDeque<>();
     }
 
-    public T draw() {
+    public T draw() throws NoSuchElementException {
         return this.stack.pop();
     }
 
@@ -40,5 +41,11 @@ public class CardStack<T extends Card>{
             this.add((T) carte);
         }
         
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
     }
 }

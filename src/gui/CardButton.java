@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import src.jeu.Cards.Card;
 
 public class CardButton extends MKButton{
-    private Card card;
+    private final Card card;
     private static final int BORDER_WIDTH = 1;
     public CardButton(Card card) {
         super("");
@@ -43,5 +43,10 @@ public class CardButton extends MKButton{
         for(ActionListener l : this.getActionListeners()) {
             this.removeActionListener(l);
         }
+    }
+
+    @Override
+    public String toString() {
+        return card.toString();
     }
 }

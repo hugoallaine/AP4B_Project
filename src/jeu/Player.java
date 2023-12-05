@@ -3,6 +3,7 @@ package src.jeu;
 import java.util.ArrayList;
 
 import src.jeu.Cards.Card;
+import src.jeu.Cards.Ethnicities;
 
 public class Player {
     private int level;
@@ -24,13 +25,13 @@ public class Player {
         this.ethnicity = null;
     }
 
-    public int power(){
+    public int getPower(){
         return this.level;
     }
-    public int getlevel(){
+    public int getLevel(){
         return this.level;
     }
-    public void level_up(int i){
+    public void levelUp(int i){
         this.level+=i;
     }
 

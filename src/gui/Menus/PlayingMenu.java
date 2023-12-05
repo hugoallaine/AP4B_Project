@@ -17,12 +17,14 @@ import src.gui.MKMenu;
 import src.jeu.Game;
 
 public final class PlayingMenu extends MKMenu {
-    protected final JPanel mainPanel;
-    protected final ArrayList<CardButton> cardButtons;
-    protected final JLabel nameLabel;
-    protected final MKButton nextPlayerButton;
-    protected final MKButton playCardButton;
-    protected final JPanel cardsPanel;
+    private final JPanel mainPanel;
+    private final ArrayList<CardButton> cardButtons;
+    private final JLabel nameLabel;
+    private final MKButton nextPlayerButton;
+    private final MKButton playCardButton;
+    private final JPanel cardsPanel;
+    private final MKButton drawTreasureButton;
+    private final MKButton drawEventButton;
 
     public PlayingMenu() {
         this.mainPanel = new JPanel();
@@ -38,10 +40,19 @@ public final class PlayingMenu extends MKMenu {
         cardLayout.setVgap(5);
         this.cardsPanel.setLayout(cardLayout);
         this.cardsPanel.setBackground(new Color(0x00FFFFFF, true));
+    
+        JPanel actionButtonsPanel = new JPanel();
+        actionButtonsPanel.setLayout(new GridLayout(1,0));
+        actionButtonsPanel.setBackground(new Color(0x00FFFFFF, true));
+        ((GridLayout)actionButtonsPanel.getLayout()).setHgap(5);
 
         this.nextPlayerButton = new MKButton("Next Player");
 
         this.playCardButton = new MKButton("Play card");
+
+        this.drawEventButton = new MKButton("Draw Event Card");
+
+        this.drawTreasureButton = new MKButton("Draw Treasure Card");
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1.0f;
@@ -57,13 +68,24 @@ public final class PlayingMenu extends MKMenu {
         this.cardButtons = new ArrayList<>(Game.MAX_CARD_IN_HAND);
         this.mainPanel.add(this.cardsPanel, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        this.mainPanel.add(this.nextPlayerButton, gbc);
 
-        gbc.gridx = 1;
-        this.mainPanel.add(this.playCardButton, gbc);
+        actionButtonsPanel.add(this.nextPlayerButton, gbc);
+        actionButtonsPanel.add(this.playCardButton);
+        actionButtonsPanel.add(this.drawEventButton);
+        actionButtonsPanel.add(this.drawTreasureButton);
+
+        gbc.gridy++;
+
+        this.mainPanel.add(actionButtonsPanel, gbc);
         this.hide();
+    }
+
+    public MKButton getDrawEventCardButton() {
+        return this.drawEventButton;
+    }
+
+    public MKButton getDrawTreasureCardButton() {
+        return this.drawTreasureButton;
     }
 
     public MKButton getNextPlayerButton() {
@@ -86,6 +108,7 @@ public final class PlayingMenu extends MKMenu {
     public void addCardButton(CardButton cb) {
         this.cardButtons.add(cb);
         this.cardsPanel.add(cb);
+        this.cardsPanel.validate();
     } 
 
     public void clearCardButtons() {
@@ -97,13 +120,13 @@ public final class PlayingMenu extends MKMenu {
 
     @Override
     public void hide() {
-        mainPanel.setVisible(false);
-        cardButtons.forEach(button -> button.setVisible(false));
+        this.mainPanel.setVisible(false);
+        this.cardButtons.forEach(button -> button.setVisible(false));
     }
 
     @Override
     public void show() {
-        mainPanel.setVisible(true);
-        cardButtons.forEach(button -> button.setVisible(true));
+        this.mainPanel.setVisible(true);
+        this.cardButtons.forEach(button -> button.setVisible(true));
     }
 }

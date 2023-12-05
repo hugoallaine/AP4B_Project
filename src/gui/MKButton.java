@@ -9,10 +9,11 @@ import javax.swing.JButton;
 
 public class MKButton extends JButton implements EasyBkgImg{
     public Image img;
+    private static final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR);
     public MKButton(String text){
         super(text);
         img = null;
-        super.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        super.setCursor(HAND_CURSOR);
     }
 
     public void MKShow(){
