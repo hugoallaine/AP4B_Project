@@ -106,17 +106,7 @@ public final class App extends GameWindow {
         try{
             EventCard cardDrawn = this.game.drawFromEventStack();
             if(cardDrawn instanceof CurseCard) {
-                ArrayList<Player> targets = new ArrayList<>();
-                switch (cardDrawn.getTargetMode()) {
-                case SELF:
-                    targets.add(this.game.getCurrentPlayer());
-                    cardDrawn.applyEffect(targets);
-                    break;
-                case EVERYONE:
-                    cardDrawn.applyEffect(this.game.getPlayers());
-                default:
-                    throw new UnexpectedException("Should be unreachable");
-                }
+                this.game.applyCurseEffect((CurseCard) cardDrawn);
             }
             this.updateDisplay();
 

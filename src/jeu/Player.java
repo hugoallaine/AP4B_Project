@@ -6,10 +6,10 @@ import src.jeu.Cards.Card;
 import src.jeu.Cards.Ethnicities;
 
 public class Player {
-    enum Actions {
-        DRAWING,
+    // enum Actions {
+    //     DRAWING,
         
-    }
+    // }
     private int level;
     private final String name;
     public String getName(){

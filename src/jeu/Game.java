@@ -1,5 +1,6 @@
 package src.jeu;
 
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -202,6 +203,20 @@ public class Game {
     public void discard(Card card) {
         System.out.println(card instanceof EventCard);
         this.discardPile.add(card);
+    }
+
+    public void applyCurseEffect(CurseCard card) throws UnexpectedException {
+        ArrayList<Player> targets = new ArrayList<>();
+        switch (card.getTargetMode()) {
+        case SELF:
+            targets.add(this.currentPlayer);
+            card.applyEffect(targets);
+            break;
+        case EVERYONE:
+            card.applyEffect(this.players);
+        default:
+            throw new UnexpectedException("Should be unreachable");
+        }
     }
 
 }
