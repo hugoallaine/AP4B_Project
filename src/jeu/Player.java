@@ -6,6 +6,10 @@ import src.jeu.Cards.Card;
 import src.jeu.Cards.Ethnicities;
 
 public class Player {
+    enum Actions {
+        DRAWING,
+        
+    }
     private int level;
     private final String name;
     public String getName(){
@@ -15,6 +19,7 @@ public class Player {
     private final ArrayList<Card> stuff;
     private GameClasses gameClass;
     private Ethnicities ethnicity;
+    private boolean hasDrawn;
 
     public Player(String name){
         this.level = 1;
@@ -23,14 +28,17 @@ public class Player {
         this.stuff = new ArrayList<>();
         this.gameClass = null;
         this.ethnicity = null;
+        this.hasDrawn = false;
     }
 
     public int getPower(){
         return this.level;
     }
+
     public int getLevel(){
         return this.level;
     }
+
     public void levelUp(int i){
         this.level+=i;
     }

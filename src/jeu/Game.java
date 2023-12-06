@@ -150,7 +150,7 @@ public class Game {
 
         for(int i = 0; i < 80; i++) {
             this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
-            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.SELF));
+            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.MULTIPLE));
         }
     }
 
@@ -174,16 +174,18 @@ public class Game {
         return name != null && name.matches("^[a-zA-Z0-9]+$");
     }
 
-    public void discardCard(Card card){
-        this.discardPile.add(card);
-    }
-
     public Player getCurrentPlayer(){
         return this.currentPlayer;
     }
 
-    public void drawFromEventStack() throws NoSuchElementException {
-        this.currentPlayer.addCard(this.eventCards.draw());
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
+
+    public EventCard drawFromEventStack() throws NoSuchElementException {
+        EventCard cardDrawn = this.eventCards.draw();
+        this.currentPlayer.addCard(cardDrawn);
+        return cardDrawn;
     }
 
     public void drawFromTreasureStack() throws NoSuchElementException {
@@ -195,6 +197,11 @@ public class Game {
             throw new TooManyCardsInHandException();
         }
         return true;
+    }
+
+    public void discard(Card card) {
+        System.out.println(card instanceof EventCard);
+        this.discardPile.add(card);
     }
 
 }

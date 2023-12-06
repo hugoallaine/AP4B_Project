@@ -23,8 +23,8 @@ public final class PlayingMenu extends MKMenu {
     private final MKButton nextPlayerButton;
     private final MKButton playCardButton;
     private final JPanel cardsPanel;
-    private final MKButton drawTreasureButton;
-    private final MKButton drawEventButton;
+    private final MKButton actionButton;
+    private final JLabel playerLevelLabel;
 
     public PlayingMenu() {
         this.mainPanel = new JPanel();
@@ -50,9 +50,9 @@ public final class PlayingMenu extends MKMenu {
 
         this.playCardButton = new MKButton("Play card");
 
-        this.drawEventButton = new MKButton("Draw Event Card");
+        this.actionButton = new MKButton("ActionButton");
 
-        this.drawTreasureButton = new MKButton("Draw Treasure Card");
+        this.playerLevelLabel = new JLabel();
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1.0f;
@@ -61,8 +61,11 @@ public final class PlayingMenu extends MKMenu {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridwidth = GridBagConstraints.RELATIVE;
-
         this.mainPanel.add(this.nameLabel, gbc);
+
+        gbc.gridx = 1;
+        this.mainPanel.add(this.playerLevelLabel);
+        gbc.gridx = 0;
 
         gbc.gridy = 1;
         this.cardButtons = new ArrayList<>(Game.MAX_CARD_IN_HAND);
@@ -71,8 +74,7 @@ public final class PlayingMenu extends MKMenu {
 
         actionButtonsPanel.add(this.nextPlayerButton, gbc);
         actionButtonsPanel.add(this.playCardButton);
-        actionButtonsPanel.add(this.drawEventButton);
-        actionButtonsPanel.add(this.drawTreasureButton);
+        actionButtonsPanel.add(this.actionButton);
 
         gbc.gridy++;
 
@@ -80,13 +82,10 @@ public final class PlayingMenu extends MKMenu {
         this.hide();
     }
 
-    public MKButton getDrawEventCardButton() {
-        return this.drawEventButton;
+    public MKButton getActionButton() {
+        return this.actionButton;
     }
 
-    public MKButton getDrawTreasureCardButton() {
-        return this.drawTreasureButton;
-    }
 
     public MKButton getNextPlayerButton() {
         return this.nextPlayerButton;
@@ -98,6 +97,10 @@ public final class PlayingMenu extends MKMenu {
 
     public JLabel getNameLabel() {
         return this.nameLabel;
+    }
+
+    public JLabel getPlayerLevelLabel() {
+        return this.playerLevelLabel;
     }
 
     @Override

@@ -15,8 +15,8 @@ public class GameWindow extends JFrame{
     
     private final JPanel panel;
     protected final MainMenu mainMenu;
-    // TODO:
     protected final PlayingMenu playingMenu;
+    protected final PlayerSelectMenu pSelectMenu;
 
     public GameWindow(String title, int width, int height){
         super(title);
@@ -30,6 +30,7 @@ public class GameWindow extends JFrame{
                 quit();
             }
         });
+
         this.panel = new JPanel();
         this.panel.setLayout(new GridBagLayout());
         this.panel.setBackground(Color.BLACK);
@@ -38,6 +39,8 @@ public class GameWindow extends JFrame{
         this.addMenu(this.mainMenu);
         this.playingMenu = new PlayingMenu();
         this.addMenu(this.playingMenu);
+        this.pSelectMenu = new PlayerSelectMenu();
+        this.addMenu(this.pSelectMenu);
         super.setVisible(true);
     }
 
@@ -45,10 +48,15 @@ public class GameWindow extends JFrame{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1.0f;
         gbc.weighty = 1.0f;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         if(menu instanceof PlayingMenu){
             gbc.fill= GridBagConstraints.BOTH;
         }
         this.panel.add(menu.getPanel(), gbc);
+        if(menu instanceof PlayerSelectMenu) {
+            // this.setComponentZOrder(menu.getPanel(), 1);
+        }
     }
 
     public void setLNF(){

@@ -4,4 +4,5 @@ public enum CardTargetMode {
     SELF,
     SINGLE,
     MULTIPLE,
+    EVERYONE,
 }

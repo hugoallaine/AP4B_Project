@@ -1,12 +1,17 @@
 package src.gui;
 
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
+import javax.swing.JOptionPane;
 
 import src.jeu.Game;
 import src.jeu.Player;
 import src.jeu.Cards.Card;
 import src.jeu.Cards.CardTargetMode;
+import src.jeu.Cards.CurseCard;
+import src.jeu.Cards.EventCard;
 import src.jeu.Exceptions.InvalidPlayerNameException;
 import src.jeu.Exceptions.SamePlayerException;
 import src.jeu.Exceptions.TooManyCardsInHandException;
@@ -65,13 +70,12 @@ public final class App extends GameWindow {
         this.update();
         super.playingMenu.getNextPlayerButton().addActionListener(e -> this.nextTurn());
         super.playingMenu.getPlayCardButton().addActionListener(e -> this.playSelectedCard());
-        super.playingMenu.getDrawEventCardButton().addActionListener(e -> this.drawFromEventStack());
-        
-        super.playingMenu.getDrawTreasureCardButton().addActionListener(e -> this.drawFromTreasureStack());
+        super.playingMenu.getActionButton().addActionListener(e -> this.drawFromEventStack());
     }
 
     private void updateDisplay() {
         super.playingMenu.getNameLabel().setText(this.game.getCurrentPlayer().getName()+"'s turn");
+        super.playingMenu.getPlayerLevelLabel().setText("You are level : "+this.game.getCurrentPlayer().getLevel());
         super.playingMenu.clearCardButtons();
         ArrayList<Card> currentPlayerHand = this.game.getCurrentPlayer().getHand();
         for(Card c : currentPlayerHand) {
@@ -86,7 +90,6 @@ public final class App extends GameWindow {
 
     private void update() {
         this.updateDisplay();
-
     }
 
     private void nextTurn() {
@@ -99,10 +102,27 @@ public final class App extends GameWindow {
         }
     }
 
-    private void drawFromEventStack() {
-        System.out.println("Hey");
-        this.game.drawFromEventStack();
-        this.update();
+    private void drawFromEventStack() throws UnexpectedException {
+        try{
+            EventCard cardDrawn = this.game.drawFromEventStack();
+            if(cardDrawn instanceof CurseCard) {
+                ArrayList<Player> targets = new ArrayList<>();
+                switch (cardDrawn.getTargetMode()) {
+                case SELF:
+                    targets.add(this.game.getCurrentPlayer());
+                    cardDrawn.applyEffect(targets);
+                    break;
+                case EVERYONE:
+                    cardDrawn.applyEffect(this.game.getPlayers());
+                default:
+                    throw new UnexpectedException("Should be unreachable");
+                }
+            }
+            this.updateDisplay();
+
+        }catch(NoSuchElementException ex) {
+            super.announce("Cannot draw from the event stack");
+        }
     }
 
     private void drawFromTreasureStack() {
@@ -120,6 +140,7 @@ public final class App extends GameWindow {
             return;
         }
         this.selectedCardButton.getCard().applyEffect(this.askForTargets());
+        this.game.discard(this.selectedCardButton.getCard());
         this.game.getCurrentPlayer().removeCardFromHand(this.selectedCardButton.getCard());
         this.unselectCardButton(selectedCardButton);
         this.update();
@@ -155,6 +176,9 @@ public final class App extends GameWindow {
             targets.add(this.game.getCurrentPlayer());
             return targets;
         }
-        return null;
+        else {
+            super.pSelectMenu.show();
+            return null;
+        }
     }
 }

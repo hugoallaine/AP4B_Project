@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import src.jeu.Player;
 
-public abstract class Card{
+public abstract class Card {
     protected final String name;
     protected final String description;
     protected EffectFunction effectFunction;
-    protected CardTargetMode mode;
+    protected final CardTargetMode mode;
 
     public CardTargetMode getTargetMode() {
         return this.mode;
     }
 
-    protected Card(String name, String description, CardTargetMode targetMode){
+    protected Card(String name, String description, CardTargetMode targetMode) {
         this.name = name;
         this.description = description;
         this.effectFunction = null;
