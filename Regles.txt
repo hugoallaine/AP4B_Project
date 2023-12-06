@@ -73,6 +73,10 @@ Argent:
 - 1000 pieces pour XP niv 9 max
 
 
+Quand qqun sur une carte dans sa main:
+- Si elle a pour cible lui meme
+
+
             
 
         

@@ -2,9 +2,14 @@ package src.jeu;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.events.EventTarget;
+import src.jeu.Cards.Card;
+import src.jeu.Cards.Ethnicities;
 
 public class Player {
+    // enum Actions {
+    //     DRAWING,
+        
+    // }
     private int level;
     private final String name;
     public String getName(){
@@ -12,25 +17,29 @@ public class Player {
     }
     private final ArrayList<Card> hand;
     private final ArrayList<Card> stuff;
-    private GameClass gameClass;
-    private Ethnicity ethnicity;
+    private GameClasses gameClass;
+    private Ethnicities ethnicity;
+    private boolean hasDrawn;
 
-    Player(String name){
-        level = 1;
+    public Player(String name){
+        this.level = 1;
         this.name = name;
-        hand = new ArrayList<>();
-        stuff = new ArrayList<>();
-        gameClass = null;
-        ethnicity = null;
+        this.hand = new ArrayList<>();
+        this.stuff = new ArrayList<>();
+        this.gameClass = null;
+        this.ethnicity = null;
+        this.hasDrawn = false;
     }
 
-    public int power(){
-        return level;
+    public int getPower(){
+        return this.level;
     }
-    public int getlevel(){
-        return level;
+
+    public int getLevel(){
+        return this.level;
     }
-    public void level_up(int i){
+
+    public void levelUp(int i){
         this.level+=i;
     }
 
@@ -38,8 +47,16 @@ public class Player {
         this.hand.add(card);
     }
 
-    public void setClass(GameClass gameClass){
+    public void setClass(GameClasses gameClass){
         this.gameClass = gameClass;
+    }
+
+    public ArrayList<Card> getHand() {
+        return this.hand;
+    }
+
+    public ArrayList<Card> getStuff() {
+        return this.stuff;
     }
 
     @Override
@@ -57,5 +74,9 @@ public class Player {
         output.append("\n- Class : " + gameClass);
         output.append("\n- Ethnicity : " + ethnicity);
         return output.toString();
+    }
+
+    public void removeCardFromHand(Card card) {
+        this.hand.remove(card);
     }
 }

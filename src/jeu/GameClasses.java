@@ -1,13 +1,13 @@
 package src.jeu;
 
 // TODO
-public enum GameClass {
+public enum GameClasses {
     BARBARIAN("Barbarian"),
     ARCHER("Archer"),;
     
     private final String name;
 
-    GameClass(String className){
+    GameClasses(String className){
         this.name = className;
     }
 
@@ -16,9 +16,9 @@ public enum GameClass {
         return this.name;
     }
 
-    public static GameClass getClassFromName(String className){
-        for(GameClass c : GameClass.values()){
-            if(c.name.equals(className)){
+    public static GameClasses getClassFromName(String className){
+        for(GameClasses c : GameClasses.values()){
+            if(c.name.equalsIgnoreCase(className)){
                 return c;
             }
         }
