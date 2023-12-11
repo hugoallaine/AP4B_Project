@@ -67,5 +67,27 @@ public class JSONReader {
         }
         return cardDataList;
     }
+
+
+    public static List<String[]> readCSV(String filePath){
+        if(filePath == null) throw new IllegalArgumentException("[ERROR] The path given is null!");
+        if(!filePath.split("\\.")[1].equals("csv")) throw new IllegalArgumentException("[ERROR] The file must be a CSV file!");
+        List<String[]> Card_Data=new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))){
+            String ligne;
+            while ((ligne=br.readLine())!= null) {
+                String[] ligne_split=ligne.split(";");
+                Card_Data.add(ligne_split);
+
+
+                
+            }
+            
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return Card_Data;
+        
+    }
     
 }

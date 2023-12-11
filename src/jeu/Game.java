@@ -2,6 +2,8 @@ package src.jeu;
 
 import java.rmi.UnexpectedException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
@@ -139,21 +141,23 @@ public class Game {
     }
 
     private void createCards(){
-        // TODO
-        // Hashtable<String, ArrayList<String>> cardData = JSONReader.readCSV("/home/olivier/Documents/Code/Java/AP4B_project/cards.csv");
-        // cardData.forEach((k,v) -> {
-        //     v.forEach(elm -> {
-        //         if(k.equals("Amount")){
-        //             int j = Integer.parseInt(elm);
-        //         }
-        //     });
-        // });
+        
+        
+        List<String[]> cardData = JSONReader.readCSV("/home/olivier/Documents/Code/Java/AP4B_project/cards.csv");
+        for (String[] card:cardData){
+            if(card[0]=="1"){
+                this.eventCards.add(new Monster(card[1],card[2],card[3],card[4]));
+            
 
-        for(int i = 0; i < 80; i++) {
-            this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
-            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.MULTIPLE));
         }
+
     }
+
+        // for(int i = 0; i < 80; i++) {
+        //     this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
+        //     this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.MULTIPLE));
+        // }
+    
 
     public void nextTurn() throws TooManyCardsInHandException{
         if(this.canFinishTurn()){
