@@ -42,7 +42,7 @@ public class JSONReader {
     // }
 
     // TODO
-    public static Hashtable<String, ArrayList<String>> readCSV (String filePath) throws IllegalArgumentException {
+    public static Hashtable<String, ArrayList<String>> readCSVTest (String filePath) throws IllegalArgumentException {
 
         if(filePath == null) throw new IllegalArgumentException("[ERROR] The path given is null!");
         if(!filePath.split("\\.")[1].equals("csv")) throw new IllegalArgumentException("[ERROR] The file must be a CSV file!");
@@ -67,4 +67,5 @@ public class JSONReader {
         }
         return cardDataList;
     }
+    
 }
