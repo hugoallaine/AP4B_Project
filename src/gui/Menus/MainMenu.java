@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 import src.gui.MKButton;
 import src.gui.MKMenu;
 
-public final class MainMenu extends MKMenu{
+public final class MainMenu extends MKMenu {
     public final JLabel mainLabel;
     public final JTextField textField;
     public final JTextArea textArea;

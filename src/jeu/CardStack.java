@@ -22,23 +22,20 @@ public class CardStack<T extends Card>{
 
     @SuppressWarnings("unchecked")
     public void shuffle() {
-        Card[] cartesArray = this.stack.toArray(new Card[0]); // Convertir le deque en tableau
+        Card[] cards = this.stack.toArray(new Card[0]); // Convertir le deque en tableau
         Random random = new Random();
 
-        for (int i = cartesArray.length - 1; i > 0; i--) {
-            int indexAleatoire = random.nextInt(i + 1);
+        for (int i = cards.length - 1; i > 0; i--) {
+            int randomIndex = random.nextInt(i + 1);
 
-            Card temp = cartesArray[i];
-            cartesArray[i] = cartesArray[indexAleatoire];
-            cartesArray[indexAleatoire] = temp;
+            Card temp = cards[i];
+            cards[i] = cards[randomIndex];
+            cards[randomIndex] = temp;
         }
 
-        // Mettre à jour le deque avec le tableau mélangé
-        // Un peu dégueulasse comme solution, surtout le cast
         this.stack.clear();
-        for (Card carte : cartesArray) {
-            
-            this.add((T) carte);
+        for (Card card : cards) {
+            this.add((T) card);
         }
         
     }

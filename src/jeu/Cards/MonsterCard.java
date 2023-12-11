@@ -1,8 +1,6 @@
-package src.jeu;
+package src.jeu.Cards;
 
-import src.jeu.Cards.Evenementcard;
-
-abstract class Monster extends Evenementcard {
+abstract class MonsterCard extends EventCard {
 
     private int strenght;
     private int treasure;
@@ -10,12 +8,11 @@ abstract class Monster extends Evenementcard {
     abstract void buff();
     abstract void defeat();
     
-    Monster(String name,int strenght,int treasure,int level){
-        super(name)
+    MonsterCard(String name, String desc, CardTargetMode targetMode,int strenght,int treasure,int level){
+        super(name, desc, targetMode);
     
         this.strenght=strenght;
         this.treasure=treasure;
         this.level=level;
-
     }
 }
