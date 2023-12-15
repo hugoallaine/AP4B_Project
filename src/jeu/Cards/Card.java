@@ -10,7 +10,7 @@ public abstract class Card {
     protected EffectFunction effectFunction;
     protected final CardTargetMode mode;
 
-    public CardTargetMode getTargetMode() {
+    public final CardTargetMode getTargetMode() {
         return this.mode;
     }
 
@@ -26,6 +26,7 @@ public abstract class Card {
     }
 
     abstract public void applyEffect(ArrayList<Player> targets);
+    abstract public void applyEffect(Player target);
 
     abstract public void discard();
 

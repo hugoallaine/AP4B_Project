@@ -26,6 +26,11 @@ public final class ClassCard extends EventCard{
         }
     }
 
+    @Override
+    public void applyEffect(Player target) {
+        this.effectFunction.effect(target);
+    }
+
     private void changePlayerClass(Player p){
         p.setClass(this.gameClass);
     }

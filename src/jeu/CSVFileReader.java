@@ -3,13 +3,11 @@ package src.jeu;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
-public class JSONReader {
+public class CSVFileReader {
     //TODO
     // public static Hashtable<String, String> read(String filePath) throws IllegalArgumentException{
 
