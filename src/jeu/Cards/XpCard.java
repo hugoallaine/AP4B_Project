@@ -1,6 +1,5 @@
 package src.jeu.Cards;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import src.jeu.Player;
@@ -26,9 +25,16 @@ public final class XpCard extends TreasureCard {
         }
     }
 
+    @Override
+    public void applyEffect(Player target) {
+        this.effectFunction.effect(target);
+    }
+
     public boolean canApplyEffect(Player target){
         return target.getLevel() != 9;
     }
+
+
 
     @Override
     public void discard() {

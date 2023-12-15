@@ -1,9 +1,7 @@
 package src.jeu;
 
-import java.rmi.UnexpectedException;
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
@@ -14,9 +12,9 @@ import src.jeu.Exceptions.*;
 /**
  * This class represents the game and also contains the methods to display it in a console environement
  */
-public class Game {
-    private static final int MAX_PLAYER_NUM = 6;
-    private static final int MIN_PLAYER_NUM = 3;
+public final class Game {
+    private static final int MAX_PLAYER_NUM  = 6;
+    private static final int MIN_PLAYER_NUM  = 3;
     public static final int MAX_CARD_IN_HAND = 5;
 
     private final ArrayList<Player> players;
@@ -43,7 +41,7 @@ public class Game {
         return sb.toString();
     }
 
-    private boolean playerAlreadyExists(String player_name){
+    private boolean playerAlreadyExists(final String player_name){
         for(Player p : players){
             if(p.getName().equals(player_name)){
                 return true;
@@ -63,7 +61,7 @@ public class Game {
      * @throws SamePlayerException
      * @throws InvalidPlayerNameException
      */
-    public void addPlayer(String playerName) throws TooManyPlayersException, SamePlayerException, InvalidPlayerNameException {
+    public void addPlayer(final String playerName) throws TooManyPlayersException, SamePlayerException, InvalidPlayerNameException {
         if(this.players.size() >= MAX_PLAYER_NUM){
             throw new TooManyPlayersException();
         }
@@ -76,6 +74,7 @@ public class Game {
         this.players.add(new Player(playerName));
     }
 
+    //TODO: bouger ça dans une classe pour le terminal si on en fait une
     private void registerPlayers(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
@@ -86,11 +85,11 @@ public class Game {
                 do {
                     System.out.println("There are enough players to start the game. Do you want to start now? [y/n]");
                     ans = scan.nextLine();
-                    if (ans.equals("y")) {
+                    if (ans.equalsIgnoreCase("y")) {
                         startGame = true;
                         break;
                     }
-                } while (!ans.equals("n"));
+                } while (!ans.equalsIgnoreCase("n"));
 
                 if (startGame) {
                     break;
@@ -143,20 +142,20 @@ public class Game {
     private void createCards(){
         
         
-        List<String[]> cardData = JSONReader.readCSV("/home/olivier/Documents/Code/Java/AP4B_project/cards.csv");
-        for (String[] card:cardData){
-            if(card[0]=="1"){
-                this.eventCards.add(new Monster(card[1],card[2],card[3],card[4]));
+        // List<String[]> cardData = JSONReader.readCSV("/home/olivier/Documents/Code/Java/AP4B_project/cards.csv");
+        // for (String[] card:cardData){
+        //     if(card[0]=="1"){
+        //         this.eventCards.add(new MonsterCard(card[1],card[2],card[3],card[4]));
             
 
+        // }
+        for(int i = 0; i < 80; i++) {
+            this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
+            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.SELF));
         }
 
     }
 
-        // for(int i = 0; i < 80; i++) {
-        //     this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
-        //     this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.MULTIPLE));
-        // }
     
 
     public void nextTurn() throws TooManyCardsInHandException{
@@ -189,12 +188,11 @@ public class Game {
 
     public EventCard drawFromEventStack() throws NoSuchElementException {
         EventCard cardDrawn = this.eventCards.draw();
-        this.currentPlayer.addCard(cardDrawn);
         return cardDrawn;
     }
 
-    public void drawFromTreasureStack() throws NoSuchElementException {
-        this.currentPlayer.addCard(this.treasureCards.draw());
+    public TreasureCard drawFromTreasureStack() throws NoSuchElementException {
+        return this.treasureCards.draw();
     }
 
     public boolean canFinishTurn() throws TooManyCardsInHandException{
@@ -209,18 +207,28 @@ public class Game {
         this.discardPile.add(card);
     }
 
-    public void applyCurseEffect(CurseCard card) throws UnexpectedException {
-        ArrayList<Player> targets = new ArrayList<>();
+    public void applyCurseEffect(CurseCard card) {
         switch (card.getTargetMode()) {
         case SELF:
-            targets.add(this.currentPlayer);
-            card.applyEffect(targets);
+            card.applyEffect(this.currentPlayer);
             break;
+        case OTHER_PLAYER:
+            //TODO
         case EVERYONE:
             card.applyEffect(this.players);
         default:
-            throw new UnexpectedException("Should be unreachable");
+            System.err.println("[ERROR] Should be unreachable");
+            assert false;
         }
+    }
+
+    public Combat startCombat(Player player, MonsterCard monster, List<Card> effectCards) {
+        Combat combat = new Combat(this.currentPlayer, monster, this);
+        for(Card card : effectCards) {
+            //TODO: Check si la carte peut affecter les monstres ou le joueur   
+            combat.changeMonsterStats(1);
+        }
+        return combat;
     }
 
 }

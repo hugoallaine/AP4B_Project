@@ -18,7 +18,7 @@ public class GameWindow extends JFrame{
     protected final PlayingMenu playingMenu;
     protected final PlayerSelectMenu pSelectMenu;
 
-    public GameWindow(String title, int width, int height){
+    public GameWindow(final String title, final int width, final int height){
         super(title);
         this.setLNF();
         super.setMinimumSize(new Dimension(width, height));
@@ -44,10 +44,10 @@ public class GameWindow extends JFrame{
         super.setVisible(true);
     }
 
-    private void addMenu(MKMenu menu){
+    private void addMenu(final MKMenu menu){
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 1.0f;
-        gbc.weighty = 1.0f;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         gbc.gridx = 0;
         gbc.gridy = 0;
         if(menu instanceof PlayingMenu){
@@ -84,7 +84,7 @@ public class GameWindow extends JFrame{
      * Shows a popup window containing the {@code message}
      * @param message
      */
-    public void announce(String message) {
+    public void announce(final String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 

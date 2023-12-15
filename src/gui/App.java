@@ -1,37 +1,33 @@
 package src.gui;
 
-import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import javax.swing.JOptionPane;
-
+import src.jeu.Combat;
 import src.jeu.Game;
 import src.jeu.Player;
 import src.jeu.Cards.Card;
 import src.jeu.Cards.CardTargetMode;
 import src.jeu.Cards.CurseCard;
 import src.jeu.Cards.EventCard;
+import src.jeu.Cards.MonsterCard;
 import src.jeu.Exceptions.InvalidPlayerNameException;
 import src.jeu.Exceptions.SamePlayerException;
 import src.jeu.Exceptions.TooManyCardsInHandException;
 import src.jeu.Exceptions.TooManyPlayersException;
 
-/**
- * This class is the one tying the game class with the GUI
- */
 public final class App extends GameWindow {
     private static final String APP_TITLE = "Munchkin UTBM";
-    private static final int APP_WIDTH = 1600;
-    private static final int APP_HEIGHT = 900;
+    private static final int APP_WIDTH    = 1600;
+    private static final int APP_HEIGHT   = 900;
+    
+    private final Game game;
     private CardButton selectedCardButton;
-
-    private Game game;
 
     public App(){
         super(APP_TITLE, APP_WIDTH, APP_HEIGHT);
         this.game = new Game();
-        selectedCardButton = null;
+        this.selectedCardButton = null;
     }
 
     private void nameInputHandler(){
@@ -102,11 +98,22 @@ public final class App extends GameWindow {
         }
     }
 
-    private void drawFromEventStack() throws UnexpectedException {
+    private void drawFromEventStack() {
         try{
-            EventCard cardDrawn = this.game.drawFromEventStack();
+            final EventCard cardDrawn = this.game.drawFromEventStack();
             if(cardDrawn instanceof CurseCard) {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
+            }
+            else if(cardDrawn instanceof MonsterCard) {
+                //TODO: demander aux joueurs s'ils veulent jouer des cartes sur le monstre
+                final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) cardDrawn, new ArrayList<>());
+                boolean playerWon = c.fight();
+                if(playerWon == false) {
+                    super.announce("You lost the fight!");
+                }
+            }
+            else {
+                this.game.getCurrentPlayer().addCard(cardDrawn);
             }
             this.updateDisplay();
 
@@ -117,7 +124,7 @@ public final class App extends GameWindow {
 
     private void drawFromTreasureStack() {
         try{
-            this.game.drawFromTreasureStack();
+            this.game.getCurrentPlayer().addCard(this.game.drawFromTreasureStack());
             this.updateDisplay();
         }catch(NoSuchElementException ex) {
             super.announce("Cannot draw from the treasure card stack");
@@ -129,14 +136,18 @@ public final class App extends GameWindow {
             super.announce("Cannot play a card because none are selected!");
             return;
         }
-        this.selectedCardButton.getCard().applyEffect(this.askForTargets());
+        if(this.selectedCardButton.getCard().getTargetMode() == CardTargetMode.SELF) {
+            this.selectedCardButton.getCard().applyEffect(this.game.getCurrentPlayer());
+        }else{
+            this.selectedCardButton.getCard().applyEffect(this.askForTargets());
+        }
         this.game.discard(this.selectedCardButton.getCard());
         this.game.getCurrentPlayer().removeCardFromHand(this.selectedCardButton.getCard());
         this.unselectCardButton(selectedCardButton);
         this.update();
     }
 
-    private void selectCardButton(CardButton cb) {
+    private void selectCardButton(final CardButton cb) {
         if(this.selectedCardButton != null) {
             this.unselectCardButton(this.selectedCardButton);
         }
@@ -161,14 +172,8 @@ public final class App extends GameWindow {
     }
 
     private ArrayList<Player> askForTargets() {
-        ArrayList<Player> targets = new ArrayList<>(1);
-        if(this.selectedCardButton.getCard().getTargetMode() == CardTargetMode.SELF) {
-            targets.add(this.game.getCurrentPlayer());
-            return targets;
-        }
-        else {
-            super.pSelectMenu.show();
-            return null;
-        }
+        final ArrayList<Player> targets = new ArrayList<>(1);
+        super.pSelectMenu.show();
+        return null;
     }
 }

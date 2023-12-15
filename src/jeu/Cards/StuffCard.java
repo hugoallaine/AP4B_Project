@@ -15,6 +15,11 @@ public final class StuffCard extends TreasureCard{
             this.effectFunction.effect(target);
         }
     }
+
+    @Override
+    public void applyEffect(Player target) {
+        this.effectFunction.effect(target);
+    }
     
 
     @Override
