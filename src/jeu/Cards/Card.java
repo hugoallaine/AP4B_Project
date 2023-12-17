@@ -30,7 +30,7 @@ public abstract class Card {
 
     abstract public void discard();
 
-    @Override
+
     public String toString() {
         return this.name;
     }

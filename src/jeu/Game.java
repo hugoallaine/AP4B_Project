@@ -142,13 +142,13 @@ public final class Game {
     private void createCards(){
         
         
-        // List<String[]> cardData = JSONReader.readCSV("/home/olivier/Documents/Code/Java/AP4B_project/cards.csv");
-        // for (String[] card:cardData){
-        //     if(card[0]=="1"){
-        //         this.eventCards.add(new MonsterCard(card[1],card[2],card[3],card[4]));
-            
+         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
+         for (String[] card:cardData){
+             if(card[0]=="1") {
+                 this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
+             }
 
-        // }
+         }
         for(int i = 0; i < 80; i++) {
             this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
             this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.SELF));
