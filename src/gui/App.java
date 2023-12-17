@@ -1,7 +1,10 @@
 package src.gui;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
+import javax.swing.JOptionPane;
 
 import src.jeu.Combat;
 import src.jeu.Game;
@@ -31,7 +34,7 @@ public final class App extends GameWindow {
     }
 
     private void nameInputHandler(){
-        String text = super.mainMenu.textField.getText();
+        final String text = super.mainMenu.textField.getText();
         super.mainMenu.textField.setText("");
         try{
             this.game.addPlayer(text);
@@ -66,16 +69,16 @@ public final class App extends GameWindow {
         this.update();
         super.playingMenu.getNextPlayerButton().addActionListener(e -> this.nextTurn());
         super.playingMenu.getPlayCardButton().addActionListener(e -> this.playSelectedCard());
-        super.playingMenu.getActionButton().addActionListener(e -> this.drawFromEventStack());
+        this.updateActionButton("Draw from event stack", (e -> this.drawFromEventStack()));
     }
 
     private void updateDisplay() {
-        super.playingMenu.getNameLabel().setText(this.game.getCurrentPlayer().getName()+"'s turn");
-        super.playingMenu.getPlayerLevelLabel().setText("You are level : "+this.game.getCurrentPlayer().getLevel());
+        super.playingMenu.setPlayerNameLabelText(this.game.getCurrentPlayer().getName() + "'s turn");
         super.playingMenu.clearCardButtons();
-        ArrayList<Card> currentPlayerHand = this.game.getCurrentPlayer().getHand();
-        for(Card c : currentPlayerHand) {
-            CardButton cardButton = new CardButton(c);
+        super.playingMenu.updatePlayerInfoDisplay(this.game.getCurrentPlayer().getInfoString());
+        final ArrayList<Card> currentPlayerHand = this.game.getCurrentPlayer().getHand();
+        for(final Card c : currentPlayerHand) {
+            final CardButton cardButton = new CardButton(c);
             cardButton.addActionListener(l -> {
                 this.selectCardButton(cardButton);
             });
@@ -93,7 +96,7 @@ public final class App extends GameWindow {
             this.game.nextTurn();
             this.playingMenu.clearCardButtons();
             this.update();
-        }catch(TooManyCardsInHandException e){
+        }catch(TooManyCardsInHandException ex){
             super.announce("You have to give up cards to continue");
         }
     }
@@ -107,8 +110,8 @@ public final class App extends GameWindow {
             else if(cardDrawn instanceof MonsterCard) {
                 //TODO: demander aux joueurs s'ils veulent jouer des cartes sur le monstre
                 final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) cardDrawn, new ArrayList<>());
-                boolean playerWon = c.fight();
-                if(playerWon == false) {
+                final boolean playerWon = c.fight();
+                if(!playerWon) {
                     super.announce("You lost the fight!");
                 }
             }
@@ -136,13 +139,24 @@ public final class App extends GameWindow {
             super.announce("Cannot play a card because none are selected!");
             return;
         }
-        if(this.selectedCardButton.getCard().getTargetMode() == CardTargetMode.SELF) {
-            this.selectedCardButton.getCard().applyEffect(this.game.getCurrentPlayer());
-        }else{
-            this.selectedCardButton.getCard().applyEffect(this.askForTargets());
+        final Card selectedCard = this.selectedCardButton.getCard();
+        switch(selectedCard.getTargetMode()) {
+        case SELF:
+            selectedCard.applyEffect(this.game.getCurrentPlayer());
+            break;
+        case OTHER_PLAYER:
+            selectedCard.applyEffect(this.askForTarget());
+            break;
+        case MONSTER:
+            //TODO Creer un combat
+            System.err.println("[ERROR] Unimplemented");
+            break;
+        case EVERYONE:
+            selectedCard.applyEffect(this.game.getPlayers());
+            break;
         }
-        this.game.discard(this.selectedCardButton.getCard());
-        this.game.getCurrentPlayer().removeCardFromHand(this.selectedCardButton.getCard());
+        this.game.discard(selectedCard);
+        this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
         this.unselectCardButton(selectedCardButton);
         this.update();
     }
@@ -158,7 +172,7 @@ public final class App extends GameWindow {
         super.repaint();
     }
 
-    private void unselectCardButton(CardButton cb) {
+    private void unselectCardButton(final CardButton cb) {
         cb.removeHighlight();
         this.selectedCardButton = null;
         cb.clearListeners();
@@ -171,9 +185,31 @@ public final class App extends GameWindow {
         return super.toString();
     }
 
-    private ArrayList<Player> askForTargets() {
-        final ArrayList<Player> targets = new ArrayList<>(1);
-        super.pSelectMenu.show();
-        return null;
+    private Player askForTarget() {
+        final String[] playerNames =  this.playersToStringArray();
+        int playerAnswer;
+        do{
+            playerAnswer = JOptionPane.showOptionDialog(null, "Choose a target", "Choose a target", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
+        }while(playerAnswer == JOptionPane.CLOSED_OPTION);
+        return this.game.getPlayers().get(playerAnswer);
+    }
+
+    private String[] playersToStringArray() {
+        final String[] players = new String[this.game.getPlayers().size()];
+        int i = 0;
+        for(final Player p : this.game.getPlayers()) {
+            String pName = p.getName();
+            if(p.equals(this.game.getCurrentPlayer())){
+                pName += " (you)";
+            }
+            players[i] = pName;
+            i++;
+        }
+        return players;
+    }
+
+    private void updateActionButton(String buttonTest, ActionListener l) {
+        super.playingMenu.getActionButton().addActionListener(l);
+        super.playingMenu.getActionButton().setText(buttonTest);
     }
 }

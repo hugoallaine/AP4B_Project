@@ -24,12 +24,12 @@ public final class MainMenu extends MKMenu {
     public final JPanel mainPanel;
     public final MKButton addPlayerButton;
     public final MKButton startGameButton;
-    private static final Color BACKGROUND_COLOR = new Color(0x202020);
+    
 
     public MainMenu(){
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
-        mainPanel.setBackground(BACKGROUND_COLOR);
+        mainPanel.setBackground(MKMenu.BACKGROUND_COLOR);
         // mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.setPreferredSize(new Dimension(900, 600));
         mainPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));

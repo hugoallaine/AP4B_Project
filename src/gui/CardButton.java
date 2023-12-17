@@ -1,6 +1,7 @@
 package src.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -9,12 +10,15 @@ import src.jeu.Cards.Card;
 
 public class CardButton extends MKButton{
     private final Card card;
-    private static final int BORDER_WIDTH = 1;
+    private static final int BORDER_WIDTH = 2;
     public CardButton(Card card) {
         super("");
         this.removeHighlight();
         this.card = card;
         this.update();
+        super.setBackground(Color.GRAY);
+        super.setFont(new Font(null, Font.PLAIN, 24));
+        super.setToolTipText(this.card.getDescription());
     }
 
     public Card getCard(){

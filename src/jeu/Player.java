@@ -61,7 +61,7 @@ public class Player {
 
     @Override
     public String toString(){
-        StringBuffer output = new StringBuffer();
+        StringBuilder output = new StringBuilder();
         output.append(name + "\n- Level : " + level + "\n");
         output.append("- Hand : ");
         for(Card card : hand){
@@ -73,6 +73,17 @@ public class Player {
         }
         output.append("\n- Class : " + gameClass);
         output.append("\n- Ethnicity : " + ethnicity);
+        return output.toString();
+    }
+
+    public String getInfoString() {
+        final String classString = this.gameClass == null ? "None" : this.gameClass.toString();
+        final String ethnicityString = this.ethnicity == null ? "None" : this.ethnicity.toString();
+        StringBuilder output = new StringBuilder();
+        output.append("Level : ").append(level).append("\n")
+              .append("Class : ").append(classString).append("\n")
+              .append("Ethinicity : ").append(ethnicityString).append("\n")
+              .append("Stuff : ").append(this.stuff).append("\n");
         return output.toString();
     }
 

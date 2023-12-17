@@ -31,6 +31,14 @@ public final class Game {
         discardPile = new CardStack<>();
         random = new Random();
         currentPlayer = null;
+
+        // Thread pour créer les cartes pendant qu'on lance le jeu
+        new Runnable() {
+            @Override
+            public void run() {
+                createCards();
+            }
+        }.run();
     }
 
     public String getPlayerString(){
@@ -131,7 +139,7 @@ public final class Game {
 
     public boolean isGameFinsihed() {
         for(Player player : players){
-            if(player.getLevel() == 10){
+            if(player.getLevel() >= 10){
                 System.out.println("Game should be finished");
                 return true;
             }
@@ -144,7 +152,7 @@ public final class Game {
         
          List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
          for (String[] card:cardData){
-             if(card[0]=="1") {
+             if(card[0].equals("1")) {
                  this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
              }
 
@@ -203,7 +211,6 @@ public final class Game {
     }
 
     public void discard(Card card) {
-        System.out.println(card instanceof EventCard);
         this.discardPile.add(card);
     }
 
@@ -223,8 +230,8 @@ public final class Game {
     }
 
     public Combat startCombat(Player player, MonsterCard monster, List<Card> effectCards) {
-        Combat combat = new Combat(this.currentPlayer, monster, this);
-        for(Card card : effectCards) {
+        final Combat combat = new Combat(this.currentPlayer, monster, this);
+        for(final Card card : effectCards) {
             //TODO: Check si la carte peut affecter les monstres ou le joueur   
             combat.changeMonsterStats(1);
         }

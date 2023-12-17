@@ -38,4 +38,8 @@ public abstract class Card {
     public String getName() {
         return this.name;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
