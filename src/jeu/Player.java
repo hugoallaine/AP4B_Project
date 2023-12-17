@@ -56,6 +56,14 @@ public class Player {
         this.gameClass = gameClass;
     }
 
+    public void setHasDrawn(boolean state) {
+        this.hasDrawn = state;
+    }
+
+    public boolean getHasDrawn() {
+        return this.hasDrawn;
+    }
+
     public ArrayList<Card> getHand() {
         return this.hand;
     }
@@ -72,10 +80,7 @@ public class Player {
         for(Card card : hand){
             output.append(card + " | ");
         }
-        output.append("\n- Stuff : ");
-        for(Card card : stuff){
-            output.append(card + " | ");
-        }
+        
         output.append("\n- Class : " + gameClass);
         output.append("\n- Ethnicity : " + ethnicity);
         return output.toString();
@@ -87,8 +92,14 @@ public class Player {
         StringBuilder output = new StringBuilder();
         output.append("Level : ").append(level).append("\n")
               .append("Class : ").append(classString).append("\n")
-              .append("Ethinicity : ").append(ethnicityString).append("\n")
-              .append("Stuff : ").append(this.stuff).append("\n");
+              .append("Ethinicity : ").append(ethnicityString).append("\n");
+        output.append("Stuff : ");
+        for(int i = 0; i < this.stuff.size() - 1; i++){
+            output.append(this.stuff.get(i) + " | ");
+        }
+        if(this.stuff.size()>0){
+            output.append(this.stuff.get(this.stuff.size()-1)).append("\n");
+        }
         return output.toString();
     }
 

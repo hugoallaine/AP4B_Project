@@ -14,7 +14,7 @@ import src.jeu.Exceptions.*;
  */
 public final class Game {
     private static final int MAX_PLAYER_NUM  = 6;
-    private static final int MIN_PLAYER_NUM  = 3;
+    public static final int MIN_PLAYER_NUM  = 3;
     public static final int MAX_CARD_IN_HAND = 5;
 
     private final ArrayList<Player> players;
@@ -33,6 +33,7 @@ public final class Game {
         currentPlayer = null;
 
         // Thread pour créer les cartes pendant qu'on lance le jeu
+        
         new Runnable() {
             @Override
             public void run() {
@@ -83,42 +84,42 @@ public final class Game {
     }
 
     //TODO: bouger ça dans une classe pour le terminal si on en fait une
-    private void registerPlayers(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
-        boolean startGame = false;
-        while (this.players.size() < MAX_PLAYER_NUM) {
-            if (this.players.size() >= MIN_PLAYER_NUM) {
-                String ans = "";
-                do {
-                    System.out.println("There are enough players to start the game. Do you want to start now? [y/n]");
-                    ans = scan.nextLine();
-                    if (ans.equalsIgnoreCase("y")) {
-                        startGame = true;
-                        break;
-                    }
-                } while (!ans.equalsIgnoreCase("n"));
+    // private void registerPlayers(){
+    //     Scanner scan = new Scanner(System.in);
+    //     System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
+    //     boolean startGame = false;
+    //     while (this.players.size() < MAX_PLAYER_NUM) {
+    //         if (this.players.size() >= MIN_PLAYER_NUM) {
+    //             String ans = "";
+    //             do {
+    //                 System.out.println("There are enough players to start the game. Do you want to start now? [y/n]");
+    //                 ans = scan.nextLine();
+    //                 if (ans.equalsIgnoreCase("y")) {
+    //                     startGame = true;
+    //                     break;
+    //                 }
+    //             } while (!ans.equalsIgnoreCase("n"));
 
-                if (startGame) {
-                    break;
-                }
-            }
-            System.out.println("Enter the player's name: ");
-            try{
-                addPlayer(scan.nextLine());
-            }
-            catch(InvalidPlayerNameException invalidNameEx){
-                System.out.println("The name you entered is invalid!");
-            }
-            catch(SamePlayerException spex){
-                System.out.println("This name is already in use!");
-            }
-            catch(Exception ex){
-                break;
-            }
-        }
-        scan.close();
-    }
+    //             if (startGame) {
+    //                 break;
+    //             }
+    //         }
+    //         System.out.println("Enter the player's name: ");
+    //         try{
+    //             addPlayer(scan.nextLine());
+    //         }
+    //         catch(InvalidPlayerNameException invalidNameEx) {
+    //             System.out.println("The name you entered is invalid!");
+    //         }
+    //         catch(SamePlayerException spex) {
+    //             System.out.println("This name is already in use!");
+    //         }
+    //         catch(Exception ex){
+    //             break;
+    //         }
+    //     }
+    //     scan.close();
+    // }
 
     public void start() {
         this.createCards();
@@ -150,25 +151,30 @@ public final class Game {
     private void createCards(){
         
         
-         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
-         for (String[] card:cardData){
-             if(card[0].equals("1")) {
-                 this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
-             }
+        List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
+        for (String[] card:cardData){
+            if(card[0].equals("1")) {
+                this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
+            }
 
-         }
-        for(int i = 0; i < 80; i++) {
-            this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
-            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, CardTargetMode.SELF));
+        }
+        for(int i = 0; i < 40; i++) {
+            this.eventCards.add(new ClassCard("Barbarian", "Changes your class to barbarian", "Barbarian", CardTargetMode.SELF));
+            this.treasureCards.add(new XpCard("LevelUp", "Levels you up by 1 level", 1, CardTargetMode.SELF));
         }
 
     }
 
-    
-
-    public void nextTurn() throws TooManyCardsInHandException{
+    /**
+     * If the current player is able to change, we set the currentPlayer to be the next player in the list and set {@code hasDrawn}
+     * on the previous player to false
+     * @throws TooManyCardsInHandException
+     * @throws PlayerMustDrawException
+     */
+    public void nextTurn() throws TooManyCardsInHandException, PlayerMustDrawException{
         if(this.canFinishTurn()){
             int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
+            this.currentPlayer.setHasDrawn(false);
             this.currentPlayer = this.players.get((currentPlayerIndex + 1) % this.players.size());
         }
     }
@@ -194,7 +200,13 @@ public final class Game {
         return this.players;
     }
 
+    /**
+     * Draws a card from the event stack and sets the {@code hasDrawn} attribute of the current player to true
+     * @return The card drawn by the player
+     * @throws NoSuchElementException
+     */
     public EventCard drawFromEventStack() throws NoSuchElementException {
+        this.currentPlayer.setHasDrawn(true);
         EventCard cardDrawn = this.eventCards.draw();
         return cardDrawn;
     }
@@ -203,7 +215,10 @@ public final class Game {
         return this.treasureCards.draw();
     }
 
-    public boolean canFinishTurn() throws TooManyCardsInHandException{
+    public boolean canFinishTurn() throws TooManyCardsInHandException, PlayerMustDrawException{
+        if(!this.currentPlayer.getHasDrawn()) {
+            throw new PlayerMustDrawException();
+        }
         if(this.currentPlayer.getHand().size() > Game.MAX_CARD_IN_HAND){
             throw new TooManyCardsInHandException();
         }

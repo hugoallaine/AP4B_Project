@@ -15,6 +15,7 @@ import src.jeu.Cards.CurseCard;
 import src.jeu.Cards.EventCard;
 import src.jeu.Cards.MonsterCard;
 import src.jeu.Exceptions.InvalidPlayerNameException;
+import src.jeu.Exceptions.PlayerMustDrawException;
 import src.jeu.Exceptions.SamePlayerException;
 import src.jeu.Exceptions.TooManyCardsInHandException;
 import src.jeu.Exceptions.TooManyPlayersException;
@@ -39,7 +40,7 @@ public final class App extends GameWindow {
         try{
             this.game.addPlayer(text);
             super.mainMenu.textArea.setText("Current players :\n" + game.getPlayerString());
-            if(this.game.getPlayerNum() == 3){
+            if(this.game.getPlayerNum() == Game.MIN_PLAYER_NUM){
                 super.mainMenu.startGameButton.addActionListener(e -> this.startGame());
                 super.mainMenu.startGameButton.setEnabled(true);
             }
@@ -96,8 +97,10 @@ public final class App extends GameWindow {
             this.game.nextTurn();
             this.playingMenu.clearCardButtons();
             this.update();
-        }catch(TooManyCardsInHandException ex){
+        }catch(TooManyCardsInHandException ex) {
             super.announce("You have to give up cards to continue");
+        }catch(PlayerMustDrawException ex) {
+            super.announce("You have to draw !");
         }
     }
 
@@ -155,8 +158,8 @@ public final class App extends GameWindow {
             selectedCard.applyEffect(this.game.getPlayers());
             break;
         }
-        this.game.discard(selectedCard);
         this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
+        this.game.discard(selectedCard);
         this.unselectCardButton(selectedCardButton);
         this.update();
     }
@@ -185,6 +188,7 @@ public final class App extends GameWindow {
         return super.toString();
     }
 
+    // Faire en sorte que le joueur puisse annuler l'action
     private Player askForTarget() {
         final String[] playerNames =  this.playersToStringArray();
         int playerAnswer;
@@ -208,8 +212,11 @@ public final class App extends GameWindow {
         return players;
     }
 
-    private void updateActionButton(String buttonTest, ActionListener l) {
+    private void updateActionButton(String buttonText, ActionListener l) {
+        for(ActionListener al : super.playingMenu.getActionButton().getActionListeners()) {
+            super.playingMenu.getActionButton().removeActionListener(al);
+        }
         super.playingMenu.getActionButton().addActionListener(l);
-        super.playingMenu.getActionButton().setText(buttonTest);
+        super.playingMenu.getActionButton().setText(buttonText);
     }
 }

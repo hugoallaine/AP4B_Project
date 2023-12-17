@@ -14,7 +14,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import src.gui.CardButton;
-import src.gui.GameWindow;
 import src.gui.MKButton;
 import src.gui.MKMenu;
 import src.jeu.Game;
@@ -72,8 +71,10 @@ public final class PlayingMenu extends MKMenu {
         gbc.insets = new Insets(LAYOUT_GAP,LAYOUT_GAP,LAYOUT_GAP,LAYOUT_GAP);
         gbc.fill = GridBagConstraints.BOTH;
         this.mainPanel.add(this.playerName, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.mainPanel.add(this.playerInfo, gbc);
         
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 5.0f;
         gbc.weighty = 5.0f;
         this.cardButtons = new ArrayList<>(Game.MAX_CARD_IN_HAND);

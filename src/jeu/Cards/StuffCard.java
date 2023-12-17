@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import src.jeu.Player;
 
 public final class StuffCard extends TreasureCard{
-    StuffCard(String name, String desc, CardTargetMode targetMode){
+    final EquipementSlot equipementSlot;
+    StuffCard(String name, String desc, CardTargetMode targetMode, EquipementSlot equipementSlot){
         super(name, desc, targetMode);
+        this.equipementSlot = equipementSlot;
     }
 
     @Override
