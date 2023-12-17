@@ -20,6 +20,7 @@ public class Player {
     private GameClasses gameClass;
     private Ethnicities ethnicity;
     private boolean hasDrawn;
+    private int dodge = 4;
 
     public Player(String name){
         this.level = 1;
@@ -33,6 +34,10 @@ public class Player {
 
     public int getPower(){
         return this.level;
+    }
+
+    public int getDodge() {
+        return this.dodge;
     }
 
     public int getLevel(){
