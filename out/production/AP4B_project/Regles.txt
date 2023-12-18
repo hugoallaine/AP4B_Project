@@ -1,0 +1,82 @@
+Aventurier, 1er au niv 10, commence au niv 1, 3 a 6 joueurs
+Monter de niveau en tuant des monstres et cartes
+Main 4 cartes max
+
+Debut:
+- 2 trésor
+- 2 Cartes evenement
+- niveau 1
+- Sans classe/race
+
+Par tour:
+- Pioche carte dans la pile "évenement", on la révèle a tout le monde
+- 2 situations:
+    - Monstre:
+        - affronte
+    - Autre chose:
+        - Malédiction:
+            - Applique la malédiction
+        - Changement de race/classe
+        - Objets
+            -Garde en main
+- Si tu as battu le monstre ou autre chose:
+    - Pioche un carte dans la pile "évenement" cachée
+Fin tour
+
+Monstre:
+- Puissance
+- Gain de niveau
+- Nb trésors si battu
+- Un passif
+- Incident facheux:
+    - Perte de niveau
+    - Mort 
+    - etc
+
+Combat:
+- Puissance monstre
+- On gagne si > plus grand que lui
+- Puissance = Niv + équipement + "buffs" a usage unique
+- Monstres peuvente avoir des buffs
+- Si pas assez:
+    - Demander aide a un joueur dans le sens de jeu 
+        - Peuvent refuser/accepter et demander récompense (trésor)
+    - Tenter de fuir:
+        - lancer >= 5:
+            - Perd les buffs
+        - Si loupe:
+            - Subit l'Incident facheux
+- Si monstre mort :
+    - Gagne XP et trésors
+    - Partage
+    - Pille la piece
+- Peut jouer des cartes 
+
+Trésors:
+- équipement
+- usage unique
+
+équipement:
+- La main
+- Stuff
+- Chaque piece :
+    - Valeur argent
+    - Maniment
+    - Effet
+- Un seul gros équipement
+
+défausse:
+- Donne a joueur le plus bas niveau sinon dans la défausse normale
+- Si plusieurs meme niveau on choisi
+
+Argent:
+- 1000 pieces pour XP niv 9 max
+
+
+Quand qqun sur une carte dans sa main:
+- Si elle a pour cible lui meme
+
+
+            
+
+        
