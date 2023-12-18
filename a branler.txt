@@ -1,7 +1,7 @@
 pouvoir cibler un autre joueur 
-lire fichier carte
-combat
-equipement
+lire fichier carte (fait a la longue)
+combat(aide + phase de pres combat)
+equipement(fait seulement pour les truc qui donne que des stats)
 des carte en tout genre
 adaptation utbm
 verifier la triche(verifier membre)

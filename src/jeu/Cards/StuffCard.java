@@ -18,14 +18,6 @@ public final class StuffCard extends TreasureCard {
 
     }
 
-
-    @Override
-    public final void applyEffect(ArrayList<Player> targets) {
-        for (Player target : targets) {
-            this.effectFunction.effect(target);
-        }
-    }
-
     public EquipementSlot getEquipementSlot() {
         return this.equipementSlot;
     }
