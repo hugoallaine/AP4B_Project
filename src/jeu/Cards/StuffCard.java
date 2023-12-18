@@ -26,7 +26,7 @@ public final class StuffCard extends TreasureCard {
 
         for (StuffCard stuff : target.getStuff()) {
             if (stuff.getEquipementSlot() == this.getEquipementSlot()) {
-                stuff.discard();
+                target.removeStuff(stuff);
 
             }
         }

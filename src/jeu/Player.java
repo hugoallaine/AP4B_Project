@@ -71,6 +71,9 @@ public class Player {
     public void addStuff(StuffCard card){
         this.stuff.add(card);
     }
+    public void removeStuff(StuffCard card){
+        this.stuff.remove(card);
+    }
 
     public ArrayList<StuffCard> getStuff() {
         return this.stuff;
