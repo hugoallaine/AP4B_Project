@@ -11,12 +11,12 @@ public final class StuffCard extends TreasureCard{
         this.equipementSlot = equipementSlot;
     }
 
-    @Override
-    public final void applyEffect(ArrayList<Player> targets) {
-        for(Player target : targets){
-            this.effectFunction.effect(target);
-        }
-    }
+    // @Override
+    // public final void applyEffect(ArrayList<Player> targets) {
+    //     for(Player target : targets){
+    //         this.effectFunction.effect(target);
+    //     }
+    // }
 
     @Override
     public void applyEffect(Player target) {

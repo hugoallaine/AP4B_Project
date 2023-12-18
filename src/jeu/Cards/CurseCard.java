@@ -9,7 +9,6 @@ public final class CurseCard extends EventCard {
         super(name, description, mode);
     }
 
-    @Override
     public void applyEffect(ArrayList<Player> targets) {
         for(Player target : targets) {
             this.effectFunction.effect(target);

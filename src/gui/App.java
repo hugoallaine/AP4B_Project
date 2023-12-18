@@ -155,7 +155,10 @@ public final class App extends GameWindow {
             System.err.println("[ERROR] Unimplemented");
             break;
         case EVERYONE:
-            selectedCard.applyEffect(this.game.getPlayers());
+            // A card shouldn't be able to target everyone unless it's a curse card
+            assert selectedCard instanceof CurseCard;
+            final CurseCard selectedCurseCard = ((CurseCard)selectedCard);
+            selectedCurseCard.applyEffect(this.game.getPlayers());
             break;
         }
         this.game.getCurrentPlayer().removeCardFromHand(selectedCard);

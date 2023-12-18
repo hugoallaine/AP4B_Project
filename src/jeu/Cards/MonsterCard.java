@@ -39,7 +39,6 @@ public final class MonsterCard extends EventCard {
         this.effectFunction.effect(target);
     }
 
-    @Override
     public void applyEffect(ArrayList<Player> targets) {
         for(final Player target : targets) {
             this.effectFunction.effect(target);
