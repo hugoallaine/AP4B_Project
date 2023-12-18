@@ -6,4 +6,6 @@ public enum EquipementSlot {
     TORSO,
     LEGS,
     GLOVES,
+    HELMET,
+    NONE
 }
