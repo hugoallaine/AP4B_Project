@@ -23,14 +23,12 @@ public final class StuffCard extends TreasureCard {
     }
 
     public void cheat_verification(Player target) {
-
         for (StuffCard stuff : target.getStuff()) {
             if (stuff.getEquipementSlot() == this.getEquipementSlot()) {
                 target.removeStuff(stuff);
 
             }
         }
-
     }
 
     @Override
