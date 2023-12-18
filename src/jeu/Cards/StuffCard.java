@@ -4,41 +4,41 @@ import java.util.ArrayList;
 
 import src.jeu.Player;
 
-public final class StuffCard extends TreasureCard{
-<<<<<<< Updated upstream
-    final EquipementSlot equipementSlot;
-    StuffCard(String name, String desc, CardTargetMode targetMode, EquipementSlot equipementSlot){
-        super(name, desc, targetMode);
-        this.equipementSlot = equipementSlot;
-=======
-    public int bonus;
-    StuffCard(String name, String desc,int bonus, CardTargetMode targetMode){
+public final class StuffCard extends TreasureCard {
 
+//    final EquipementSlot equipementSlot;
+    private int bonus;
+
+    public StuffCard(String name, String desc,int bonus,int id_passif, EquipementSlot equipementSlot ,CardTargetMode targetMode) {
         super(name, desc, targetMode);
+//        this.equipementSlot = equipementSlot;
         this.bonus=bonus;
 
->>>>>>> Stashed changes
     }
 
-    @Override
-    public final void applyEffect(ArrayList<Player> targets) {
-        for(Player target : targets){
+
+
+
+        @Override
+        public final void applyEffect (ArrayList < Player > targets) {
+            for (Player target : targets) {
+                this.effectFunction.effect(target);
+            }
+        }
+
+        @Override
+        public void applyEffect (Player target){
             this.effectFunction.effect(target);
         }
-    }
 
-    @Override
-    public void applyEffect(Player target) {
-        this.effectFunction.effect(target);
-    }
+        public int getBonus () {
+            return bonus;
+        }
 
-    public int getBonus(){
-        return bonus;
-    }
-    
 
-    @Override
-    public void discard() {
-        
-    }
+        @Override
+        public void discard () {
+
+        }
+
 }

@@ -17,7 +17,7 @@ public class Player {
         return this.name;
     }
     private final ArrayList<Card> hand;
-    private final ArrayList<Card> stuff;
+    private final ArrayList<StuffCard> stuff;
     private GameClasses gameClass;
     private Ethnicities ethnicity;
     private boolean hasDrawn;
@@ -34,7 +34,7 @@ public class Player {
     }
 
     public int getPower(){
-        return this.level;
+        return this.level+this.getpowerstuff();
     }
 
     public int getDodge() {
@@ -69,7 +69,7 @@ public class Player {
         return this.hand;
     }
 
-    public ArrayList<Card> getStuff() {
+    public ArrayList<StuffCard> getStuff() {
         return this.stuff;
     }
     public int getpowerstuff(){
@@ -77,7 +77,6 @@ public class Player {
         for(StuffCard card : stuff){
 
                 powerstuff+=card.getBonus();
-
         }
         return powerstuff;
     }

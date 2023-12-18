@@ -12,11 +12,11 @@ public final class MonsterCard extends EventCard {
     private int id_passif;
     private int id_incident;
     
-<<<<<<< Updated upstream
-    public MonsterCard(String name, String desc, int strength, int treasure, int xp,int id_passif,int id_incident){
-=======
+
+
+
     public MonsterCard(String name, String desc , int strength, int treasure, int xp,int id_passif,int id_incident){
->>>>>>> Stashed changes
+
         super(name, desc, CardTargetMode.SELF);
         assert (strength > 0 && treasure > 0 && xp > 0);
         this.strength = strength;
