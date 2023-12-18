@@ -19,6 +19,7 @@ public final class ClassCard extends EventCard{
         // TODO
     }
 
+
     // @Override
     // public void applyEffect(ArrayList<Player> targets) {
     //     for(Player target : targets){

@@ -68,6 +68,9 @@ public class Player {
     public ArrayList<Card> getHand() {
         return this.hand;
     }
+    public void addStuff(StuffCard card){
+        this.stuff.add(card);
+    }
 
     public ArrayList<StuffCard> getStuff() {
         return this.stuff;
