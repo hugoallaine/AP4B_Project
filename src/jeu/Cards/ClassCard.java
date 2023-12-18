@@ -19,12 +19,12 @@ public final class ClassCard extends EventCard{
         // TODO
     }
 
-    @Override
-    public void applyEffect(ArrayList<Player> targets) {
-        for(Player target : targets){
-            this.effectFunction.effect(target);
-        }
-    }
+    // @Override
+    // public void applyEffect(ArrayList<Player> targets) {
+    //     for(Player target : targets){
+    //         this.effectFunction.effect(target);
+    //     }
+    // }
 
     @Override
     public void applyEffect(Player target) {
