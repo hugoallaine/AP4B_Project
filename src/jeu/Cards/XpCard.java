@@ -19,14 +19,14 @@ public final class XpCard extends TreasureCard {
         this.prix=prix;
     }
 
-    @Override
-    public void applyEffect(ArrayList<Player> targets) {
-        for(Player target : targets) {
-            if(this.canApplyEffect(target)) {
-                this.effectFunction.effect(target);
-            }
-        }
-    }
+    // @Override
+    // public void applyEffect(ArrayList<Player> targets) {
+    //     for(Player target : targets) {
+    //         if(this.canApplyEffect(target)) {
+    //             this.effectFunction.effect(target);
+    //         }
+    //     }
+    // }
 
     @Override
     public void applyEffect(Player target) {
