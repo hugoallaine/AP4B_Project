@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import src.jeu.Cards.Card;
 import src.jeu.Cards.Ethnicities;
+import src.jeu.Cards.StuffCard;
 
 public class Player {
     // enum Actions {
@@ -70,6 +71,15 @@ public class Player {
 
     public ArrayList<Card> getStuff() {
         return this.stuff;
+    }
+    public int getpowerstuff(){
+        int powerstuff=0;
+        for(StuffCard card : stuff){
+
+                powerstuff+=card.getBonus();
+
+        }
+        return powerstuff;
     }
 
     @Override

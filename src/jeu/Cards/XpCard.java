@@ -6,14 +6,17 @@ import src.jeu.Player;
 
 public final class XpCard extends TreasureCard {
     private int xp;
+    private int prix;
     public int getXP() {
         return this.xp;
     }
 
-    public XpCard(String name, String desc, int xp, CardTargetMode targetMode){
+
+    public XpCard(String name, String desc, int xp,int prix, CardTargetMode targetMode){
         super(name, desc, targetMode);
         this.xp=xp;
         this.setEffectFunction((Player target) -> target.levelUp(this.xp));
+        this.prix=prix;
     }
 
     @Override

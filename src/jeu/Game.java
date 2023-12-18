@@ -1,10 +1,6 @@
 package src.jeu;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import src.jeu.Cards.*;
 import src.jeu.Exceptions.*;
@@ -151,6 +147,7 @@ public final class Game {
     private void createCards(){
         
         
+<<<<<<< Updated upstream
         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
         for (String[] card:cardData){
             if(card[0].equals("1")) {
@@ -161,6 +158,21 @@ public final class Game {
         for(int i = 0; i < 40; i++) {
             this.eventCards.add(new ClassCard("Barbarian", "Changes your class to barbarian", "Barbarian", CardTargetMode.SELF));
             this.treasureCards.add(new XpCard("LevelUp", "Levels you up by 1 level", 1, CardTargetMode.SELF));
+=======
+         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
+         for (String[] card:cardData){
+             if(Objects.equals(card[0], "1")) {
+                 this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
+             }
+             if(Objects.equals(card[0], "2")) {
+                 this.treasureCards.add(new XpCard(card[1], card[2], Integer.parseInt(card[3]),Integer.parseInt((card[4])), CardTargetMode.SELF));
+             }
+
+         }
+        for(int i = 0; i < 80; i++) {
+            this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
+            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1,0, CardTargetMode.SELF));
+>>>>>>> Stashed changes
         }
 
     }

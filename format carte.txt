@@ -10,4 +10,4 @@ exemple carte monstre.csv
 
 id=1;"Nom du monstre";description;"force du monstre";int nb_tresor; int nb_niveau;effet classique surement un id on verra,incident facheux surement un id on vera
 Exemple carte level up
-id=10;"nom de la carte;nb_niveau_gagner;prix;description
+id=10;"nom de la carte;description;nb_niveau_gagner;prix
