@@ -19,7 +19,7 @@ public final class StuffCard extends TreasureCard {
     }
 
 
-    @Override
+
     public final void applyEffect(ArrayList<Player> targets) {
         for (Player target : targets) {
             this.effectFunction.effect(target);
@@ -34,7 +34,7 @@ public final class StuffCard extends TreasureCard {
 
         for (StuffCard stuff : target.getStuff()) {
             if (stuff.getEquipementSlot() == this.getEquipementSlot()) {
-                stuff.discard();
+                target.removeStuff(stuff);
 
             }
         }

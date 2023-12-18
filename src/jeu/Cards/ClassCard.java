@@ -20,7 +20,7 @@ public final class ClassCard extends EventCard{
     }
 
 
-    @Override
+
     public void applyEffect(ArrayList<Player> targets) {
         for(Player target : targets){
             this.effectFunction.effect(target);
