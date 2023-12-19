@@ -205,9 +205,14 @@ public final class Game {
     }
 
     public void discard(Card card, Player mainPlayer) {
-        this.discardPile.add(card);
         mainPlayer.removeCardFromHand(card);
-        this.playerlvmin().addCard(card);
+        Player minlvPlayer=this.playerlvmin();
+        if (minlvPlayer==mainPlayer){
+            this.discardPile.add(card);
+        }
+        else{
+            this.playerlvmin().addCard(card);
+        }
 
     }
 
