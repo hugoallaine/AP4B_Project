@@ -27,17 +27,14 @@ public final class Game {
         discardPile = new CardStack<>();
         random = new Random();
         currentPlayer = null;
-
-
-        this.createCards();
+        
         // Thread pour créer les cartes pendant qu'on lance le jeu
-
-        // new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         createCards();
-        //     }
-        // }.run();
+        new Runnable() {
+            @Override
+            public void run() {
+                createCards();
+            }
+        }.run();
     }
 
     public String getPlayerString() {
@@ -79,44 +76,6 @@ public final class Game {
         }
         this.players.add(new Player(playerName));
     }
-
-    //TODO: bouger ça dans une classe pour le terminal si on en fait une
-    // private void registerPlayers(){
-    //     Scanner scan = new Scanner(System.in);
-    //     System.out.println("Welcome to Munchkin, Please enter between 3 to 6 players");
-    //     boolean startGame = false;
-    //     while (this.players.size() < MAX_PLAYER_NUM) {
-    //         if (this.players.size() >= MIN_PLAYER_NUM) {
-    //             String ans = "";
-    //             do {
-    //                 System.out.println("There are enough players to start the game. Do you want to start now? [y/n]");
-    //                 ans = scan.nextLine();
-    //                 if (ans.equalsIgnoreCase("y")) {
-    //                     startGame = true;
-    //                     break;
-    //                 }
-    //             } while (!ans.equalsIgnoreCase("n"));
-
-    //             if (startGame) {
-    //                 break;
-    //             }
-    //         }
-    //         System.out.println("Enter the player's name: ");
-    //         try{
-    //             addPlayer(scan.nextLine());
-    //         }
-    //         catch(InvalidPlayerNameException invalidNameEx) {
-    //             System.out.println("The name you entered is invalid!");
-    //         }
-    //         catch(SamePlayerException spex) {
-    //             System.out.println("This name is already in use!");
-    //         }
-    //         catch(Exception ex){
-    //             break;
-    //         }
-    //     }
-    //     scan.close();
-    // }
 
     public void start() {
         this.createCards();
