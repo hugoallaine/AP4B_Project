@@ -56,10 +56,4 @@ public final class MonsterCard extends EventCard {
             this.effectFunction.effect(target);
         }
     }
-
-    @Override
-    public void discard() {
-        // TODO Auto-generated method stub
-        
-    }
 }

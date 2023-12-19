@@ -15,11 +15,6 @@ public final class ClassCard extends EventCard{
     }
 
     @Override
-    public void discard() {
-        // TODO
-    }
-
-    @Override
     public void applyEffect(Player target) {
         this.effectFunction.effect(target);
     }

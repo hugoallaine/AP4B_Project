@@ -1,7 +1,5 @@
 package src.jeu.Cards;
 
-import java.util.ArrayList;
-
 import src.jeu.Player;
 
 public abstract class Card {
@@ -26,8 +24,6 @@ public abstract class Card {
     }
     
     abstract public void applyEffect(Player target);
-
-    abstract public void discard();
 
 
     public String toString() {

@@ -39,16 +39,15 @@ public class CSVFileReader {
         if(filePath == null) throw new IllegalArgumentException("[ERROR] The path given is null!");
         if(!filePath.split("\\.")[1].equals("csv")) throw new IllegalArgumentException("[ERROR] The file must be a CSV file!");
         List<String[]> Card_Data=new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))){
+        try (final BufferedReader br = new BufferedReader(new FileReader(filePath))){
             String ligne;
             while ((ligne=br.readLine())!= null) {
                 String[] ligne_split=ligne.split(";");
+                for(final String data : ligne_split) {
+                    data.trim();
+                }
                 Card_Data.add(ligne_split);
-
-
-                
             }
-            
         }catch (IOException e){
             e.printStackTrace();
         }

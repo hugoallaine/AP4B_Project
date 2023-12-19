@@ -28,14 +28,16 @@ public final class Game {
         random = new Random();
         currentPlayer = null;
 
+
+        this.createCards();
         // Thread pour créer les cartes pendant qu'on lance le jeu
 
-        new Runnable() {
-            @Override
-            public void run() {
-                createCards();
-            }
-        }.run();
+        // new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         createCards();
+        //     }
+        // }.run();
     }
 
     public String getPlayerString() {

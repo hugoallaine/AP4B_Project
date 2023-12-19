@@ -105,6 +105,9 @@ public final class App extends GameWindow {
     }
 
     private void drawFromEventStack() {
+        if(this.game.getCurrentPlayer().getHasDrawn()) {
+            super.announce("You have already draw this turn");
+        }
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
             if(cardDrawn instanceof CurseCard) {

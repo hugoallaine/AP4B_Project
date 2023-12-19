@@ -19,10 +19,4 @@ public final class CurseCard extends EventCard {
     public void applyEffect(Player target) {
         this.effectFunction.effect(target);
     }
-
-    @Override
-    public void discard() {
-        // TODO Auto-generated method stub
-        
-    }
 }

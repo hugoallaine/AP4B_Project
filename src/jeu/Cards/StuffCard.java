@@ -40,11 +40,4 @@ public final class StuffCard extends TreasureCard {
     public int getBonus() {
         return bonus;
     }
-
-
-    @Override
-    public void discard() {
-
-    }
-
 }

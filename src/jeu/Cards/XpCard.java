@@ -36,13 +36,4 @@ public final class XpCard extends TreasureCard {
     public boolean canApplyEffect(Player target){
         return target.getLevel() != 9;
     }
-
-
-
-    @Override
-    public void discard() {
-        // TODO Auto-generated method stub
-        
-    }
-    
 }
