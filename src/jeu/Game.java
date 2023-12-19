@@ -205,8 +205,10 @@ public final class Game {
     }
 
     public void discard(Card card, Player mainPlayer) {
-
         this.discardPile.add(card);
+        mainPlayer.removeCardFromHand(card);
+        this.playerlvmin().addCard(card);
+
     }
 
     public void applyCurseEffect(CurseCard card) {
