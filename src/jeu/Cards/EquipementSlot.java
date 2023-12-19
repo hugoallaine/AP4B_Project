@@ -1,8 +1,7 @@
 package src.jeu.Cards;
 
 public enum EquipementSlot {
-    TWO_HANDED,
-    ONE_HANDED,
+    WEAPON,
     TORSO,
     LEGS,
     GLOVES,

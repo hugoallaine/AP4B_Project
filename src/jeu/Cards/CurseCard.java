@@ -10,13 +10,13 @@ public final class CurseCard extends EventCard {
     }
 
     public void applyEffect(ArrayList<Player> targets) {
-        for(Player target : targets) {
-            this.effectFunction.effect(target);
+        for(final Player target : targets) {
+            this.effect.effect(target);
         }
     }
 
     @Override
     public void applyEffect(Player target) {
-        this.effectFunction.effect(target);
+        this.effect.effect(target);
     }
 }

@@ -21,7 +21,6 @@ public class Combat {
     }
 
     public boolean fight() {
-
         if(mob.getStrength() <= mainPlayer.getPower()) {
             mainPlayer.levelUp(mob.getXP());
             this.distributeTreasures();

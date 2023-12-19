@@ -92,21 +92,35 @@ public final class App extends GameWindow {
         this.updateDisplay();
     }
 
+    /**
+     * Checks if the player can end their turn and if so, refreshes the interface and changes the current player
+     */
     private void nextTurn() {
-        try{
+        Player player;
+        if((player = this.game.isGameFinsihed()) != null) {
+            super.announce("The game is finished, " + player.getName() + " won");
+            return;
+        }
+        try {
             this.game.nextTurn();
             this.playingMenu.clearCardButtons();
             this.update();
-        }catch(TooManyCardsInHandException ex) {
+        } catch(TooManyCardsInHandException ex) {
             super.announce("You have to give up cards to continue");
-        }catch(PlayerMustDrawException ex) {
+        } catch(PlayerMustDrawException ex) {
             super.announce("You have to draw !");
         }
     }
 
+    /**
+     * Pops the card at the top of the event cards stack and the following happens:
+     * - if it is a curse: it is played immediatly
+     * - if it is a monster: a fight between the monster and the current player starts
+     * - otherwise, the card is put the current player's hand
+     */
     private void drawFromEventStack() {
         if(this.game.getCurrentPlayer().getHasDrawn()) {
-            super.announce("You have already draw this turn");
+            super.announce("You have already drawn a card this turn");
         }
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
@@ -140,6 +154,9 @@ public final class App extends GameWindow {
         }
     }
 
+    /**
+     * Plays the card that the player selected via the card button
+     */
     private void playSelectedCard(){
         if(this.selectedCardButton == null) {
             super.announce("Cannot play a card because none are selected!");
@@ -170,6 +187,10 @@ public final class App extends GameWindow {
         this.update();
     }
 
+    /**
+     * Selects a card button by outlining it in a white outline
+     * @param cb
+     */
     private void selectCardButton(final CardButton cb) {
         if(this.selectedCardButton != null) {
             this.unselectCardButton(this.selectedCardButton);
@@ -181,7 +202,14 @@ public final class App extends GameWindow {
         super.repaint();
     }
 
+    /**
+     * Removes the white outline of the selected card button
+     * @param cb
+     */
     private void unselectCardButton(final CardButton cb) {
+        if(cb == null) {
+            System.err.println("[ERROR] Should not be possible");
+        }
         cb.removeHighlight();
         this.selectedCardButton = null;
         cb.clearListeners();
@@ -189,12 +217,12 @@ public final class App extends GameWindow {
         super.repaint();
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    // Faire en sorte que le joueur puisse annuler l'action
+    //TODO Faire en sorte que le joueur puisse annuler l'action
+    /**
+     * When the player plays a card that targets some other player,
+     * this method is called and creates a popup window asking which player the current player wants to target
+     * @return the player chosen to be targeted
+     */
     private Player askForTarget() {
         final String[] playerNames =  this.playersToStringArray();
         int playerAnswer;
@@ -204,6 +232,10 @@ public final class App extends GameWindow {
         return this.game.getPlayers().get(playerAnswer);
     }
 
+    /**
+     * Get the players' names in a string array suitable to be displayed in a multiple choice option dialog
+     * @return
+     */
     private String[] playersToStringArray() {
         final String[] players = new String[this.game.getPlayers().size()];
         int i = 0;
@@ -218,11 +250,19 @@ public final class App extends GameWindow {
         return players;
     }
 
+    /**
+     * Changes the text and the action listener of the {@code actionButton} in the {@code PlayingMenu} class
+     * Also removes every listeners present on the button
+     * 
+     * @param buttonText the text you want to diplay
+     * @param l the new action listener for the button
+     */
     private void updateActionButton(String buttonText, ActionListener l) {
-        for(ActionListener al : super.playingMenu.getActionButton().getActionListeners()) {
-            super.playingMenu.getActionButton().removeActionListener(al);
+        final MKButton actionButton = super.playingMenu.getActionButton();
+        for(final ActionListener al : actionButton.getActionListeners()) {
+            actionButton.removeActionListener(al);
         }
-        super.playingMenu.getActionButton().addActionListener(l);
-        super.playingMenu.getActionButton().setText(buttonText);
+        actionButton.addActionListener(l);
+        actionButton.setText(buttonText);
     }
 }

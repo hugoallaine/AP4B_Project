@@ -6,13 +6,12 @@ import src.jeu.Player;
 
 public final class StuffCard extends TreasureCard {
 
-    //    final EquipementSlot equipementSlot;
+    private final EquipementSlot equipementSlot;
     private int bonus;
-    private EquipementSlot equipementSlot;
+    // private EquipementSlot equipementSlot;
 
     public StuffCard(String name, String desc, int bonus, int id_passif, EquipementSlot equipementSlot, CardTargetMode targetMode) {
         super(name, desc, targetMode);
-//        this.equipementSlot = equipementSlot;
         this.bonus = bonus;
         this.equipementSlot = equipementSlot;
 
@@ -22,18 +21,17 @@ public final class StuffCard extends TreasureCard {
         return this.equipementSlot;
     }
 
-    public void cheat_verification(Player target) {
-        for (StuffCard stuff : target.getStuff()) {
-            if (stuff.getEquipementSlot() == this.getEquipementSlot()) {
+    public void canTargetEquip(Player target) {
+        for (final StuffCard stuff : target.getStuff()) {
+            if (stuff.equipementSlot == this.equipementSlot) {
                 target.removeStuff(stuff);
-
             }
         }
     }
 
     @Override
     public void applyEffect(Player target) {
-        cheat_verification(target);
+        this.canTargetEquip(target);
         target.addStuff(this);
     }
 

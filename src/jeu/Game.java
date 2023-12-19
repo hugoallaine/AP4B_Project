@@ -135,14 +135,14 @@ public final class Game {
         }
     }
 
-    public boolean isGameFinsihed() {
-        for (Player player : players) {
+    public Player isGameFinsihed() {
+        for (final Player player : players) {
             if (player.getLevel() >= 10) {
                 System.out.println("Game should be finished");
-                return true;
+                return player;
             }
         }
-        return false;
+        return null;
     }
 
     private void createCards() {
@@ -153,7 +153,7 @@ public final class Game {
             if (card[0].equals("1")) {
                 this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
             } else if ((Objects.equals(card[0], "10"))) {
-                this.treasureCards.add(new XpCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
+                this.treasureCards.add(new SingleUseCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
             } else if (Objects.equals(card[0], "20")) {
                 this.treasureCards.add(new StuffCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), EquipementSlot.NONE, CardTargetMode.SELF));
             }

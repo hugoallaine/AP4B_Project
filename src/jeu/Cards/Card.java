@@ -5,7 +5,7 @@ import src.jeu.Player;
 public abstract class Card {
     protected final String name;
     protected final String description;
-    protected EffectFunction effectFunction;
+    protected EffectFunction effect;
     protected final CardTargetMode mode;
 
     public final CardTargetMode getTargetMode() {
@@ -15,12 +15,12 @@ public abstract class Card {
     protected Card(String name, String description, CardTargetMode targetMode) {
         this.name = name;
         this.description = description;
-        this.effectFunction = null;
+        this.effect = null;
         this.mode = targetMode;
     }
 
-    protected final void setEffectFunction(EffectFunction ef) {
-        this.effectFunction = ef;
+    protected final void setEffect(EffectFunction f) {
+        this.effect = f;
     }
     
     abstract public void applyEffect(Player target);

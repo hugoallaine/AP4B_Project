@@ -11,12 +11,8 @@ public final class MonsterCard extends EventCard {
     private int xp;
     private int id_passif;
     private int id_incident;
-    
-
-
 
     public MonsterCard(String name, String desc , int strength, int treasure, int xp,int id_passif,int id_incident){
-
         super(name, desc, CardTargetMode.SELF);
         assert (strength > 0 && treasure > 0 && xp > 0);
         this.strength = strength;
@@ -42,6 +38,9 @@ public final class MonsterCard extends EventCard {
         this.strength += powerBuff;
     }
 
+    /**
+     * On the monster card, this method represents the effect applied to the player fighting this monster if he loses
+     */
     @Override
     public void applyEffect(Player target) {
 //        this.effectFunction.effect(target);
@@ -49,11 +48,5 @@ public final class MonsterCard extends EventCard {
             target.levelUp(-this.xp);
         }
 
-    }
-
-    public void applyEffect(ArrayList<Player> targets) {
-        for(final Player target : targets) {
-            this.effectFunction.effect(target);
-        }
     }
 }
