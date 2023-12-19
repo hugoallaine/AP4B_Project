@@ -2,23 +2,18 @@ package src.jeu.Cards;
 
 // TODO
 public enum Ethnicities {
-    ELF("Elf"),;
+    ELF,;
 
-
-    private final String ethString;
-    Ethnicities(String ethnicity){
-        this.ethString = ethnicity;
-    }
 
     @Override
     public String toString(){
-        return this.ethString;
+        return this.name();
     }
 
-    public static Ethnicities getEthnicityFromName(String className){
-        for(Ethnicities c : Ethnicities.values()){
-            if(c.ethString.equals(className)){
-                return c;
+    public static Ethnicities getEthnicityFromName(final String className){
+        for(final Ethnicities eth : Ethnicities.values()){
+            if(eth.name().equalsIgnoreCase(className)){
+                return eth;
             }
         }
         return null;

@@ -24,8 +24,7 @@ public abstract class Card {
     protected final void setEffectFunction(EffectFunction ef) {
         this.effectFunction = ef;
     }
-
-    abstract public void applyEffect(ArrayList<Player> targets);
+    
     abstract public void applyEffect(Player target);
 
     abstract public void discard();
@@ -37,5 +36,9 @@ public abstract class Card {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }

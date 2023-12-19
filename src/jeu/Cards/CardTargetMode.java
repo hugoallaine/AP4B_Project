@@ -5,5 +5,15 @@ public enum CardTargetMode {
     SELF,
     OTHER_PLAYER,
     EVERYONE,
-    MONSTER,
+    MONSTER,;
+
+
+    public static CardTargetMode getTargeTModeFromString(final String tMode) {
+        for(CardTargetMode c : CardTargetMode.values()){
+            if(c.name().equals(tMode)){
+                return c;
+            }
+        }
+        return null;
+    }
 }

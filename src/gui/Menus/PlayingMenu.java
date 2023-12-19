@@ -1,6 +1,7 @@
 package src.gui.Menus;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import src.gui.CardButton;
@@ -19,64 +21,71 @@ import src.jeu.Game;
 public final class PlayingMenu extends MKMenu {
     private final JPanel mainPanel;
     private final ArrayList<CardButton> cardButtons;
-    private final JLabel nameLabel;
     private final MKButton nextPlayerButton;
     private final MKButton playCardButton;
     private final JPanel cardsPanel;
     private final MKButton actionButton;
-    private final JLabel playerLevelLabel;
+    private final JTextArea playerInfo;
+    private final JLabel playerName;
+    private static final int LAYOUT_GAP = 5;
+    private static final Color PLAYING_MENU_BKG = new Color(0xAAAAAA);
 
     public PlayingMenu() {
         this.mainPanel = new JPanel();
-        this.mainPanel.setBackground(Color.RED);
+        this.mainPanel.setBackground(PLAYING_MENU_BKG);
         this.mainPanel.setLayout(new GridBagLayout());
 
-        this.nameLabel = new JLabel();
-        this.nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        this.playerName = new JLabel();
+        this.playerName.setHorizontalAlignment(SwingConstants.CENTER);
+        this.playerName.setFont(new Font(null, Font.PLAIN, 36));
+
+        this.playerInfo = new JTextArea();
+        this.playerInfo.setBackground(Color.RED);
+        this.playerInfo.setFont(new Font(null, Font.PLAIN, 24));
+        this.playerInfo.setFocusable(false);
+        this.playerInfo.setEditable(false);
+        this.playerInfo.setRows(4);
 
         this.cardsPanel = new JPanel();
         GridLayout cardLayout = new GridLayout(1,0);
-        cardLayout.setHgap(5);
-        cardLayout.setVgap(5);
+        cardLayout.setHgap(LAYOUT_GAP);
+        cardLayout.setVgap(LAYOUT_GAP);
         this.cardsPanel.setLayout(cardLayout);
-        this.cardsPanel.setBackground(new Color(0x00FFFFFF, true));
+        this.cardsPanel.setBackground(MKMenu.TRANSPARENT);
     
         JPanel actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(new GridLayout(1,0));
-        actionButtonsPanel.setBackground(new Color(0x00FFFFFF, true));
-        ((GridLayout)actionButtonsPanel.getLayout()).setHgap(5);
+        actionButtonsPanel.setBackground(MKMenu.TRANSPARENT);
+        ((GridLayout)actionButtonsPanel.getLayout()).setHgap(LAYOUT_GAP);
 
         this.nextPlayerButton = new MKButton("Next Player");
 
         this.playCardButton = new MKButton("Play card");
 
         this.actionButton = new MKButton("ActionButton");
-
-        this.playerLevelLabel = new JLabel();
         
-        GridBagConstraints gbc = new GridBagConstraints();
+        final GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1.0f;
         gbc.weighty = 1.0f;
         gbc.gridx = 0;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(LAYOUT_GAP,LAYOUT_GAP,LAYOUT_GAP,LAYOUT_GAP);
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        this.mainPanel.add(this.nameLabel, gbc);
-
-        gbc.gridx = 1;
-        this.mainPanel.add(this.playerLevelLabel);
-        gbc.gridx = 0;
-
-        gbc.gridy = 1;
+        this.mainPanel.add(this.playerName, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        this.mainPanel.add(this.playerInfo, gbc);
+        
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 5.0f;
+        gbc.weighty = 5.0f;
         this.cardButtons = new ArrayList<>(Game.MAX_CARD_IN_HAND);
         this.mainPanel.add(this.cardsPanel, gbc);
 
 
+        gbc.weightx = 1.0f;
+        gbc.weighty = 1.0f;
         actionButtonsPanel.add(this.nextPlayerButton, gbc);
         actionButtonsPanel.add(this.playCardButton);
         actionButtonsPanel.add(this.actionButton);
-
-        gbc.gridy++;
 
         this.mainPanel.add(actionButtonsPanel, gbc);
         this.hide();
@@ -94,18 +103,14 @@ public final class PlayingMenu extends MKMenu {
     public MKButton getPlayCardButton() {
         return this.playCardButton;
     }
-
-    public JLabel getNameLabel() {
-        return this.nameLabel;
-    }
-
-    public JLabel getPlayerLevelLabel() {
-        return this.playerLevelLabel;
-    }
-
+    
     @Override
     public JPanel getPanel() {
         return this.mainPanel;
+    }
+
+    public void setPlayerNameLabelText(String playerName) {
+        this.playerName.setText(playerName);
     }
 
     public void addCardButton(CardButton cb) {
@@ -131,5 +136,9 @@ public final class PlayingMenu extends MKMenu {
     public void show() {
         this.mainPanel.setVisible(true);
         this.cardButtons.forEach(button -> button.setVisible(true));
+    }
+
+    public void updatePlayerInfoDisplay(String playerInfoString) {
+        this.playerInfo.setText(playerInfoString);
     }
 }
