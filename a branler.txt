@@ -1,6 +1,6 @@
-pouvoir cibler un autre joueur 
-lire fichier carte
-combat
+pouvoir cibler un autre joueur OK
+lire fichier carte 
+combat 
 equipement
 des carte en tout genre
 adaptation utbm
@@ -9,11 +9,11 @@ joueur des carte avant le combat
 adaption de la fonction du bouton action
 (aide a voir flemme)
 ecran de victoire
-check victoire
+check victoire OK nomalement
 image de carte
 fichier des carte
 affichage classe
-affichage des race
+affichage des race 
 adaptation de la taille du texte
 afficher les joueur simmultanement
 discard
