@@ -190,8 +190,22 @@ public final class Game {
         }
         return true;
     }
+    public Player playerlvmin(){
+        int lvmin=10;
+        
+        Player playermins=new Player("temps");
+        for (Player player : players){
+            if (player.getLevel()<lvmin){
+                playermins=player;
+                lvmin=player.getLevel();
+            }
 
-    public void discard(Card card) {
+        }
+        return playermins;
+    }
+
+    public void discard(Card card, Player mainPlayer) {
+
         this.discardPile.add(card);
     }
 
@@ -218,5 +232,6 @@ public final class Game {
         }
         return combat;
     }
+    
 
 }
