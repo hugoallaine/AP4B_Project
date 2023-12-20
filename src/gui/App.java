@@ -121,6 +121,7 @@ public final class App extends GameWindow {
     private void drawFromEventStack() {
         if(this.game.getCurrentPlayer().getHasDrawn()) {
             super.announce("You have already drawn a card this turn");
+            return;
         }
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
@@ -182,7 +183,7 @@ public final class App extends GameWindow {
             break;
         }
         this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
-        this.game.discard(selectedCard);
+        this.game.discard(selectedCard, this.game.getCurrentPlayer());
         this.unselectCardButton(selectedCardButton);
         this.update();
     }

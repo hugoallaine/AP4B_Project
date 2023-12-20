@@ -12,6 +12,7 @@ public final class Game {
     private static final int MAX_PLAYER_NUM = 6;
     public static final int MIN_PLAYER_NUM = 3;
     public static final int MAX_CARD_IN_HAND = 5;
+    private static final int MAX_LEVEL = 10;
 
     private final ArrayList<Player> players;
     private final CardStack<TreasureCard> treasureCards;
@@ -59,6 +60,8 @@ public final class Game {
     }
 
     /**
+     * Adds a player to the list of player while also making sure that there isn't a player with a similar name, or that the game isn't already full,
+     * the cap being : {@code Game.MAX_PLAYER_NUM}
      * @param playerName
      * @throws TooManyPlayersException
      * @throws SamePlayerException
@@ -96,7 +99,7 @@ public final class Game {
 
     public Player isGameFinsihed() {
         for (final Player player : players) {
-            if (player.getLevel() >= 10) {
+            if (player.getLevel() >= MAX_LEVEL) {
                 System.out.println("Game should be finished");
                 return player;
             }
@@ -110,16 +113,18 @@ public final class Game {
         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
         for (String[] card : cardData) {
             if (card[0].equals("1")) {
-                this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
+                MonsterCard monsterCard = new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]));
+                monsterCard.setEffect((Player target) -> EffectsDefinitions.levelDown(target));
+                this.addCard(monsterCard);
             } else if ((Objects.equals(card[0], "10"))) {
-                this.treasureCards.add(new XpCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
+                this.treasureCards.add(new SingleUseCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
             } else if (Objects.equals(card[0], "20")) {
                 this.treasureCards.add(new StuffCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), EquipementSlot.NONE, CardTargetMode.SELF));
             }
 
         }
 
-        for (int i = 0; i < 80; i++) {
+        for (int i = 0; i < 20; i++) {
             this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
 //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
             this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
@@ -127,6 +132,14 @@ public final class Game {
 
         }
 
+    }
+
+    private void addCard(Card card) {
+        if(card instanceof EventCard) {
+            this.eventCards.add((EventCard)card);
+        }else if (card instanceof TreasureCard) {
+            this.treasureCards.add((TreasureCard)card);
+        }
     }
 
     /**
@@ -181,6 +194,12 @@ public final class Game {
         return this.treasureCards.draw();
     }
 
+    /**
+     * Returns true if he current player can finish his turn otherwise throws an error
+     * @return
+     * @throws TooManyCardsInHandException
+     * @throws PlayerMustDrawException
+     */
     public boolean canFinishTurn() throws TooManyCardsInHandException, PlayerMustDrawException {
         if (!this.currentPlayer.getHasDrawn()) {
             throw new PlayerMustDrawException();
@@ -190,18 +209,18 @@ public final class Game {
         }
         return true;
     }
-    public Player playerlvmin(){
-        int lvmin=10;
-        
-        Player playermins=new Player("temps");
-        for (Player player : players){
-            if (player.getLevel()<lvmin){
-                playermins=player;
-                lvmin=player.getLevel();
-            }
 
+    public Player playerlvmin(){
+        int lvmin = MAX_LEVEL;
+        assert players.size() != 0;
+        Player tempPlayer = null;
+        for (Player player : players){
+            if (player.getLevel() < lvmin){
+                tempPlayer = player;
+                lvmin = player.getLevel();
+            }
         }
-        return playermins;
+        return tempPlayer;
     }
 
     public void discard(Card card, Player mainPlayer) {
