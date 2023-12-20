@@ -182,7 +182,7 @@ public final class App extends GameWindow {
             break;
         }
         this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
-        this.game.discard(selectedCard);
+        this.game.discard(selectedCard, this.game.getCurrentPlayer());
         this.unselectCardButton(selectedCardButton);
         this.update();
     }
