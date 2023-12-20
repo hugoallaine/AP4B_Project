@@ -113,16 +113,18 @@ public final class Game {
         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
         for (String[] card : cardData) {
             if (card[0].equals("1")) {
-                this.eventCards.add(new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7])));
+                MonsterCard monsterCard = new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]));
+                monsterCard.setEffect((Player target) -> EffectsDefinitions.levelDown(target));
+                this.addCard(monsterCard);
             } else if ((Objects.equals(card[0], "10"))) {
-                this.treasureCards.add(new XpCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
+                this.treasureCards.add(new SingleUseCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
             } else if (Objects.equals(card[0], "20")) {
                 this.treasureCards.add(new StuffCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), EquipementSlot.NONE, CardTargetMode.SELF));
             }
 
         }
 
-        for (int i = 0; i < 80; i++) {
+        for (int i = 0; i < 20; i++) {
             this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
 //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
             this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
@@ -130,6 +132,14 @@ public final class Game {
 
         }
 
+    }
+
+    private void addCard(Card card) {
+        if(card instanceof EventCard) {
+            this.eventCards.add((EventCard)card);
+        }else if (card instanceof TreasureCard) {
+            this.treasureCards.add((TreasureCard)card);
+        }
     }
 
     /**

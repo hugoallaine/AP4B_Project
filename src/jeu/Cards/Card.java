@@ -19,7 +19,7 @@ public abstract class Card {
         this.mode = targetMode;
     }
 
-    protected final void setEffect(EffectFunction f) {
+    public final void setEffect(EffectFunction f) {
         this.effect = f;
     }
     
