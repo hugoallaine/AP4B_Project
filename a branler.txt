@@ -1,4 +1,4 @@
-pouvoir cibler un autre joueur OK
+pouvoir cibler un autre joueur (OK)
 lire fichier carte (fait a la longue) 
 combat(aide + phase de pres combat) 
 equipement(fait seulement pour les truc qui donne que des stats)
@@ -9,12 +9,12 @@ joueur des carte avant le combat
 adaption de la fonction du bouton action
 (aide a voir flemme)
 ecran de victoire
-check victoire OK nomalement
+check victoire OK nomalement(fait)
 image de carte
 fichier des carte
-affichage classe
-affichage des race 
+affichage classe(fait)
+affichage des race (fait)
 adaptation de la taille du texte
 afficher les joueur simmultanement
-discard
+discard(fait en partie car si plusieur joueur plus bas niveau donne au premier rencontrer)
 
