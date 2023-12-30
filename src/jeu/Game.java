@@ -27,7 +27,7 @@ public final class Game {
         discardPile = new CardStack<>();
         random = new Random();
         currentPlayer = null;
-        
+
         // Thread pour créer les cartes pendant qu'on lance le jeu
         new Runnable() {
             @Override
@@ -46,7 +46,7 @@ public final class Game {
     }
 
     private boolean playerAlreadyExists(final String player_name) {
-        for (Player p : players) {
+        for (final Player p : players) {
             if (p.getName().equals(player_name)) {
                 return true;
             }
