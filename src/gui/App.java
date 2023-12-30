@@ -14,6 +14,7 @@ import src.jeu.Cards.CardTargetMode;
 import src.jeu.Cards.CurseCard;
 import src.jeu.Cards.EventCard;
 import src.jeu.Cards.MonsterCard;
+import src.jeu.Cards.SingleUseCard;
 import src.jeu.Exceptions.InvalidPlayerNameException;
 import src.jeu.Exceptions.PlayerMustDrawException;
 import src.jeu.Exceptions.SamePlayerException;
@@ -125,12 +126,13 @@ public final class App extends GameWindow {
         }
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
+            super.announce("You drew " + cardDrawn.getName());
             if(cardDrawn instanceof CurseCard) {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
             }
             else if(cardDrawn instanceof MonsterCard) {
-                //TODO: demander aux joueurs s'ils veulent jouer des cartes sur le monstre
-                final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) cardDrawn, new ArrayList<>());
+                final ArrayList<Card> effectCards = this.askForEffectCards();
+                final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) cardDrawn, effectCards);
                 final boolean playerWon = c.fight();
                 if(!playerWon) {
                     super.announce("You lost the fight!");
@@ -144,6 +146,32 @@ public final class App extends GameWindow {
         }catch(NoSuchElementException ex) {
             super.announce("Cannot draw from the event stack");
         }
+    }
+
+    /**
+     * Asks all the players which card they wish to play in the current fight
+     * TODO: pour le moment on peut juste prendre une carte par joueur et on ne peut pas cibler le monstre ou le joueur (peut etre faire en sorte que on peut juste cibler le monstre)
+     * @return
+     */
+    private ArrayList<Card> askForEffectCards() {
+        final ArrayList<Card> result = new ArrayList<>();
+        for(final Player p : this.game.getPlayers()) {
+            final ArrayList<SingleUseCard> validCards = new ArrayList<>();
+            for(final Card card : p.getHand()) {
+                if(card instanceof SingleUseCard) {
+                    validCards.add((SingleUseCard) card);
+                }
+            }
+            if(validCards.size() == 0) {
+                break;
+            }
+            final int answer = JOptionPane.showOptionDialog(null, p.getName() + " Choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
+            if(answer > 0) {
+                result.add(p.getHand().remove(answer));
+            }
+            System.out.println(result);
+        }
+        return result;
     }
 
     private void drawFromTreasureStack() {
