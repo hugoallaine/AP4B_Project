@@ -1,6 +1,6 @@
 pouvoir cibler un autre joueur (OK)
 lire fichier carte (fait a la longue) 
-combat(aide + phase de pres combat) 
+combat(aide + phase de pres combat) (en cours/ OK a moitié)
 equipement(fait seulement pour les truc qui donne que des stats)
 des carte en tout genre
 adaptation utbm

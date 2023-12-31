@@ -14,7 +14,7 @@ public final class MonsterCard extends EventCard {
 
     public MonsterCard(String name, String desc , int strength, int treasure, int xp,int id_passif,int id_incident){
         super(name, desc, CardTargetMode.SELF);
-        assert (strength > 0 && treasure > 0 && xp > 0);
+        assert strength > 0 && treasure > 0 && xp > 0;
         this.strength = strength;
         this.treasure_amount = treasure;
         this.xp = xp;
