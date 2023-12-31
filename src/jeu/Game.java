@@ -114,12 +114,14 @@ public final class Game {
         for (String[] card : cardData) {
             if (card[0].equals("1")) {
                 MonsterCard monsterCard = new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]));
-                monsterCard.
+                
                 this.addCard(monsterCard);
             } else if ((Objects.equals(card[0], "10"))) {
                 this.treasureCards.add(new SingleUseCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
             } else if (Objects.equals(card[0], "20")) {
                 this.treasureCards.add(new StuffCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), EquipementSlot.NONE, CardTargetMode.SELF));
+            }else if (Objects.equals(card[0], "1")){
+                this.eventCards.add(new MonsterCard(card[0],card[0],Integer.parseInt(card[3]),Integer.parseInt(card[4]),Integer.parseInt(card[5]),Integer.parseInt(card[6]),Integer.parseInt(card[7])));
             }
 
         }

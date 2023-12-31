@@ -12,7 +12,7 @@ public class EffectsDefinitions {
         for (StuffCard card : target.getStuff()){
             target.removeStuff(card);
         }
-        target.getHasDrawn()
+        
 
     }
     
