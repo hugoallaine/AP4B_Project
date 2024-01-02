@@ -28,7 +28,7 @@ public final class Game {
         discardPile = new CardStack<>();
         random = new Random();
         currentPlayer = null;
-        
+
         // Thread pour créer les cartes pendant qu'on lance le jeu
         new Runnable() {
             @Override
@@ -47,7 +47,7 @@ public final class Game {
     }
 
     private boolean playerAlreadyExists(final String player_name) {
-        for (Player p : players) {
+        for (final Player p : players) {
             if (p.getName().equals(player_name)) {
                 return true;
             }
@@ -128,7 +128,7 @@ public final class Game {
         for (int i = 0; i < 20; i++) {
             this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
 //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
-            this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
+            this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.OTHER_PLAYER));
             this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
             this.eventCards.add(new MonsterCard("Goblin", "Jsp mdr", 10, 5, 1, 0 ,0));
 

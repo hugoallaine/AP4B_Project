@@ -218,7 +218,10 @@ public final class App extends GameWindow {
             selectedCard.applyEffect(this.game.getCurrentPlayer());
             break;
         case OTHER_PLAYER:
-            selectedCard.applyEffect(this.askForTarget());
+            final Player target = this.askForTarget();
+            if(target != null) {
+                selectedCard.applyEffect(target);
+            }
             break;
         case MONSTER:
             System.err.println("[ERROR] Unimplemented");
@@ -271,11 +274,12 @@ public final class App extends GameWindow {
      */
     private Player askForTarget() {
         final String[] playerNames =  this.playersToStringArray();
-        int playerAnswer;
-        do{
-            playerAnswer = JOptionPane.showOptionDialog(null, "Choose a target", "Choose a target", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
-        }while(playerAnswer == JOptionPane.CLOSED_OPTION);
-        return this.game.getPlayers().get(playerAnswer);
+        int playerAnswer = JOptionPane.showOptionDialog(null, "Choose a target", "Choose a target", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
+        try {
+            return this.game.getPlayers().get(playerAnswer);
+        }catch(IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
