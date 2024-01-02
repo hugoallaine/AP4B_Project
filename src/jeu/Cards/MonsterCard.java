@@ -1,7 +1,5 @@
 package src.jeu.Cards;
 
-import java.util.ArrayList;
-
 import src.jeu.Player;
 
 public final class MonsterCard extends EventCard {

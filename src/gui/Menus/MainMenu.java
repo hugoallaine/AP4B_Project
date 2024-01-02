@@ -37,16 +37,25 @@ public final class MainMenu extends MKMenu {
         mainLabel = new JLabel("Enter your name");
         mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
         mainLabel.setFont(new Font(null, Font.BOLD, 36));
+        mainLabel.setForeground(Color.WHITE);
 
         textField = new JTextField();
         textField.setToolTipText(" Name input ");
         textField.setFont(new Font("Liberation Mono", Font.PLAIN, 24));
         textField.setColumns(20);
         textField.setPreferredSize(new Dimension(this.mainPanel.getWidth(),50));
+        textField.setForeground(Color.WHITE);
+        textField.setBackground(Color.GRAY);
+        textField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         textArea = new JTextArea();
         textArea.setEditable(false);
+        textArea.setFocusable(false);
         textArea.setMargin(new Insets(10, 10, 10, 10));
+        textArea.setFont(new Font("Liberation Mono", Font.PLAIN, 24));
+        textArea.setBackground(Color.GRAY);
+        textArea.setForeground(Color.WHITE);
+        textArea.setRows(4);
         // textArea.setPreferredSize(new Dimension(400, 200));
 
         addPlayerButton = new MKButton("Add player");

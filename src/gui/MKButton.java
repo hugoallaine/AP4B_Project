@@ -1,5 +1,6 @@
 package src.gui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,6 +15,8 @@ public class MKButton extends JButton implements EasyBkgImg{
         super(text);
         img = null;
         super.setCursor(HAND_CURSOR);
+        super.setBackground(Color.GRAY);
+        super.setForeground(Color.white);
     }
 
     public void MKShow(){

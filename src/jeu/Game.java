@@ -114,7 +114,6 @@ public final class Game {
         for (String[] card : cardData) {
             if (card[0].equals("1")) {
                 MonsterCard monsterCard = new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]));
-                
                 this.addCard(monsterCard);
             } else if ((Objects.equals(card[0], "10"))) {
                 this.treasureCards.add(new SingleUseCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
@@ -131,6 +130,7 @@ public final class Game {
 //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
             this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
             this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
+            this.eventCards.add(new MonsterCard("Goblin", "Jsp mdr", 10, 5, 1, 0 ,0));
 
         }
 
@@ -261,5 +261,7 @@ public final class Game {
         return combat;
     }
     
-
+    public int rollDice() {
+        return (this.random.nextInt() % 6) + 1;
+    }
 }

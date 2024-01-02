@@ -9,7 +9,8 @@ import src.jeu.Cards.StuffCard;
 public class Player {
     private int level;
     private final String name;
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
     private final ArrayList<Card> hand;
@@ -19,7 +20,7 @@ public class Player {
     private boolean hasDrawn;
     private int dodge = 4;
 
-    public Player(String name){
+    public Player(String name) {
         this.level = 1;
         this.name = name;
         this.hand = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Player {
         this.hasDrawn = false;
     }
 
-    public int getPower(){
+    public int getPower() {
         return this.level+this.getpowerstuff();
     }
 
@@ -37,11 +38,11 @@ public class Player {
         return this.dodge;
     }
 
-    public int getLevel(){
+    public int getLevel() {
         return this.level;
     }
 
-    public void levelUp(int i){
+    public void levelUp(int i) {
         this.level+=i;
     }
 
@@ -77,7 +78,6 @@ public class Player {
     public int getpowerstuff(){
         int powerstuff=0;
         for(StuffCard card : stuff){
-
                 powerstuff+=card.getBonus();
         }
         return powerstuff;

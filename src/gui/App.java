@@ -10,7 +10,6 @@ import src.jeu.Combat;
 import src.jeu.Game;
 import src.jeu.Player;
 import src.jeu.Cards.Card;
-import src.jeu.Cards.CardTargetMode;
 import src.jeu.Cards.CurseCard;
 import src.jeu.Cards.EventCard;
 import src.jeu.Cards.MonsterCard;
@@ -131,12 +130,20 @@ public final class App extends GameWindow {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
             }
             else if(cardDrawn instanceof MonsterCard) {
-                final ArrayList<Card> effectCards = this.askForEffectCards();
-                final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) cardDrawn, effectCards);
-                final boolean playerWon = c.fight();
-                if(!playerWon) {
-                    super.announce("You lost the fight!");
+                MonsterCard monster = ((MonsterCard) cardDrawn);
+                final int fightAnswer = JOptionPane.showConfirmDialog(null, "Do you want to fight" + monster.getName() + "?\nLevel : " + monster.getStrength());
+                if(fightAnswer == JOptionPane.YES_OPTION) {
+                    this.fightCombat((MonsterCard) cardDrawn);
                 }
+                else {
+                    int diceResult = this.game.rollDice();
+                    if(this.game.getCurrentPlayer().getDodge() < diceResult) {
+                        super.announce("You died !");
+                        return;
+                    }
+                }
+                super.announce("You ran away !");
+                return;
             }
             else {
                 this.game.getCurrentPlayer().addCard(cardDrawn);
@@ -156,15 +163,19 @@ public final class App extends GameWindow {
     private ArrayList<Card> askForEffectCards() {
         final ArrayList<Card> result = new ArrayList<>();
         for(final Player p : this.game.getPlayers()) {
+
+            // Selects only cards which are able to affect the monster
             final ArrayList<SingleUseCard> validCards = new ArrayList<>();
             for(final Card card : p.getHand()) {
                 if(card instanceof SingleUseCard) {
                     validCards.add((SingleUseCard) card);
                 }
             }
+
             if(validCards.size() == 0) {
                 break;
             }
+
             final int answer = JOptionPane.showOptionDialog(null, p.getName() + " Choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
             if(answer > 0) {
                 result.add(p.getHand().remove(answer));
@@ -174,14 +185,14 @@ public final class App extends GameWindow {
         return result;
     }
 
-    private void drawFromTreasureStack() {
-        try{
-            this.game.getCurrentPlayer().addCard(this.game.drawFromTreasureStack());
-            this.updateDisplay();
-        }catch(NoSuchElementException ex) {
-            super.announce("Cannot draw from the treasure card stack");
-        }
-    }
+    // private void drawFromTreasureStack() {
+    //     try{
+    //         this.game.getCurrentPlayer().addCard(this.game.drawFromTreasureStack());
+    //         this.updateDisplay();
+    //     }catch(NoSuchElementException ex) {
+    //         super.announce("Cannot draw from the treasure card stack");
+    //     }
+    // }
 
     /**
      * Plays the card that the player selected via the card button
@@ -192,6 +203,16 @@ public final class App extends GameWindow {
             return;
         }
         final Card selectedCard = this.selectedCardButton.getCard();
+        this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
+        this.game.discard(selectedCard, this.game.getCurrentPlayer());
+        this.unselectCardButton(selectedCardButton);
+        this.update();
+
+        if(selectedCard instanceof MonsterCard) {
+            this.fightCombat((MonsterCard)selectedCard);
+            return;
+        }
+
         switch(selectedCard.getTargetMode()) {
         case SELF:
             selectedCard.applyEffect(this.game.getCurrentPlayer());
@@ -200,7 +221,6 @@ public final class App extends GameWindow {
             selectedCard.applyEffect(this.askForTarget());
             break;
         case MONSTER:
-            //TODO Creer un combat
             System.err.println("[ERROR] Unimplemented");
             break;
         case EVERYONE:
@@ -210,10 +230,7 @@ public final class App extends GameWindow {
             selectedCurseCard.applyEffect(this.game.getPlayers());
             break;
         }
-        this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
-        this.game.discard(selectedCard, this.game.getCurrentPlayer());
-        this.unselectCardButton(selectedCardButton);
-        this.update();
+        
     }
 
     /**
@@ -277,6 +294,20 @@ public final class App extends GameWindow {
             i++;
         }
         return players;
+    }
+
+    private void fightCombat(MonsterCard monster) {
+        final ArrayList<Card> effectCards = this.askForEffectCards();
+        final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) monster, effectCards);
+        
+        final boolean playerWon = c.fight();
+        if(!playerWon) {
+            super.announce("You lost the fight!");
+            return;
+        }
+        super.announce("You won, yay!");
+        return;
+        
     }
 
     /**
