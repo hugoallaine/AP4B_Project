@@ -233,7 +233,7 @@ public final class App extends GameWindow {
             selectedCurseCard.applyEffect(this.game.getPlayers());
             break;
         }
-        
+        this.update();
     }
 
     /**
