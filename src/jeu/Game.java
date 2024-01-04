@@ -81,11 +81,11 @@ public final class Game {
     }
 
     public void start() {
-        this.createCards();
         this.eventCards.shuffle();
         this.treasureCards.shuffle();
         this.distributeCards();
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
+        this.currentPlayer.levelUp(10);
     }
 
     private void distributeCards() {

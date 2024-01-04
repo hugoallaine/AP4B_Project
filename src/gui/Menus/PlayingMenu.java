@@ -28,7 +28,7 @@ public final class PlayingMenu extends MKMenu {
     private final JTextArea playerInfo;
     private final JLabel playerName;
     private static final int LAYOUT_GAP = 5;
-    private static final Color PLAYING_MENU_BKG = new Color(0xAAAAAA);
+    private static final Color PLAYING_MENU_BKG = new Color(0x50CC40);
 
     public PlayingMenu() {
         this.mainPanel = new JPanel();
