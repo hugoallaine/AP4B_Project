@@ -2,8 +2,11 @@ package src.jeu;
 
 // TODO
 public enum GameClasses {
-    BARBARIAN("Barbarian"),
-    ARCHER("Archer"),;
+    INFO("Info"),
+    IMSI("Imsi"),
+    GMC("Gmc"),
+    ENERGY("Energy"),
+    EDIM("Edim"),;
     
     private final String name;
 
