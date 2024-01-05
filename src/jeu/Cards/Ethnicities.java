@@ -2,7 +2,7 @@ package src.jeu.Cards;
 
 // TODO
 public enum Ethnicities {
-    ELF,;
+    Japonais,Anglais,Espagnol,Chinois,Allemand,Italien;
 
 
     @Override

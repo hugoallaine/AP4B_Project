@@ -112,15 +112,26 @@ public final class Game {
 
         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
         for (String[] card : cardData) {
+            int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
+
             if (card[0].equals("1")) {
-                MonsterCard monsterCard = new MonsterCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]));
-                this.addCard(monsterCard);
-            } else if ((Objects.equals(card[0], "10"))) {
-                this.treasureCards.add(new SingleUseCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), CardTargetMode.SELF));
+                MonsterCard monsterCard = new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8]));
+
+                for (int i = 0; i < cardCount; i++) {
+                    this.addCard(monsterCard);
+                }
+            } else if (Objects.equals(card[0], "10")) {
+                for (int i = 0; i < cardCount; i++) {
+                    this.treasureCards.add(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.SELF));
+                }
             } else if (Objects.equals(card[0], "20")) {
-                this.treasureCards.add(new StuffCard(card[1], card[2], Integer.parseInt(card[3]), Integer.parseInt((card[4])), EquipementSlot.NONE, CardTargetMode.SELF));
-            }else if (Objects.equals(card[0], "1")){
-                this.eventCards.add(new MonsterCard(card[0],card[0],Integer.parseInt(card[3]),Integer.parseInt(card[4]),Integer.parseInt(card[5]),Integer.parseInt(card[6]),Integer.parseInt(card[7])));
+                for (int i = 0; i < cardCount; i++) {
+                    this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), EquipementSlot.NONE, CardTargetMode.SELF));
+                }
+            } else if (Objects.equals(card[0], "30")) { // Changez cette condition à une valeur différente
+                for (int i = 0; i < cardCount; i++) {
+                    this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
+                }
             }
 
         }
