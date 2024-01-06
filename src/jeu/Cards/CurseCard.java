@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import src.jeu.Player;
 
 public final class CurseCard extends EventCard {
-    public CurseCard(String name, String description, CardTargetMode mode) {
+    public CurseCard(String name, String description,int id_effect, CardTargetMode mode) {
         super(name, description, mode);
     }
 

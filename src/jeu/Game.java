@@ -115,41 +115,49 @@ public final class Game {
     private void createCards() {
 
 
-        // List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
-        // for (String[] card : cardData) {
-        //     int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
+        List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
+        for (String[] card : cardData) {
+            int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
 
-        //     if (card[0].equals("1")) {
-        //         MonsterCard monsterCard = new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8]));
+            if (card[0].equals("1")) {
+                MonsterCard monsterCard = new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8]));
 
-        //         for (int i = 0; i < cardCount; i++) {
-        //             this.addCard(monsterCard);
-        //         }
-        //     } else if (Objects.equals(card[0], "10")) {
-        //         for (int i = 0; i < cardCount; i++) {
-        //             this.treasureCards.add(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.SELF));
-        //         }
-        //     } else if (Objects.equals(card[0], "20")) {
-        //         for (int i = 0; i < cardCount; i++) {
-        //             this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
-        //         }
-        //     } else if (Objects.equals(card[0], "30")) { 
-        //         for (int i = 0; i < cardCount; i++) {
-        //             this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
-        //         }
-        //     }
-
-        // }
-
-        for (int i = 0; i < 20; i++) {
-            this.eventCards.add(new ClassCard("Info", "Description", "Info", CardTargetMode.SELF));
-//            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
-            // this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, "WEAPON", CardTargetMode.OTHER_PLAYER));
-            this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, "WEAPON", CardTargetMode.SELF));
-            this.treasureCards.add(new StuffCard("Helmet", "Desc", 1, 0, "HELMET", CardTargetMode.SELF));
-            this.eventCards.add(new MonsterCard("Goblin", "Jsp mdr", 10, 5, 1, 0 ,0));
+                for (int i = 0; i < cardCount; i++) {
+                    this.addCard(monsterCard);
+                }
+            } else if (Objects.equals(card[0], "10")) {
+                for (int i = 0; i < cardCount; i++) {
+                    this.treasureCards.add(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.SELF));
+                }
+            } else if (Objects.equals(card[0], "20")) {
+                for (int i = 0; i < cardCount; i++) {
+                    this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
+                }
+            } else if (Objects.equals(card[0], "30")) { 
+                for (int i = 0; i < cardCount; i++) {
+                    this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
+                }
+            }else if (Objects.equals(card[0], "40")) { 
+                for (int i = 0; i < cardCount; i++) {
+                    this.eventCards.add(new EthnicitiesCard(card[2], card[3],card[2], CardTargetMode.SELF));
+                }
+            } else if (Objects.equals(card[0], "50")){
+                for (int i = 0; i < cardCount; i++) {
+                    this.eventCards.add(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF));
+                }
+            }
 
         }
+
+//         for (int i = 0; i < 20; i++) {
+//             this.eventCards.add(new ClassCard("Info", "Description", "Info", CardTargetMode.SELF));
+// //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
+//             // this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, "WEAPON", CardTargetMode.OTHER_PLAYER));
+//             this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, "WEAPON", CardTargetMode.SELF));
+//             this.treasureCards.add(new StuffCard("Helmet", "Desc", 1, 0, "HELMET", CardTargetMode.SELF));
+//             this.eventCards.add(new MonsterCard("Goblin", "Jsp mdr", 10, 5, 1, 0 ,0));
+
+//         }
 
     }
 
