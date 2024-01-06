@@ -15,5 +15,14 @@ public class EffectsDefinitions {
         
 
     }
+    public static void class_loss(Player target) {
+        target.setClass(null);
+        
+    }
+
+    public static void ethnicity_loss(Player target) {
+        target.setEthniciter(null);
+        
+    }
     
 }

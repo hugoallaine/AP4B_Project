@@ -2,12 +2,17 @@ package src.jeu.Cards;
 
 // TODO
 public enum Ethnicities {
-    Japonais,Anglais,Espagnol,Chinois,Allemand,Italien;
+    JAPNESE("Japanese"),ENGLISH("English"),SPANISH("Spanish"),CHINESE("Chinese"),GERMAN("German"),ITALIAN("Italian");
+    
+private final String name;
 
+    Ethnicities(String className){
+        this.name = className;
+    }
 
     @Override
     public String toString(){
-        return this.name();
+        return this.name;
     }
 
     public static Ethnicities getEthnicityFromName(final String className){

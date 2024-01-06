@@ -53,6 +53,9 @@ public class Player {
     public void setClass(GameClasses gameClass){
         this.gameClass = gameClass;
     }
+    public void setEthniciter(Ethnicities ethnie){
+        this.ethnicity = ethnie;
+    }
 
     public void setHasDrawn(boolean state) {
         this.hasDrawn = state;
