@@ -2,7 +2,7 @@ package src.jeu.Cards;
 
 // TODO
 public enum Ethnicities {
-    JAPNESE("Japanese"),ENGLISH("English"),SPANISH("Spanish"),CHINESE("Chinese"),GERMAN("German"),ITALIAN("Italian");
+    JAPANESE("Japanese"),ENGLISH("English"),SPANISH("Spanish"),CHINESE("Chinese"),GERMAN("German"),ITALIAN("Italian");
     
 private final String name;
 
