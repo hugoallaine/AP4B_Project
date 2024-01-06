@@ -8,12 +8,14 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import src.gui.CardButton;
+import src.gui.GameWindow;
 import src.gui.MKButton;
 import src.gui.MKMenu;
 import src.jeu.Game;
@@ -40,8 +42,9 @@ public final class PlayingMenu extends MKMenu {
         this.playerName.setFont(new Font(null, Font.PLAIN, 36));
 
         this.playerInfo = new JTextArea();
-        this.playerInfo.setBackground(Color.RED);
-        this.playerInfo.setFont(new Font(null, Font.PLAIN, 24));
+        this.playerInfo.setBackground(MainMenu.TRANSPARENT);
+        this.playerInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.playerInfo.setFont(GameWindow.DEFAULT_FONT);
         this.playerInfo.setFocusable(false);
         this.playerInfo.setEditable(false);
         this.playerInfo.setRows(4);

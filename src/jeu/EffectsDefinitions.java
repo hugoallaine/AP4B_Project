@@ -9,9 +9,9 @@ public class EffectsDefinitions {
         for (Card card : target.getHand()){
             target.removeCardFromHand(card);
         }
-        for (StuffCard card : target.getStuff()){
-            target.removeStuff(card);
-        }
+        target.getStuff().forEach((k,card) -> {
+            card = null;
+        });
         
 
     }

@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import src.gui.GameWindow;
 import src.gui.MKButton;
 import src.gui.MKMenu;
 
@@ -41,7 +42,7 @@ public final class MainMenu extends MKMenu {
 
         textField = new JTextField();
         textField.setToolTipText(" Name input ");
-        textField.setFont(new Font("Liberation Mono", Font.PLAIN, 24));
+        textField.setFont(GameWindow.DEFAULT_FONT);
         textField.setColumns(20);
         textField.setPreferredSize(new Dimension(this.mainPanel.getWidth(),50));
         textField.setForeground(Color.WHITE);
@@ -52,7 +53,7 @@ public final class MainMenu extends MKMenu {
         textArea.setEditable(false);
         textArea.setFocusable(false);
         textArea.setMargin(new Insets(10, 10, 10, 10));
-        textArea.setFont(new Font("Liberation Mono", Font.PLAIN, 24));
+        textArea.setFont(GameWindow.DEFAULT_FONT);
         textArea.setBackground(Color.GRAY);
         textArea.setForeground(Color.WHITE);
         textArea.setRows(4);

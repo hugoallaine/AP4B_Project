@@ -1,8 +1,11 @@
 package src.jeu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import src.jeu.Cards.Card;
+import src.jeu.Cards.EquipementSlot;
 import src.jeu.Cards.Ethnicities;
 import src.jeu.Cards.StuffCard;
 
@@ -14,24 +17,26 @@ public class Player {
         return this.name;
     }
     private final ArrayList<Card> hand;
-    private final ArrayList<StuffCard> stuff;
+    private final HashMap<EquipementSlot, StuffCard> stuff;
     private GameClasses gameClass;
     private Ethnicities ethnicity;
     private boolean hasDrawn;
     private int dodge = 4;
 
+
+
     public Player(String name) {
         this.level = 1;
         this.name = name;
         this.hand = new ArrayList<>();
-        this.stuff = new ArrayList<>();
+        this.stuff = new HashMap<>();
         this.gameClass = null;
         this.ethnicity = null;
         this.hasDrawn = false;
     }
 
     public int getPower() {
-        return this.level+this.getpowerstuff();
+        return this.level+this.getStuffPower();
     }
 
     public int getDodge() {
@@ -43,7 +48,7 @@ public class Player {
     }
 
     public void levelUp(int i) {
-        this.level+=i;
+        this.level += i;
     }
 
     public void addCard(Card card){
@@ -65,36 +70,25 @@ public class Player {
     public ArrayList<Card> getHand() {
         return this.hand;
     }
+    
     public void addStuff(StuffCard card){
-        this.stuff.add(card);
-    }
-    public void removeStuff(StuffCard card){
-        this.stuff.remove(card);
+        this.stuff.put(card.getEquipementSlot(), card);
     }
 
-    public ArrayList<StuffCard> getStuff() {
+    public void removeStuff(StuffCard card){
+        this.stuff.remove(card.getEquipementSlot());
+    }
+
+    public HashMap<EquipementSlot, StuffCard> getStuff() {
         return this.stuff;
     }
-    public int getpowerstuff(){
-        int powerstuff=0;
-        for(StuffCard card : stuff){
-                powerstuff+=card.getBonus();
-        }
-        return powerstuff;
-    }
 
-    @Override
-    public String toString(){
-        StringBuilder output = new StringBuilder();
-        output.append(name + "\n- Level : " + level + "\n");
-        output.append("- Hand : ");
-        for(Card card : hand){
-            output.append(card + " | ");
-        }
-        
-        output.append("\n- Class : " + gameClass);
-        output.append("\n- Ethnicity : " + ethnicity);
-        return output.toString();
+    public int getStuffPower(){
+        final AtomicInteger power = new AtomicInteger(0);
+        stuff.forEach((k,card) -> {
+            power.getAndAdd(card.getBonus());
+        });
+        return power.get();
     }
 
     public String getInfoString() {
@@ -105,12 +99,13 @@ public class Player {
               .append("Class : ").append(classString).append("\n")
               .append("Ethinicity : ").append(ethnicityString).append("\n");
         output.append("Stuff : ");
-        for(int i = 0; i < this.stuff.size() - 1; i++){
-            output.append(this.stuff.get(i) + " | ");
-        }
-        if(this.stuff.size()>0){
-            output.append(this.stuff.get(this.stuff.size()-1)).append("\n");
-        }
+        AtomicInteger size = new AtomicInteger(this.stuff.size());
+        this.stuff.forEach((k,card) -> {
+            output.append(card).append("(+").append(card.getBonus()).append(")");
+            if(size.decrementAndGet() > 0) {
+                output.append(" | ");
+            }
+        });
         return output.toString();
     }
 
