@@ -81,12 +81,13 @@ public final class Game {
     }
 
     public void start() {
-        this.createCards();
         this.eventCards.shuffle();
         this.treasureCards.shuffle();
         this.distributeCards();
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
+        this.currentPlayer.levelUp(10);
     }
+
 
     private void distributeCards() {
         for (Player player : players) {
@@ -97,6 +98,10 @@ public final class Game {
         }
     }
 
+    /**
+     * 
+     * @return The player who is level 10 or null if no player have finished the game
+     */
     public Player isGameFinsihed() {
         for (final Player player : players) {
             if (player.getLevel() >= MAX_LEVEL) {
@@ -110,37 +115,38 @@ public final class Game {
     private void createCards() {
 
 
-        List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
-        for (String[] card : cardData) {
-            int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
+        // List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
+        // for (String[] card : cardData) {
+        //     int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
 
-            if (card[0].equals("1")) {
-                MonsterCard monsterCard = new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8]));
+        //     if (card[0].equals("1")) {
+        //         MonsterCard monsterCard = new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8]));
 
-                for (int i = 0; i < cardCount; i++) {
-                    this.addCard(monsterCard);
-                }
-            } else if (Objects.equals(card[0], "10")) {
-                for (int i = 0; i < cardCount; i++) {
-                    this.treasureCards.add(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.SELF));
-                }
-            } else if (Objects.equals(card[0], "20")) {
-                for (int i = 0; i < cardCount; i++) {
-                    this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), EquipementSlot.NONE, CardTargetMode.SELF));
-                }
-            } else if (Objects.equals(card[0], "30")) { // Changez cette condition à une valeur différente
-                for (int i = 0; i < cardCount; i++) {
-                    this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
-                }
-            }
+        //         for (int i = 0; i < cardCount; i++) {
+        //             this.addCard(monsterCard);
+        //         }
+        //     } else if (Objects.equals(card[0], "10")) {
+        //         for (int i = 0; i < cardCount; i++) {
+        //             this.treasureCards.add(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.SELF));
+        //         }
+        //     } else if (Objects.equals(card[0], "20")) {
+        //         for (int i = 0; i < cardCount; i++) {
+        //             this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
+        //         }
+        //     } else if (Objects.equals(card[0], "30")) { // Changez cette condition à une valeur différente
+        //         for (int i = 0; i < cardCount; i++) {
+        //             this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
+        //         }
+        //     }
 
-        }
+        // }
 
         for (int i = 0; i < 20; i++) {
-            this.eventCards.add(new ClassCard("Barbarian", "Description", "Barbarian", CardTargetMode.SELF));
+            this.eventCards.add(new ClassCard("Info", "Description", "Info", CardTargetMode.SELF));
 //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
-            this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.OTHER_PLAYER));
-            this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, EquipementSlot.NONE, CardTargetMode.SELF));
+            // this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, "WEAPON", CardTargetMode.OTHER_PLAYER));
+            this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, "WEAPON", CardTargetMode.SELF));
+            this.treasureCards.add(new StuffCard("Helmet", "Desc", 1, 0, "HELMET", CardTargetMode.SELF));
             this.eventCards.add(new MonsterCard("Goblin", "Jsp mdr", 10, 5, 1, 0 ,0));
 
         }
@@ -172,14 +178,14 @@ public final class Game {
 
     @Override
     public String toString() {
-        StringBuilder out = new StringBuilder("There are " + this.players.size() + " players\n");
+        final StringBuilder out = new StringBuilder("There are " + this.players.size() + " players\n");
         for (Player p : this.players) {
             out.append(p + "\n");
         }
         return out.toString();
     }
 
-    private boolean isNameValid(String name) {
+    private boolean isNameValid(final String name) {
         return name != null && name.matches("^[a-zA-Z0-9]+$");
     }
 
@@ -199,7 +205,7 @@ public final class Game {
      */
     public EventCard drawFromEventStack() throws NoSuchElementException {
         this.currentPlayer.setHasDrawn(true);
-        EventCard cardDrawn = this.eventCards.draw();
+        final EventCard cardDrawn = this.eventCards.draw();
         return cardDrawn;
     }
 
@@ -250,23 +256,17 @@ public final class Game {
 
     public void applyCurseEffect(CurseCard card) {
         switch (card.getTargetMode()) {
-            case SELF:
-                card.applyEffect(this.currentPlayer);
-                break;
-            case OTHER_PLAYER:
-                //TODO
             case EVERYONE:
                 card.applyEffect(this.players);
             default:
-                System.err.println("[ERROR] Should be unreachable");
-                assert false;
+                card.applyEffect(this.currentPlayer);
+                break;
         }
     }
 
     public Combat startCombat(Player player, MonsterCard monster, List<Card> effectCards) {
         final Combat combat = new Combat(this.currentPlayer, monster, this);
         for (final Card card : effectCards) {
-            //TODO: Check si la carte peut affecter les monstres ou le joueur   
             combat.changeMonsterStats(1);
         }
         return combat;

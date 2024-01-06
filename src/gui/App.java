@@ -92,13 +92,24 @@ public final class App extends GameWindow {
         this.updateDisplay();
     }
 
+    private String getGameStateString() {
+        final StringBuilder sb = new StringBuilder();
+        for(final Player p : this.game.getPlayers()) {
+            sb.append(p.getName()).append(" Level: ").append(p.getLevel()).append("\n");
+        }
+        return sb.toString();
+    }
+
     /**
      * Checks if the player can end their turn and if so, refreshes the interface and changes the current player
      */
     private void nextTurn() {
         Player player;
         if((player = this.game.isGameFinsihed()) != null) {
-            super.announce("The game is finished, " + player.getName() + " won");
+            super.playingMenu.hide();
+            super.endMenu.show();
+            this.revalidate();
+            super.endMenu.setText("The game is finished, " + player.getName() + " won\n" + this.getGameStateString());
             return;
         }
         try {
@@ -129,11 +140,13 @@ public final class App extends GameWindow {
             if(cardDrawn instanceof CurseCard) {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
             }
+
             else if(cardDrawn instanceof MonsterCard) {
                 MonsterCard monster = ((MonsterCard) cardDrawn);
                 final int fightAnswer = JOptionPane.showConfirmDialog(null, "Do you want to fight" + monster.getName() + "?\nLevel : " + monster.getStrength());
                 if(fightAnswer == JOptionPane.YES_OPTION) {
                     this.fightCombat((MonsterCard) cardDrawn);
+                    return;
                 }
                 else {
                     int diceResult = this.game.rollDice();
@@ -148,6 +161,8 @@ public final class App extends GameWindow {
             else {
                 this.game.getCurrentPlayer().addCard(cardDrawn);
             }
+            //TODO
+            super.playingMenu.getActionButton().setEnabled(false);
             this.updateDisplay();
 
         }catch(NoSuchElementException ex) {
@@ -310,8 +325,8 @@ public final class App extends GameWindow {
             return;
         }
         super.announce("You won, yay!");
+        this.updateDisplay();
         return;
-        
     }
 
     /**

@@ -22,7 +22,7 @@ public class CardStack<T extends Card>{
 
     @SuppressWarnings("unchecked")
     public void shuffle() {
-        Card[] cards = this.stack.toArray(new Card[0]); // Convertir le deque en tableau
+        Card[] cards = this.stack.toArray(new Card[0]);
         Random random = new Random();
 
         for (int i = cards.length - 1; i > 0; i--) {

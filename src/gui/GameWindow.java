@@ -2,6 +2,7 @@ package src.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
@@ -17,6 +18,9 @@ public class GameWindow extends JFrame{
     protected final MainMenu mainMenu;
     protected final PlayingMenu playingMenu;
     protected final PlayerSelectMenu pSelectMenu;
+    protected final EndMenu endMenu;
+
+    public final static Font DEFAULT_FONT = new Font(null, Font.PLAIN, 24);
 
     public GameWindow(final String title, final int width, final int height){
         super(title);
@@ -41,6 +45,8 @@ public class GameWindow extends JFrame{
         this.addMenu(this.playingMenu);
         this.pSelectMenu = new PlayerSelectMenu();
         this.addMenu(this.pSelectMenu);
+        this.endMenu = new EndMenu();
+        this.addMenu(endMenu);
         super.setVisible(true);
     }
 
@@ -53,6 +59,9 @@ public class GameWindow extends JFrame{
         if(menu instanceof PlayingMenu){
             gbc.fill= GridBagConstraints.BOTH;
         }
+        if(menu instanceof EndMenu) {
+            gbc.fill = GridBagConstraints.BOTH;
+        }
         this.panel.add(menu.getPanel(), gbc);
         if(menu instanceof PlayerSelectMenu) {
             // this.setComponentZOrder(menu.getPanel(), 1);
@@ -62,7 +71,7 @@ public class GameWindow extends JFrame{
     public void setLNF(){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }catch (UnsupportedLookAndFeelException lnfex){
+        }catch (UnsupportedLookAndFeelException ex){
             System.out.println("[WARNING] Defaulting to Cross Platform Look and Feel");
             try {
                 UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

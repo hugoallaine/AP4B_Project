@@ -5,6 +5,17 @@ public enum EquipementSlot {
     TORSO,
     LEGS,
     GLOVES,
-    HELMET,
-    NONE
+    HELMET,;
+
+
+    public static int size = EquipementSlot.values().length;
+    
+    public static EquipementSlot getFromString(String equipementSlot) {
+        for(final EquipementSlot eq : EquipementSlot.values()) {
+            if( eq.name().equalsIgnoreCase(equipementSlot)) {
+                return eq;
+            }
+        }
+        return null;
+    }
 }
