@@ -8,7 +8,7 @@ tablea des id
 exemple carte monstre.csv
 
 
-id=1;nb carte;"Nom du monstre";description;"force du monstre";int nb_tresor; int nb_niveau;effet classique surement un id on verra,incident facheux surement un id on vera
+id=1;nb carte;"Nom du monstre";"description";force du monstre;int nb_tresor; int nb_niveau;effet classique surement un id on verra,incident facheux surement un id on vera
 Exemple carte level up
 id=10;nb carte;"nom de la carte;description;nb_niveau_gagner;prix
 exemple carte stuff
@@ -18,14 +18,3 @@ id = 40;nb carte; nom de la langue, description
 CurseCard id = 50 (String name, String description,int id_effect, CardTargetMode mode)
 
 
-Monstre: int ID = 1; int NB_Carte; string Nom_Monstre; string Description_Monstre; string Force_Monstre; int NB_Tresor; int NB_Niveau;
-
-Level Up: int ID = 10; int NB_Carte; string Nom_Carte_Level_Up; string Description_Level_Up; int NB_Niveau_Gagner; int Prix;
-
-Stuff: int ID = 20; int NB_Carte; string Nom_Carte_Stuff; string Description_Stuff; string Bonus_Flat; string Passif; string Partie_du_Corps; int Prix;
-
-Class: int ID = 30; int NB_Carte; string Nom_Classe; string Description_Classe;
-
-Langue: int ID = 40; int NB_Carte; string Nom_Langue; string Description_Langue;
-
-CurseCard: int ID = 50; string Name; string Description; int ID_Effect; CardTargetMode Mode;
