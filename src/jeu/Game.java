@@ -139,41 +139,31 @@ public final class Game {
                     break;
                 case STUFF_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
+                        this.addCard(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6]));
                     }
                     break;
                 case CLASS_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new ClassCard(card[2], card[3], card[2], CardTargetMode.SELF));
+                        this.addCard(new ClassCard(card[2], card[3], card[2]));
                     }
                     break;
                 case ETHNICITY_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new EthnicitiesCard(card[2], card[3], card[2], CardTargetMode.SELF));
+                        this.addCard(new EthnicitiesCard(card[2], card[3], card[2]));
                     }
                     break;
                 case CURSE_CARD:
                     for (int i = 0; i < cardCount; i++) {
+                        //TODO, les cartes malédiction peuvent cibler que nous ?
                         this.addCard(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF));
                     }
                     break;
                 default:
                     System.err.println("[ERROR] Invalid ID : " + cardID + " while creating cards");
+                    System.exit(1);
                     break;
             }
-
         }
-
-//         for (int i = 0; i < 20; i++) {
-//             this.eventCards.add(new ClassCard("Info", "Description", "Info", CardTargetMode.SELF));
-// //            this.treasureCards.add(new XpCard("LevelUp", "Desc", 1, 0, CardTargetMode.SELF));
-//             // this.treasureCards.add(new StuffCard("Sword", "Desc", 1, 0, "WEAPON", CardTargetMode.OTHER_PLAYER));
-//             this.treasureCards.add(new StuffCard("pistolet", "Desc", 1, 0, "WEAPON", CardTargetMode.SELF));
-//             this.treasureCards.add(new StuffCard("Helmet", "Desc", 1, 0, "HELMET", CardTargetMode.SELF));
-//             this.eventCards.add(new MonsterCard("Goblin", "Jsp mdr", 10, 5, 1, 0 ,0));
-
-//         }
-
     }
 
     private void addCard(Card card) {

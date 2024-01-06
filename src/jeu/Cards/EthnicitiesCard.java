@@ -6,8 +6,8 @@ import src.jeu.Player;
 public final class EthnicitiesCard extends EventCard{
     Ethnicities ethnie;
     
-    public EthnicitiesCard(String name, String desc, String className, CardTargetMode targetMode) {
-        super(name, desc, targetMode);
+    public EthnicitiesCard(String name, String desc, String className) {
+        super(name, desc, CardTargetMode.SELF);
         this.ethnie = Ethnicities.getEthnicityFromName(className);
         this.setEffect((Player player) -> this.changePlayerEthnicities(player));
     }

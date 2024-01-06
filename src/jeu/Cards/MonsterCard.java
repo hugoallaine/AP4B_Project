@@ -5,9 +5,10 @@ import src.jeu.Player;
 
 public final class MonsterCard extends EventCard {
 
-    private int strength;
-    private int treasure_amount;
-    private int xp;
+    private final int strength;
+    private final int treasure_amount;
+    private final int xp;
+    private int buffs;
     private int id_passif;
     private int id_incident;
 
@@ -18,11 +19,12 @@ public final class MonsterCard extends EventCard {
         this.treasure_amount = treasure;
         this.xp = xp;
         this.id_passif = id_passif;
+        this.buffs = 0;
         this.effect = EffectsDefinitions.getEffectFunctionFromID(id_incident);
     }
 
     public int getStrength() {
-        return this.strength;
+        return this.strength + this.buffs;
     }
 
     public int getXP() {
@@ -34,7 +36,7 @@ public final class MonsterCard extends EventCard {
     }
 
     public void buff(int powerBuff) {
-        this.strength += powerBuff;
+        this.buffs += powerBuff;
     }
 
     /**

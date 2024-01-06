@@ -6,8 +6,8 @@ import src.jeu.Player;
 public final class ClassCard extends EventCard{
     GameClasses gameClass;
 
-    public ClassCard(String name, String desc, String className, CardTargetMode targetMode) {
-        super(name, desc, targetMode);
+    public ClassCard(String name, String desc, String className) {
+        super(name, desc, CardTargetMode.SELF);
         this.gameClass = GameClasses.getClassFromName(className);
         this.setEffect((Player player) -> this.changePlayerClass(player));
     }

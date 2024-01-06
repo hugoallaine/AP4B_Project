@@ -11,10 +11,13 @@ import src.jeu.Combat;
 import src.jeu.Game;
 import src.jeu.Player;
 import src.jeu.Cards.Card;
+import src.jeu.Cards.ClassCard;
 import src.jeu.Cards.CurseCard;
+import src.jeu.Cards.EthnicitiesCard;
 import src.jeu.Cards.EventCard;
 import src.jeu.Cards.MonsterCard;
 import src.jeu.Cards.SingleUseCard;
+import src.jeu.Cards.StuffCard;
 import src.jeu.Exceptions.InvalidPlayerNameException;
 import src.jeu.Exceptions.PlayerMustDrawException;
 import src.jeu.Exceptions.SamePlayerException;
@@ -100,7 +103,15 @@ public final class App extends GameWindow {
         if(card instanceof MonsterCard) {
             backgroundColor = CardButton.MONSTER_COLOR;
         }else if(card instanceof SingleUseCard) {
+            backgroundColor = CardButton.SINGLE_USE_COLOR;
+        }else if(card instanceof CurseCard) {
             backgroundColor = CardButton.CURSE_COLOR;
+        }else if(card instanceof StuffCard) {
+            backgroundColor = CardButton.STUFF_COLOR;
+        }else if(card instanceof EthnicitiesCard) {
+            backgroundColor = CardButton.ETHNICITY_COLOR;
+        }else if(card instanceof ClassCard) {
+            backgroundColor = CardButton.CLASS_COLOR;
         }
         cardButton.setBackground(backgroundColor);
     }
