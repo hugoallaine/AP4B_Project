@@ -1,7 +1,20 @@
 TYPE;NUM;NAME;DESCRIPTION;_CUSTOM FOR EACH CARD_
 1;5;IT4;Un devoir difficile en mathématiques;15;1;1;1;1
-1;50;AP4;Un devoir difficile en mathématiques;15;1;1;1;1
-1;50;IA41;Un devoir difficile en mathématiques;15;1;1;1;1
-1;50;SY40;Un devoir difficile en mathématiques;15;1;1;1;1
-1;50;RA4;Un devoir difficile en mathématiques;15;1;1;1;1
-10;50;UV trop facile;une UV trop simple;1;15
+1;5;AP4;Un devoir difficile en mathématiques;15;1;1;1;1
+1;5;IA41;Un devoir difficile en mathématiques;15;1;1;1;1
+1;5;SY40;Un devoir difficile en mathématiques;15;1;1;1;1
+1;5;RA4;Un devoir difficile en mathématiques;15;1;1;1;1
+10;5;UV trop facile;une UV trop simple;1;15
+20;5;un stylo;ca ecrit;5;0;WAEPON;200
+30;5;INFO;il pu
+30;5;EDIM;il sont loin
+30;5;IMSI;il est de droite
+30;5;ENERGY;il sais rien faire
+30;5;GMC;il fait tomber des truc
+40;5;JAPANESE;BAKA d'OTAKU
+40;5;ENGLISH;cuisine mal
+40;5;SPANISH;il fait chaud
+40;5;CHINESE;j'ose rien mettre
+40;5;GERMAN;...
+40;5;ITALIAN;PASTA
+50;5;Panne de reveille;pas de chance;1;SELF
