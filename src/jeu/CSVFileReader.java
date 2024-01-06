@@ -8,38 +8,12 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class CSVFileReader {
-    public static Hashtable<String, ArrayList<String>> readCSVTest (String filePath) throws IllegalArgumentException {
-
-        if(filePath == null) throw new IllegalArgumentException("[ERROR] The path given is null!");
-        if(!filePath.split("\\.")[1].equals("csv")) throw new IllegalArgumentException("[ERROR] The file must be a CSV file!");
-
-        Hashtable<String, ArrayList<String>> cardDataList = new Hashtable<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String[] keys = br.readLine().split(";");
-            
-            for(int i = 0; i < keys.length; i++){
-                cardDataList.put(keys[i], new ArrayList<String>());
-            }
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(";");
-                for(int i = 0; i < keys.length; i++){
-                    cardDataList.get(keys[i]).add(data[i]);
-                }
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return cardDataList;
-    }
-
-
     public static List<String[]> readCSV(String filePath){
         if(filePath == null) throw new IllegalArgumentException("[ERROR] The path given is null!");
         if(!filePath.split("\\.")[1].equals("csv")) throw new IllegalArgumentException("[ERROR] The file must be a CSV file!");
         List<String[]> Card_Data=new ArrayList<>();
         try (final BufferedReader br = new BufferedReader(new FileReader(filePath))){
+            br.readLine();
             String ligne;
             while ((ligne=br.readLine())!= null) {
                 String[] ligne_split=ligne.split(";");

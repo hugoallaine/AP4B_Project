@@ -30,7 +30,7 @@ public final class PlayingMenu extends MKMenu {
     private final JTextArea playerInfo;
     private final JLabel playerName;
     private static final int LAYOUT_GAP = 5;
-    private static final Color PLAYING_MENU_BKG = new Color(0x50CC40);
+    private static final Color PLAYING_MENU_BKG = new Color(55, 125, 25);
 
     public PlayingMenu() {
         this.mainPanel = new JPanel();
@@ -45,7 +45,6 @@ public final class PlayingMenu extends MKMenu {
         this.playerInfo.setBackground(MainMenu.TRANSPARENT);
         this.playerInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.playerInfo.setFont(GameWindow.DEFAULT_FONT);
-        this.playerInfo.setFocusable(false);
         this.playerInfo.setEditable(false);
         this.playerInfo.setRows(4);
 

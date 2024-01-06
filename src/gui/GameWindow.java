@@ -24,7 +24,7 @@ public class GameWindow extends JFrame{
 
     public GameWindow(final String title, final int width, final int height){
         super(title);
-        this.setLNF();
+        // this.setLNF();
         super.setMinimumSize(new Dimension(width, height));
         this.centerWindow();
         super.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

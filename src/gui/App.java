@@ -1,5 +1,6 @@
 package src.gui;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -78,14 +79,30 @@ public final class App extends GameWindow {
         super.playingMenu.clearCardButtons();
         super.playingMenu.updatePlayerInfoDisplay(this.game.getCurrentPlayer().getInfoString());
         final ArrayList<Card> currentPlayerHand = this.game.getCurrentPlayer().getHand();
-        for(final Card c : currentPlayerHand) {
-            final CardButton cardButton = new CardButton(c);
+        for(final Card card : currentPlayerHand) {
+            final CardButton cardButton = new CardButton(card);
+            this.applyBackgroundColor(cardButton);
             cardButton.addActionListener(l -> {
                 this.selectCardButton(cardButton);
             });
             super.playingMenu.addCardButton(cardButton);
         }
         super.repaint();
+    }
+
+    /**
+     * Sets the background color of a given card button in function of the card assigned
+     * @param cardButton
+     */
+    private void applyBackgroundColor(CardButton cardButton) {
+        Color backgroundColor = Color.green;
+        final Card card = cardButton.getCard();
+        if(card instanceof MonsterCard) {
+            backgroundColor = CardButton.MONSTER_COLOR;
+        }else if(card instanceof SingleUseCard) {
+            backgroundColor = CardButton.CURSE_COLOR;
+        }
+        cardButton.setBackground(backgroundColor);
     }
 
     private void update() {
@@ -143,7 +160,7 @@ public final class App extends GameWindow {
 
             else if(cardDrawn instanceof MonsterCard) {
                 MonsterCard monster = ((MonsterCard) cardDrawn);
-                final int fightAnswer = JOptionPane.showConfirmDialog(null, "Do you want to fight" + monster.getName() + "?\nLevel : " + monster.getStrength());
+                final int fightAnswer = JOptionPane.showConfirmDialog(null, "Do you want to fight " + monster.getName() + "?\nLevel : " + monster.getStrength(), "Test", JOptionPane.YES_NO_OPTION);
                 if(fightAnswer == JOptionPane.YES_OPTION) {
                     this.fightCombat((MonsterCard) cardDrawn);
                     return;
@@ -191,11 +208,11 @@ public final class App extends GameWindow {
                 break;
             }
 
-            final int answer = JOptionPane.showOptionDialog(null, p.getName() + " Choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
+            final int answer = JOptionPane.showOptionDialog(null, p.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
             if(answer > 0) {
                 result.add(p.getHand().remove(answer));
             }
-            System.out.println(result);
+            System.out.println("Cards to help the monster : " + result);
         }
         return result;
     }
@@ -263,7 +280,7 @@ public final class App extends GameWindow {
         this.selectedCardButton = cb;
         this.selectedCardButton.clearListeners();
         this.selectedCardButton.addActionListener(e -> this.unselectCardButton(cb));
-        super.repaint();
+        super.revalidate();
     }
 
     /**

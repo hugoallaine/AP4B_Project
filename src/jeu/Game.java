@@ -14,6 +14,13 @@ public final class Game {
     public static final int MAX_CARD_IN_HAND = 5;
     private static final int MAX_LEVEL = 10;
 
+    private static final int MONSTER_CARD = 1;
+    private static final int SINGLE_USE_CARD = 10;
+    private static final int STUFF_CARD = 20;
+    private static final int CLASS_CARD = 30;
+    private static final int ETHNICITY_CARD = 40;
+    private static final int CURSE_CARD = 50;
+
     private final ArrayList<Player> players;
     private final CardStack<TreasureCard> treasureCards;
     private final CardStack<EventCard> eventCards;
@@ -117,34 +124,42 @@ public final class Game {
 
         List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
         for (String[] card : cardData) {
-            int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
-
-            if (card[0].equals("1")) {
-                MonsterCard monsterCard = new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8]));
-
-                for (int i = 0; i < cardCount; i++) {
-                    this.addCard(monsterCard);
-                }
-            } else if (Objects.equals(card[0], "10")) {
-                for (int i = 0; i < cardCount; i++) {
-                    this.treasureCards.add(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.SELF));
-                }
-            } else if (Objects.equals(card[0], "20")) {
-                for (int i = 0; i < cardCount; i++) {
-                    this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
-                }
-            } else if (Objects.equals(card[0], "30")) { 
-                for (int i = 0; i < cardCount; i++) {
-                    this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
-                }
-            }else if (Objects.equals(card[0], "40")) { 
-                for (int i = 0; i < cardCount; i++) {
-                    this.eventCards.add(new EthnicitiesCard(card[2], card[3],card[2], CardTargetMode.SELF));
-                }
-            } else if (Objects.equals(card[0], "50")){
-                for (int i = 0; i < cardCount; i++) {
-                    this.eventCards.add(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF));
-                }
+            final int cardID = Integer.parseInt(card[0]);
+            final int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
+            switch (cardID) {
+                case MONSTER_CARD:
+                    for (int i = 0; i < cardCount; i++) {
+                        this.addCard(new MonsterCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), Integer.parseInt(card[6]), Integer.parseInt(card[7]), Integer.parseInt(card[8])));
+                    }
+                    break;
+                case SINGLE_USE_CARD:
+                    for (int i = 0; i < cardCount; i++) {
+                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF, EffectsDefinitions.LEVEL_DOWN));
+                    }
+                    break;
+                case STUFF_CARD:
+                    for (int i = 0; i < cardCount; i++) {
+                        this.addCard(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
+                    }
+                    break;
+                case CLASS_CARD:
+                    for (int i = 0; i < cardCount; i++) {
+                        this.addCard(new ClassCard(card[2], card[3], card[2], CardTargetMode.SELF));
+                    }
+                    break;
+                case ETHNICITY_CARD:
+                    for (int i = 0; i < cardCount; i++) {
+                        this.addCard(new EthnicitiesCard(card[2], card[3], card[2], CardTargetMode.SELF));
+                    }
+                    break;
+                case CURSE_CARD:
+                    for (int i = 0; i < cardCount; i++) {
+                        this.addCard(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF));
+                    }
+                    break;
+                default:
+                    System.err.println("[ERROR] Invalid ID : " + cardID + " while creating cards");
+                    break;
             }
 
         }

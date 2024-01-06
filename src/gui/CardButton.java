@@ -9,8 +9,12 @@ import javax.swing.BorderFactory;
 import src.jeu.Cards.Card;
 
 public class CardButton extends MKButton{
-    private final Card card;
     private static final int BORDER_WIDTH = 2;
+    public static final Color MONSTER_COLOR = new Color(200, 50, 20);
+    public static final Color CURSE_COLOR = new Color(150, 25, 75);
+    
+    private final Card card;
+    
     public CardButton(Card card) {
         super("");
         this.removeHighlight();

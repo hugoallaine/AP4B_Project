@@ -1,10 +1,13 @@
 package src.jeu.Cards;
 
+import src.jeu.EffectsDefinitions;
 import src.jeu.Player;
 
 public final class SingleUseCard extends TreasureCard {
-    public SingleUseCard(String name, String desc, int xp,int prix, CardTargetMode targetMode){
+    
+    public SingleUseCard(String name, String desc, int prix, CardTargetMode targetMode, int EffectID){
         super(name, desc, targetMode);
+        this.effect = EffectsDefinitions.getEffectFunctionFromID(EffectID);
     }
 
     @Override

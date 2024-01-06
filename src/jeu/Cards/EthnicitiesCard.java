@@ -18,6 +18,6 @@ public final class EthnicitiesCard extends EventCard{
     }
 
     private void changePlayerEthnicities(Player p){
-        p.setEthnicite(this.ethnie);
+        p.setEthnicity(this.ethnie);
     }
 }

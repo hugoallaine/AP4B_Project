@@ -5,7 +5,7 @@ import src.jeu.Player;
 
 public final class ClassCard extends EventCard{
     GameClasses gameClass;
-    
+
     public ClassCard(String name, String desc, String className, CardTargetMode targetMode) {
         super(name, desc, targetMode);
         this.gameClass = GameClasses.getClassFromName(className);

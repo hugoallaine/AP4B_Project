@@ -8,6 +8,7 @@ import src.jeu.Cards.Card;
 
 public class CardStack<T extends Card>{
     private final ArrayDeque<T> stack;
+    
     CardStack() {
         this.stack = new ArrayDeque<>();
     }
