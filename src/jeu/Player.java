@@ -58,7 +58,7 @@ public class Player {
     public void setClass(GameClasses gameClass){
         this.gameClass = gameClass;
     }
-    public void setEthniciter(Ethnicities ethnie){
+    public void setEthnicite(Ethnicities ethnie){
         this.ethnicity = ethnie;
     }
 

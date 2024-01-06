@@ -133,7 +133,7 @@ public final class Game {
         //         for (int i = 0; i < cardCount; i++) {
         //             this.treasureCards.add(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], CardTargetMode.SELF));
         //         }
-        //     } else if (Objects.equals(card[0], "30")) { // Changez cette condition à une valeur différente
+        //     } else if (Objects.equals(card[0], "30")) { 
         //         for (int i = 0; i < cardCount; i++) {
         //             this.eventCards.add(new ClassCard(card[2], card[3],card[2], CardTargetMode.SELF));
         //         }

@@ -21,7 +21,7 @@ public class EffectsDefinitions {
     }
 
     public static void ethnicity_loss(Player target) {
-        target.setEthniciter(null);
+        target.setEthnicite(null);
         
     }
     
