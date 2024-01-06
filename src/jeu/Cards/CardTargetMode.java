@@ -5,7 +5,7 @@ public enum CardTargetMode {
     SELF,
     OTHER_PLAYER,
     EVERYONE,
-    MONSTER,;
+    MONSTER_OR_PLAYER,;
 
 
     public static CardTargetMode getTargeTModeFromString(final String tMode) {

@@ -18,7 +18,7 @@ public final class Game {
     private static final int SINGLE_USE_CARD = 10;
     private static final int STUFF_CARD = 20;
     private static final int CLASS_CARD = 30;
-    private static final int ETHNICITY_CARD = 40;
+    private static final int LANGUAGE_CARD = 40;
     private static final int CURSE_CARD = 50;
 
     private final ArrayList<Player> players;
@@ -92,7 +92,6 @@ public final class Game {
         this.treasureCards.shuffle();
         this.distributeCards();
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
-        this.currentPlayer.levelUp(10);
     }
 
 
@@ -106,13 +105,11 @@ public final class Game {
     }
 
     /**
-     * 
      * @return The player who is level 10 or null if no player have finished the game
      */
     public Player isGameFinsihed() {
         for (final Player player : players) {
             if (player.getLevel() >= MAX_LEVEL) {
-                System.out.println("Game should be finished");
                 return player;
             }
         }
@@ -122,8 +119,8 @@ public final class Game {
     private void createCards() {
 
 
-        List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
-        for (String[] card : cardData) {
+        final List<String[]> cardData = CSVFileReader.readCSV("cards.csv");
+        for (final String[] card : cardData) {
             final int cardID = Integer.parseInt(card[0]);
             final int cardCount = Integer.parseInt(card[1]); // Récupérer le nombre de fois que vous voulez la carte
             switch (cardID) {
@@ -134,7 +131,7 @@ public final class Game {
                     break;
                 case SINGLE_USE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF, EffectsDefinitions.LEVEL_DOWN));
+                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), 15, CardTargetMode.OTHER_PLAYER, EffectsDefinitions.LEVEL_DOWN));
                     }
                     break;
                 case STUFF_CARD:
@@ -147,9 +144,9 @@ public final class Game {
                         this.addCard(new ClassCard(card[2], card[3], card[2]));
                     }
                     break;
-                case ETHNICITY_CARD:
+                case LANGUAGE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new EthnicitiesCard(card[2], card[3], card[2]));
+                        this.addCard(new LanguageCard(card[2], card[3], card[2]));
                     }
                     break;
                 case CURSE_CARD:
@@ -255,10 +252,10 @@ public final class Game {
         return tempPlayer;
     }
 
-    public void discard(Card card, Player mainPlayer) {
-        mainPlayer.removeCardFromHand(card);
+    public void discard(Card card) {
+        this.currentPlayer.removeCardFromHand(card);
         Player minlvPlayer=this.playerlvmin();
-        if (minlvPlayer==mainPlayer){
+        if (minlvPlayer==this.currentPlayer){
             this.discardPile.add(card);
         }
         else{
@@ -279,9 +276,11 @@ public final class Game {
 
     public Combat startCombat(Player player, MonsterCard monster, List<Card> effectCards) {
         final Combat combat = new Combat(this.currentPlayer, monster, this);
+        System.out.println(combat.gMonsterCard().getStrength());
         for (final Card card : effectCards) {
             combat.changeMonsterStats(1);
         }
+        System.out.println(combat.gMonsterCard().getStrength());
         return combat;
     }
     

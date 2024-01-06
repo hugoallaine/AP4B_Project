@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import src.jeu.Cards.Card;
 import src.jeu.Cards.EquipementSlot;
-import src.jeu.Cards.Ethnicities;
+import src.jeu.Cards.Languages;
 import src.jeu.Cards.StuffCard;
 
 public class Player {
@@ -19,7 +19,7 @@ public class Player {
     private final ArrayList<Card> hand;
     private final HashMap<EquipementSlot, StuffCard> stuff;
     private GameClasses gameClass;
-    private Ethnicities ethnicity;
+    private Languages lang;
     private boolean hasDrawn;
     private int dodge = 4;
 
@@ -31,7 +31,7 @@ public class Player {
         this.hand = new ArrayList<>();
         this.stuff = new HashMap<>();
         this.gameClass = null;
-        this.ethnicity = null;
+        this.lang = null;
         this.hasDrawn = false;
     }
 
@@ -59,8 +59,8 @@ public class Player {
         this.gameClass = gameClass;
     }
 
-    public void setEthnicity(Ethnicities ethnie){
-        this.ethnicity = ethnie;
+    public void setLanguage(Languages ethnie){
+        this.lang = ethnie;
     }
 
     public void setHasDrawn(boolean state) {
@@ -97,11 +97,11 @@ public class Player {
 
     public String getInfoString() {
         final String classString = this.gameClass == null ? "None" : this.gameClass.toString();
-        final String ethnicityString = this.ethnicity == null ? "None" : this.ethnicity.toString();
+        final String langString = this.lang == null ? "None" : this.lang.toString();
         StringBuilder output = new StringBuilder();
         output.append("Level : ").append(level).append("\n")
               .append("Class : ").append(classString).append("\n")
-              .append("Ethinicity : ").append(ethnicityString).append("\n");
+              .append("Language : ").append(langString).append("\n");
         output.append("Stuff : ");
         AtomicInteger size = new AtomicInteger(this.stuff.size());
         this.stuff.forEach((k,card) -> {

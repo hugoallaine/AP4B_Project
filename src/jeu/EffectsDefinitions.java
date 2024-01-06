@@ -6,7 +6,7 @@ public class EffectsDefinitions {
     public static final int LEVEL_DOWN = 1;
     public static final int DEATH = 2;
     public static final int REMOVE_CLASS = 3;
-    public static final int REMOVE_ETHNICITY = 4;
+    public static final int REMOVE_LANGUAGE = 4;
 
     public static void levelDown(Player target) {
         target.levelUp(-1);
@@ -26,8 +26,8 @@ public class EffectsDefinitions {
         target.setClass(null);
     }
 
-    public static void removeEthnicity(Player target) {
-        target.setEthnicity(null);
+    public static void removeLanguage(Player target) {
+        target.setLanguage(null);
         
     }
 
@@ -39,8 +39,8 @@ public class EffectsDefinitions {
                 return ((Player target) -> killTarget(target));
             case REMOVE_CLASS:
                 return ((Player target) -> removeClass(target));
-            case REMOVE_ETHNICITY:
-                return ((Player target) -> removeEthnicity(target));
+            case REMOVE_LANGUAGE:
+                return ((Player target) -> removeLanguage(target));
             default:
                 return null;
         }

@@ -1,7 +1,7 @@
 package src.jeu.Cards;
 
 // TODO
-public enum Ethnicities {
+public enum Languages {
     JAPANESE,
     ENGLISH,
     SPANISH,
@@ -14,8 +14,8 @@ public enum Ethnicities {
         return this.name();
     }
 
-    public static Ethnicities getEthnicityFromName(final String className){
-        for(final Ethnicities eth : Ethnicities.values()){
+    public static Languages getLanguageFromName(final String className){
+        for(final Languages eth : Languages.values()){
             if(eth.name().equalsIgnoreCase(className)){
                 return eth;
             }

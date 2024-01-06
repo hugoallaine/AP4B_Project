@@ -11,9 +11,10 @@ import src.jeu.Combat;
 import src.jeu.Game;
 import src.jeu.Player;
 import src.jeu.Cards.Card;
+import src.jeu.Cards.CardTargetMode;
 import src.jeu.Cards.ClassCard;
 import src.jeu.Cards.CurseCard;
-import src.jeu.Cards.EthnicitiesCard;
+import src.jeu.Cards.LanguageCard;
 import src.jeu.Cards.EventCard;
 import src.jeu.Cards.MonsterCard;
 import src.jeu.Cards.SingleUseCard;
@@ -108,8 +109,8 @@ public final class App extends GameWindow {
             backgroundColor = CardButton.CURSE_COLOR;
         }else if(card instanceof StuffCard) {
             backgroundColor = CardButton.STUFF_COLOR;
-        }else if(card instanceof EthnicitiesCard) {
-            backgroundColor = CardButton.ETHNICITY_COLOR;
+        }else if(card instanceof LanguageCard) {
+            backgroundColor = CardButton.LANGUAGE_COLOR;
         }else if(card instanceof ClassCard) {
             backgroundColor = CardButton.CLASS_COLOR;
         }
@@ -143,12 +144,21 @@ public final class App extends GameWindow {
         try {
             this.game.nextTurn();
             this.playingMenu.clearCardButtons();
+            super.playingMenu.getActionButton().setEnabled(true);
             this.update();
         } catch(TooManyCardsInHandException ex) {
             super.announce("You have to give up cards to continue");
         } catch(PlayerMustDrawException ex) {
             super.announce("You have to draw !");
         }
+    }
+
+    private void discardSelectedCard() {
+        final Card card = this.selectedCardButton.getCard();
+        if (card == null) {
+            return;
+        }
+        this.game.discard(card);
     }
 
     /**
@@ -190,7 +200,7 @@ public final class App extends GameWindow {
                 this.game.getCurrentPlayer().addCard(cardDrawn);
             }
             //TODO
-            super.playingMenu.getActionButton().setEnabled(false);
+            this.updateActionButton("Discard", (e -> this.discardSelectedCard()));
             this.updateDisplay();
 
         }catch(NoSuchElementException ex) {
@@ -205,25 +215,27 @@ public final class App extends GameWindow {
      */
     private ArrayList<Card> askForEffectCards() {
         final ArrayList<Card> result = new ArrayList<>();
-        for(final Player p : this.game.getPlayers()) {
+        for(final Player player : this.game.getPlayers()) {
 
             // Selects only cards which are able to affect the monster
             final ArrayList<SingleUseCard> validCards = new ArrayList<>();
-            for(final Card card : p.getHand()) {
-                if(card instanceof SingleUseCard) {
+            for(final Card card : player.getHand()) {
+                if(card instanceof SingleUseCard && ((SingleUseCard)card).getTargetMode() == CardTargetMode.MONSTER_OR_PLAYER) {
                     validCards.add((SingleUseCard) card);
                 }
             }
+            System.out.println(validCards);
 
-            if(validCards.size() == 0) {
-                break;
+            if(validCards.size() != 0) {
+                final int answer = JOptionPane.showOptionDialog(null, player.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
+                if(answer > 0) {
+                    final SingleUseCard chosenCard = validCards.get(answer);
+                    System.out.println(chosenCard);
+                    result.add(chosenCard);
+                    player.getHand().remove(chosenCard);
+                }
+                System.out.println("Cards to help the monster : " + result);
             }
-
-            final int answer = JOptionPane.showOptionDialog(null, p.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
-            if(answer > 0) {
-                result.add(p.getHand().remove(answer));
-            }
-            System.out.println("Cards to help the monster : " + result);
         }
         return result;
     }
@@ -247,7 +259,7 @@ public final class App extends GameWindow {
         }
         final Card selectedCard = this.selectedCardButton.getCard();
         this.game.getCurrentPlayer().removeCardFromHand(selectedCard);
-        this.game.discard(selectedCard, this.game.getCurrentPlayer());
+        this.game.discard(selectedCard);
         this.unselectCardButton(selectedCardButton);
         this.update();
 
@@ -256,26 +268,21 @@ public final class App extends GameWindow {
             return;
         }
 
-        switch(selectedCard.getTargetMode()) {
-        case SELF:
+        if(selectedCard.getTargetMode() == CardTargetMode.SELF) {
             selectedCard.applyEffect(this.game.getCurrentPlayer());
-            break;
-        case OTHER_PLAYER:
+        }
+        else if (selectedCard.getTargetMode() == CardTargetMode.OTHER_PLAYER) {
             final Player target = this.askForTarget();
             if(target != null) {
                 selectedCard.applyEffect(target);
             }
-            break;
-        case MONSTER:
-            System.err.println("[ERROR] Unimplemented");
-            break;
-        case EVERYONE:
-            // A card shouldn't be able to target everyone unless it's a curse card
+        }
+        else if(selectedCard.getTargetMode() == CardTargetMode.EVERYONE) {
             assert selectedCard instanceof CurseCard;
             final CurseCard selectedCurseCard = ((CurseCard)selectedCard);
             selectedCurseCard.applyEffect(this.game.getPlayers());
-            break;
         }
+ 
         this.update();
     }
 

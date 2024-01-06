@@ -14,7 +14,7 @@ public class CardButton extends MKButton{
     public static final Color CURSE_COLOR = new Color(150, 25, 75);
     public static final Color SINGLE_USE_COLOR = new Color(25, 125, 50);
     public static final Color STUFF_COLOR = new Color(150, 125, 20);
-    public static final Color ETHNICITY_COLOR = new Color(100,50,0);
+    public static final Color LANGUAGE_COLOR = new Color(100,50,0);
     public static final Color CLASS_COLOR = new Color(50,50,200);
     
     private final Card card;

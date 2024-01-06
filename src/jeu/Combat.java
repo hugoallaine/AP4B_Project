@@ -19,6 +19,10 @@ public class Combat {
         this.mob.buff(powerBuff);
     }
 
+    public MonsterCard gMonsterCard() {
+        return this.mob;
+    }
+
     public boolean fight() {
         if(mob.getStrength() <= mainPlayer.getPower()) {
             mainPlayer.levelUp(mob.getXP());
