@@ -92,7 +92,7 @@ public final class Game {
         this.treasureCards.shuffle();
         this.distributeCards();
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
-        this.currentPlayer.levelUp(9);
+        this.currentPlayer.levelUp(0);
     }
 
 
@@ -184,6 +184,7 @@ public final class Game {
             int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
             this.currentPlayer.setHasDrawn(false);
             this.currentPlayer = this.players.get((currentPlayerIndex + 1) % this.players.size());
+            
         }
     }
 
@@ -256,7 +257,7 @@ public final class Game {
     public void discard(Card card) {
         this.currentPlayer.removeCardFromHand(card);
         Player minlvPlayer=this.playerlvmin();
-        if (minlvPlayer==this.currentPlayer){
+        if (minlvPlayer.getLevel()==this.currentPlayer.getLevel()){
             this.discardPile.add(card);
         }
         else{
