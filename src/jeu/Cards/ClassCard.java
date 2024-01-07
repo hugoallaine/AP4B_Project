@@ -1,6 +1,5 @@
 package src.jeu.Cards;
 
-import src.jeu.GameClasses;
 import src.jeu.Player;
 
 public final class ClassCard extends EventCard{

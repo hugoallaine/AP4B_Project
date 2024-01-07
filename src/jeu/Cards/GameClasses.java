@@ -1,4 +1,4 @@
-package src.jeu;
+package src.jeu.Cards;
 
 // TODO
 public enum GameClasses {
