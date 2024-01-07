@@ -143,6 +143,7 @@ public final class App extends GameWindow {
         }
         try {
             this.game.nextTurn();
+            this.updateActionButton("Draw from event stack", (e -> this.drawFromEventStack()));
             this.playingMenu.clearCardButtons();
             super.playingMenu.getActionButton().setEnabled(true);
             this.update();
@@ -175,6 +176,7 @@ public final class App extends GameWindow {
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
             super.announce("You drew " + cardDrawn.getName());
+            this.updateActionButton("Discard", (e -> this.discardSelectedCard()));
             if(cardDrawn instanceof CurseCard) {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
             }
