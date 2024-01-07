@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import src.jeu.Cards.Card;
 import src.jeu.Cards.EquipementSlot;
+import src.jeu.Cards.GameClasses;
 import src.jeu.Cards.Languages;
 import src.jeu.Cards.StuffCard;
 
