@@ -21,7 +21,6 @@ public abstract class Card {
      * @brief Constructeur de la classe Card
      * @param name Nom de la carte
      * @param description Description de la carte
-     * @param effect Effet de la carte
      * @param targetMode Mode de ciblage de la carte
      */
     protected Card(String name, String description, CardTargetMode targetMode) {
