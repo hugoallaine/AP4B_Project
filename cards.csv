@@ -1,8 +1,8 @@
 1;5;IT4;tu a le niveau cp felicitation;15;1;1;1;1
 1;5;AP4;Tu sais faire des objet pour ta chambre;15;1;1;1;1
 1;5;IA41;Tu sais maintenant faire un truc plus intelligent que toi wp;15;1;1;1;1
-1;5;SY40;Tu sais maintenant ranger ta chambre tout en fesant des gauffre;15;1;1;1;1
-1;5;REA4;Un défi corsé de reseau;15;1;1;1;1
+1;5;SY40;Tu sais maintenant ranger ta chambre tout en faisant des gauffre;15;1;1;1;1
+1;5;REA4;Un défi corsé de réseau;15;1;1;1;1
 10;5;UV trop facile;Validez une UV très simple pour gagner des niveaux;1;15
 20;5;Un stylo;Un stylo qui écrit et peut être utilisé comme arme;5;0;WEAPON;200
 20;5;Feuille;Une feuille de base utilisable comme arme;3;0;WEAPON
@@ -19,7 +19,7 @@
 40;5;JAPANESE;Cours de japonais;BAKA d'OTAKU, apprenez les subtilités de la langue japonaise avec des enseignements culturels
 40;5;ENGLISH;Cours d'anglais;Cuisine mal, perfectionnez vos compétences linguistiques et culturelles en anglais
 40;5;SPANISH;Cours d'espagnol;Il fait chaud, explorez la beauté de la langue espagnole à travers des activités interactives
-40;5;CHINESE;Cours de chinois;J'ose rien mettre, découvrez les subtilités de la langue chinoise avec des méthodes d'apprentissage dynamiques
+40;5;CHINESE;Cours de chinois;Découvrez les subtilités de la langue chinoise avec des méthodes d'apprentissage dynamiques et apprenez a jouer au Mahjong
 40;5;GERMAN;Cours d'allemand;Plongez-vous dans la langue allemande et découvrez la culture germanique ainsi que de la charcuterie
 40;5;ITALIAN;Cours d'italien;PASTA, savourez la sonorité de l'italien tout en explorant la cuisine et l'art italiens
 50;5;Panne de réveil;Pas de chance vous avez louper votre UV;1;SELF

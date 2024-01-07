@@ -1,6 +1,5 @@
 package src.jeu.Cards;
 
-// TODO
 public enum GameClasses {
     INFO,
     IMSI,

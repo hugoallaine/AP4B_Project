@@ -161,6 +161,7 @@ public final class App extends GameWindow {
         final Card card = this.selectedCardButton.getCard();
         this.game.getCurrentPlayer().removeCardFromHand(card);
         this.game.discard(card);
+        this.updateDisplay();
     }
 
     /**
@@ -202,7 +203,6 @@ public final class App extends GameWindow {
             else {
                 this.game.getCurrentPlayer().addCard(cardDrawn);
             }
-            //TODO
             this.updateActionButton("Discard", (e -> this.discardSelectedCard()));
             this.updateDisplay();
 
@@ -219,27 +219,40 @@ public final class App extends GameWindow {
     private ArrayList<SingleUseCard> askForEffectCards() {
         final ArrayList<SingleUseCard> result = new ArrayList<>();
         for(final Player player : this.game.getPlayers()) {
-
             // Selects only cards which are able to affect the monster
-            final ArrayList<SingleUseCard> validCards = new ArrayList<>();
-            for(final Card card : player.getHand()) {
-                if(card instanceof SingleUseCard && ((SingleUseCard)card).getTargetMode() == CardTargetMode.MONSTER_OR_PLAYER) {
-                    validCards.add((SingleUseCard) card);
-                }
-            }
-
+            final ArrayList<SingleUseCard> validCards = this.getValidBuffCards(player);
+            
             if(validCards.size() != 0) {
                 final int answer = JOptionPane.showOptionDialog(null, player.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
                 System.out.println(answer);
                 if(answer >= 0) {
                     final SingleUseCard chosenCard = validCards.get(answer);
+                    if(player.equals(this.game.getCurrentPlayer())) {
+                        this.game.getCurrentPlayer().buff(chosenCard.getBuff());
+                    }
                     result.add(chosenCard);
                     player.getHand().remove(chosenCard);
                 }
                 System.out.println("Cards to help the monster : " + result);
             }
+            
         }
         return result;
+    }
+
+    /**
+     * 
+     * @param player
+     * @return
+     */
+    private ArrayList<SingleUseCard> getValidBuffCards(Player player) {
+        final ArrayList<SingleUseCard> validCards = new ArrayList<>();
+        for(final Card card : player.getHand()) {
+            if(card instanceof SingleUseCard && ((SingleUseCard)card).getTargetMode() == CardTargetMode.MONSTER_OR_PLAYER) {
+                validCards.add((SingleUseCard) card);
+            }
+        }
+        return validCards;
     }
 
     // private void drawFromTreasureStack() {
@@ -318,7 +331,6 @@ public final class App extends GameWindow {
         super.repaint();
     }
 
-    //TODO Faire en sorte que le joueur puisse annuler l'action
     /**
      * When the player plays a card that targets some other player,
      * this method is called and creates a popup window asking which player the current player wants to target

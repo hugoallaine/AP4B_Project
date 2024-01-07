@@ -2,7 +2,6 @@ package src.jeu.Cards;
 
 import src.jeu.Player;
 
-import src.jeu.*;
 
 public class MonsterPassives {
     public static final int weak_Japanese = 1;

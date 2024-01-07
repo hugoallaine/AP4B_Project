@@ -20,6 +20,7 @@ public class Player {
     private Languages lang;
     private boolean hasDrawn;
     private int dodge = 4;
+    private int buffs;
     
     
     
@@ -31,6 +32,7 @@ public class Player {
         this.gameClass = null;
         this.lang = null;
         this.hasDrawn = false;
+        this.buffs = 0;
     }
     
     public String getName() {
@@ -55,6 +57,14 @@ public class Player {
 
     public void levelUp(int i) {
         this.level += i;
+    }
+
+    public void buff(int buff) {
+        this.buffs += buff;
+    }
+
+    public void resetBuff() {
+        this.buffs = 0;
     }
 
     public void addCard(Card card){

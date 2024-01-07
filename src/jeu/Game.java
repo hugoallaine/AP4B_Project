@@ -132,7 +132,7 @@ public final class Game {
                     break;
                 case SINGLE_USE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), 15, CardTargetMode.MONSTER_OR_PLAYER, EffectsDefinitions.LEVEL_DOWN));
+                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.MONSTER_OR_PLAYER, EffectsDefinitions.LEVEL_DOWN));
                     }
                     break;
                 case STUFF_CARD:
@@ -152,7 +152,6 @@ public final class Game {
                     break;
                 case CURSE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        //TODO, les cartes malédiction peuvent cibler que nous ?
                         this.addCard(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), card[5]));
                     }
                     break;
