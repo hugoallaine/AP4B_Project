@@ -4,23 +4,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import src.gui.GameWindow;
 import src.gui.MKMenu;
 
 public class EndMenu extends MKMenu {
 
-    private static final int LAYOUT_GAP = 5;
+    private static final int LAYOUT_GAP = 20;
 
     private final JPanel mainPanel;
-    private final JTextField winnerText;
+    private final JLabel winnerText;
     private final JTextArea textArea;
     private final JPanel box;
 
@@ -30,32 +31,32 @@ public class EndMenu extends MKMenu {
         this.mainPanel.setBackground(Color.BLACK);
 
         this.textArea = new JTextArea();
-        this.textArea.setBackground(MainMenu.TRANSPARENT);
+        this.textArea.setBackground(MKMenu.BACKGROUND_COLOR);
         this.textArea.setFont(GameWindow.DEFAULT_FONT);
         this.textArea.setForeground(Color.WHITE);
         this.textArea.setEditable(false);
-        this.textArea.setFocusable(false);
+        // this.textArea.setFocusable(false);
 
-        this.winnerText = new JTextField();
+        this.winnerText = new JLabel();
         this.winnerText.setFont(MKMenu.TITLE_FONT);
         this.winnerText.setForeground(Color.WHITE);
         this.winnerText.setBackground(MKMenu.BACKGROUND_COLOR);
         this.winnerText.setBorder(BorderFactory.createEmptyBorder());
+        this.winnerText.setHorizontalAlignment(SwingConstants.CENTER);
 
         this.box = new JPanel();
         this.box.setBackground(MKMenu.BACKGROUND_COLOR);
         this.box.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-        this.box.setPreferredSize(new Dimension(1200, 900));
         this.box.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(LAYOUT_GAP, LAYOUT_GAP, LAYOUT_GAP, LAYOUT_GAP);
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridheight = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0f;
+        gbc.weighty = 1.0f;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         this.box.add(winnerText, gbc);
+        gbc.gridy++;
         this.box.add(textArea, gbc);
         this.mainPanel.add(box, gbc);
         this.hide();

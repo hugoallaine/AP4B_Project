@@ -13,18 +13,15 @@ public class Player {
     private int level;
     private final String name;
 
-    public String getName() {
-        return this.name;
-    }
     private final ArrayList<Card> hand;
     private final HashMap<EquipementSlot, StuffCard> stuff;
     private GameClasses gameClass;
     private Languages lang;
     private boolean hasDrawn;
     private int dodge = 4;
-
-
-
+    
+    
+    
     public Player(String name) {
         this.level = 1;
         this.name = name;
@@ -34,7 +31,15 @@ public class Player {
         this.lang = null;
         this.hasDrawn = false;
     }
+    
+    public String getName() {
+        return this.name;
+    }
 
+    public Languages getLanguage() {
+        return this.lang;
+    }
+    
     public int getPower() {
         return this.level+this.getStuffPower();
     }

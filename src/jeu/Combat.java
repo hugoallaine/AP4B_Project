@@ -3,6 +3,7 @@ package src.jeu;
 import java.util.NoSuchElementException;
 
 import src.jeu.Cards.MonsterCard;
+import src.jeu.Cards.MonsterPassives;
 
 public class Combat {
     private final Player mainPlayer;
@@ -13,6 +14,7 @@ public class Combat {
         this.mainPlayer = mainPlayer;
         this.mob = mob;
         this.game = game;
+        MonsterPassives.applyPassive(mob, mainPlayer);
     }
 
     public void changeMonsterStats(int powerBuff) {

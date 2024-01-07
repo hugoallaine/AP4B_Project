@@ -44,7 +44,7 @@ public final class App extends GameWindow {
         super.mainMenu.textField.setText("");
         try{
             this.game.addPlayer(text);
-            super.mainMenu.textArea.setText("Current players :\n" + game.getPlayerString());
+            super.mainMenu.updateTextArea("Current players :\n" + game.getPlayerString());
             if(this.game.getPlayerNum() == Game.MIN_PLAYER_NUM){
                 super.mainMenu.startGameButton.addActionListener(e -> this.startGame());
                 super.mainMenu.startGameButton.setEnabled(true);
@@ -154,10 +154,10 @@ public final class App extends GameWindow {
     }
 
     private void discardSelectedCard() {
-        final Card card = this.selectedCardButton.getCard();
-        if (card == null) {
+        if(this.selectedCardButton == null) {
             return;
         }
+        final Card card = this.selectedCardButton.getCard();
         this.game.discard(card);
     }
 
@@ -213,8 +213,8 @@ public final class App extends GameWindow {
      * TODO: pour le moment on peut juste prendre une carte par joueur et on ne peut pas cibler le monstre ou le joueur (peut etre faire en sorte que on peut juste cibler le monstre)
      * @return
      */
-    private ArrayList<Card> askForEffectCards() {
-        final ArrayList<Card> result = new ArrayList<>();
+    private ArrayList<SingleUseCard> askForEffectCards() {
+        final ArrayList<SingleUseCard> result = new ArrayList<>();
         for(final Player player : this.game.getPlayers()) {
 
             // Selects only cards which are able to affect the monster
@@ -224,13 +224,12 @@ public final class App extends GameWindow {
                     validCards.add((SingleUseCard) card);
                 }
             }
-            System.out.println(validCards);
 
             if(validCards.size() != 0) {
                 final int answer = JOptionPane.showOptionDialog(null, player.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
-                if(answer > 0) {
+                System.out.println(answer);
+                if(answer >= 0) {
                     final SingleUseCard chosenCard = validCards.get(answer);
-                    System.out.println(chosenCard);
                     result.add(chosenCard);
                     player.getHand().remove(chosenCard);
                 }
@@ -351,7 +350,7 @@ public final class App extends GameWindow {
     }
 
     private void fightCombat(MonsterCard monster) {
-        final ArrayList<Card> effectCards = this.askForEffectCards();
+        final ArrayList<SingleUseCard> effectCards = this.askForEffectCards();
         final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) monster, effectCards);
         
         final boolean playerWon = c.fight();

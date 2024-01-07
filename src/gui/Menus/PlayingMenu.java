@@ -42,7 +42,7 @@ public final class PlayingMenu extends MKMenu {
         this.playerName.setFont(new Font(null, Font.PLAIN, 36));
 
         this.playerInfo = new JTextArea();
-        this.playerInfo.setBackground(MainMenu.TRANSPARENT);
+        this.playerInfo.setBackground(PLAYING_MENU_BKG);
         this.playerInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.playerInfo.setFont(GameWindow.DEFAULT_FONT);
         this.playerInfo.setEditable(false);
@@ -53,11 +53,11 @@ public final class PlayingMenu extends MKMenu {
         cardLayout.setHgap(LAYOUT_GAP);
         cardLayout.setVgap(LAYOUT_GAP);
         this.cardsPanel.setLayout(cardLayout);
-        this.cardsPanel.setBackground(MKMenu.TRANSPARENT);
+        this.cardsPanel.setBackground(PLAYING_MENU_BKG);
     
         JPanel actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(new GridLayout(1,0));
-        actionButtonsPanel.setBackground(MKMenu.TRANSPARENT);
+        actionButtonsPanel.setBackground(PLAYING_MENU_BKG);
         ((GridLayout)actionButtonsPanel.getLayout()).setHgap(LAYOUT_GAP);
 
         this.nextPlayerButton = new MKButton("Next Player");

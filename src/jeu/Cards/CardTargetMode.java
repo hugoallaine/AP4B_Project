@@ -8,7 +8,7 @@ public enum CardTargetMode {
     MONSTER_OR_PLAYER,;
 
 
-    public static CardTargetMode getTargeTModeFromString(final String tMode) {
+    public static CardTargetMode getTargetModeFromString(final String tMode) {
         for(CardTargetMode c : CardTargetMode.values()){
             if(c.name().equals(tMode)){
                 return c;

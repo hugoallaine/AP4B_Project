@@ -56,7 +56,7 @@ public final class MainMenu extends MKMenu {
         this.textArea.setFont(GameWindow.DEFAULT_FONT);
         this.textArea.setBackground(Color.GRAY);
         this.textArea.setForeground(Color.WHITE);
-        this.textArea.setRows(4);
+        this.textArea.setRows(3);
         // textArea.setPreferredSize(new Dimension(400, 200));
 
         this.addPlayerButton = new MKButton("Add player");
@@ -75,17 +75,21 @@ public final class MainMenu extends MKMenu {
         gbc.gridy++;
         gbc.insets = new Insets(5, 40, 5, 40);
         mainPanel.add(textField, gbc);
-        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridy++;
-        gbc.gridwidth = 2;
         mainPanel.add(textArea, gbc);
         gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridwidth = 1;
         gbc.gridy++;
-        gbc.gridwidth = 1;
         mainPanel.add(startGameButton, gbc);
         gbc.gridx++;
         mainPanel.add(addPlayerButton, gbc);
+    }
+
+    public void updateTextArea(String text) {
+        final int lines = text.split("\n").length;
+        this.textArea.setRows(lines);
+        this.textArea.setText(text);
     }
 
     @Override

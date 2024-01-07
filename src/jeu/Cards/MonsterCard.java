@@ -9,18 +9,17 @@ public final class MonsterCard extends EventCard {
     private final int treasure_amount;
     private final int xp;
     private int buffs;
-    private int id_passif;
-    private int id_incident;
+    private int passiveID;
 
-    public MonsterCard(String name, String desc , int strength, int treasure, int xp, int id_passif, int id_incident){
-        super(name, desc, CardTargetMode.SELF);
+    public MonsterCard(String name, String desc , int strength, int treasure, int xp, int passiveID, int onDeathEffectID){
+        super(name, desc + "(base strength :" + strength + ")", CardTargetMode.SELF);
         assert strength > 0 && treasure > 0 && xp > 0;
         this.strength = strength;
         this.treasure_amount = treasure;
         this.xp = xp;
-        this.id_passif = id_passif;
+        this.passiveID = passiveID;
         this.buffs = 0;
-        this.effect = EffectsDefinitions.getEffectFunctionFromID(id_incident);
+        this.effect = EffectsDefinitions.getEffectFunctionFromID(onDeathEffectID);
     }
 
     public int getStrength() {
@@ -45,5 +44,9 @@ public final class MonsterCard extends EventCard {
     @Override
     public void applyEffect(Player target) {
         this.effect.effect(target);
+    }
+
+    public int getPassive() {
+        return this.passiveID;
     }
 }

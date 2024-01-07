@@ -132,7 +132,7 @@ public final class Game {
                     break;
                 case SINGLE_USE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), 15, CardTargetMode.OTHER_PLAYER, EffectsDefinitions.LEVEL_DOWN));
+                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), 15, CardTargetMode.MONSTER_OR_PLAYER, EffectsDefinitions.LEVEL_DOWN));
                     }
                     break;
                 case STUFF_CARD:
@@ -153,7 +153,7 @@ public final class Game {
                 case CURSE_CARD:
                     for (int i = 0; i < cardCount; i++) {
                         //TODO, les cartes malédiction peuvent cibler que nous ?
-                        this.addCard(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), CardTargetMode.SELF));
+                        this.addCard(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), card[5]));
                     }
                     break;
                 default:
@@ -275,13 +275,13 @@ public final class Game {
         }
     }
 
-    public Combat startCombat(Player player, MonsterCard monster, List<Card> effectCards) {
+    public Combat startCombat(Player player, MonsterCard monster, List<SingleUseCard> effectCards) {
         final Combat combat = new Combat(this.currentPlayer, monster, this);
-        System.out.println(combat.gMonsterCard().getStrength());
-        for (final Card card : effectCards) {
-            combat.changeMonsterStats(1);
+        System.out.println("Strength before buff :" + combat.gMonsterCard().getStrength());
+        for (final SingleUseCard card : effectCards) {
+            combat.changeMonsterStats(card.getBuff());
         }
-        System.out.println(combat.gMonsterCard().getStrength());
+        System.out.println("Strength after buff :" + combat.gMonsterCard().getStrength());
         return combat;
     }
     

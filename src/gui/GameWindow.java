@@ -54,8 +54,6 @@ public class GameWindow extends JFrame{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
         if(menu instanceof PlayingMenu){
             gbc.fill= GridBagConstraints.BOTH;
         }
@@ -72,7 +70,7 @@ public class GameWindow extends JFrame{
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }catch (UnsupportedLookAndFeelException ex){
-            System.out.println("[WARNING] Defaulting to Cross Platform Look and Feel");
+            System.err.println("[WARNING] Defaulting to Cross Platform Look and Feel");
             try {
                 UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             }catch (Exception ex1){
