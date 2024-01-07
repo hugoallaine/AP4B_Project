@@ -49,4 +49,8 @@ public final class MonsterCard extends EventCard {
     public int getPassive() {
         return this.passiveID;
     }
+
+    public void resetBuffs() {
+        this.buffs = 0;
+    }
 }
