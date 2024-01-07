@@ -136,9 +136,9 @@ public final class App extends GameWindow {
         Player player;
         if((player = this.game.isGameFinsihed()) != null) {
             super.playingMenu.hide();
-            super.endMenu.show();
             this.revalidate();
-            super.endMenu.setText("The game is finished, " + player.getName() + " won\n" + this.getGameStateString());
+            super.endMenu.show();
+            super.endMenu.setText(player.getName(), this.getGameStateString());
             return;
         }
         try {

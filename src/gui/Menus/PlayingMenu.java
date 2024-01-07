@@ -132,12 +132,24 @@ public final class PlayingMenu extends MKMenu {
     public void hide() {
         this.mainPanel.setVisible(false);
         this.cardButtons.forEach(button -> button.setVisible(false));
+        this.nextPlayerButton.MKHide();
+        this.playCardButton.MKHide();
+        this.cardsPanel.setVisible(false);
+        this.actionButton.setVisible(false);
+        this.playerInfo.setVisible(false);
+        this.playerName.setVisible(false);
     }
 
     @Override
     public void show() {
         this.mainPanel.setVisible(true);
         this.cardButtons.forEach(button -> button.setVisible(true));
+        this.nextPlayerButton.MKShow();
+        this.playCardButton.MKShow();
+        this.cardsPanel.setVisible(true);
+        this.actionButton.setVisible(true);
+        this.playerInfo.setVisible(true);
+        this.playerName.setVisible(true);
     }
 
     public void updatePlayerInfoDisplay(String playerInfoString) {

@@ -92,6 +92,7 @@ public final class Game {
         this.treasureCards.shuffle();
         this.distributeCards();
         this.currentPlayer = this.players.get(this.random.nextInt(this.getPlayerNum()));
+        this.currentPlayer.levelUp(9);
     }
 
 

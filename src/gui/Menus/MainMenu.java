@@ -28,40 +28,40 @@ public final class MainMenu extends MKMenu {
     
 
     public MainMenu(){
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new GridBagLayout());
-        mainPanel.setBackground(MKMenu.BACKGROUND_COLOR);
+        this.mainPanel = new JPanel();
+        this.mainPanel.setLayout(new GridBagLayout());
+        this.mainPanel.setBackground(MKMenu.BACKGROUND_COLOR);
         // mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        mainPanel.setPreferredSize(new Dimension(900, 600));
-        mainPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        this.mainPanel.setPreferredSize(new Dimension(900, 600));
+        this.mainPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 
-        mainLabel = new JLabel("Enter your name");
-        mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        mainLabel.setFont(new Font(null, Font.BOLD, 36));
-        mainLabel.setForeground(Color.WHITE);
+        this.mainLabel = new JLabel("Enter your name");
+        this.mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        this.mainLabel.setFont(MKMenu.TITLE_FONT);
+        this.mainLabel.setForeground(Color.WHITE);
 
-        textField = new JTextField();
-        textField.setToolTipText(" Name input ");
-        textField.setFont(GameWindow.DEFAULT_FONT);
-        textField.setColumns(20);
-        textField.setPreferredSize(new Dimension(this.mainPanel.getWidth(),50));
-        textField.setForeground(Color.WHITE);
-        textField.setBackground(Color.GRAY);
-        textField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.textField = new JTextField();
+        this.textField.setToolTipText(" Name input ");
+        this.textField.setFont(GameWindow.DEFAULT_FONT);
+        this.textField.setColumns(20);
+        this.textField.setPreferredSize(new Dimension(this.mainPanel.getWidth(),50));
+        this.textField.setForeground(Color.WHITE);
+        this.textField.setBackground(Color.GRAY);
+        this.textField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setFocusable(false);
-        textArea.setMargin(new Insets(10, 10, 10, 10));
-        textArea.setFont(GameWindow.DEFAULT_FONT);
-        textArea.setBackground(Color.GRAY);
-        textArea.setForeground(Color.WHITE);
-        textArea.setRows(4);
+        this.textArea = new JTextArea();
+        this.textArea.setEditable(false);
+        this.textArea.setFocusable(false);
+        this.textArea.setMargin(new Insets(10, 10, 10, 10));
+        this.textArea.setFont(GameWindow.DEFAULT_FONT);
+        this.textArea.setBackground(Color.GRAY);
+        this.textArea.setForeground(Color.WHITE);
+        this.textArea.setRows(4);
         // textArea.setPreferredSize(new Dimension(400, 200));
 
-        addPlayerButton = new MKButton("Add player");
-        startGameButton = new MKButton("Start game");
-        startGameButton.setEnabled(false);
+        this.addPlayerButton = new MKButton("Add player");
+        this.startGameButton = new MKButton("Start game");
+        this.startGameButton.setEnabled(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1.0f;

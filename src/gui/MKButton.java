@@ -20,12 +20,10 @@ public class MKButton extends JButton implements EasyBkgImg{
     }
 
     public void MKShow(){
-        this.setEnabled(true);
         this.setVisible(true);
     }
 
     public void MKHide(){
-        this.setEnabled(false);
         this.setVisible(false);
     }
 

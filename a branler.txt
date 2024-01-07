@@ -8,13 +8,13 @@ verifier la triche(verifier membre)
 joueur des carte avant le combat
 adaption de la fonction du bouton action
 (aide a voir flemme)
-ecran de victoire
+ecran de victoire (en cours)
 check victoire OK nomalement(fait)
 image de carte
 fichier des carte
 affichage classe(fait)
 affichage des race (fait)
-adaptation de la taille du texte
-afficher les joueur simmultanement
+adaptation de la taille du texte (ozef)
+afficher les joueur simmultanement (ozef/ a voir)
 discard(fait en partie car si plusieur joueur plus bas niveau donne au premier rencontrer)
 

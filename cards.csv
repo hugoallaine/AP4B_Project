@@ -5,7 +5,10 @@ TYPE;NUM;NAME;DESCRIPTION;_CUSTOM FOR EACH CARD_
 1;5;SY40;Un devoir difficile en mathématiques;15;1;1;1;1
 1;5;RA4;Un devoir difficile en mathématiques;15;1;1;1;1
 10;5;UV trop facile;une UV trop simple;1;15
-20;5;un stylo;ca ecrit;5;0;WAEPON;200
+20;5;un stylo;ca ecrit;5;0;WEAPON;200
+20;5;feuille;basique;3;0;WEAPON
+20;5;feuille oxford;la feuille mais en mieux;5;0;WEAPON
+20;5;Ordinateur portable;toujours utile;10;0;HELMET
 30;5;INFO;il pu
 30;5;EDIM;il sont loin
 30;5;IMSI;il est de droite
