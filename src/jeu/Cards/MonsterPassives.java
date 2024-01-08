@@ -21,62 +21,62 @@ public class MonsterPassives {
     public static final int strong_Italian = 12;
 
     public static void weak_Japanese(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.JAPANESE){
+        if (target.getLanguage() == Languages.JAPONAIS){
             monster.buff(-5);
         }
     }
     public static void strong_Japanese(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.JAPANESE){
+        if (target.getLanguage() == Languages.JAPONAIS){
             monster.buff(+5);
         }
     }
     public static void weak_English(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.ENGLISH){
+        if (target.getLanguage() == Languages.ANGLAIS){
             monster.buff(-5);
         }
     }
     public static void strong_English(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.ENGLISH){
+        if (target.getLanguage() == Languages.ANGLAIS){
             monster.buff(+5);
         }
     }
     public static void weak_Spanish(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.SPANISH){
+        if (target.getLanguage() == Languages.ESPAGNOL){
             monster.buff(-5);
         }
     }
     public static void strong_Spanish(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.SPANISH){
+        if (target.getLanguage() == Languages.ESPAGNOL){
             monster.buff(+5);
         }
     }
     public static void weak_Chinese(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.CHINESE){
+        if (target.getLanguage() == Languages.CHINOIS){
             monster.buff(-5);
         }
     }
     public static void strong_Chinese(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.CHINESE){
+        if (target.getLanguage() == Languages.CHINOIS){
             monster.buff(+5);
         }
     }
     public static void weak_German(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.GERMAN){
+        if (target.getLanguage() == Languages.ALLEMAND){
             monster.buff(-5);
         }
     }
     public static void strong_German(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.GERMAN){
+        if (target.getLanguage() == Languages.ALLEMAND){
             monster.buff(+5);
         }
     }
     public static void weak_Italian(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.ITALIAN){
+        if (target.getLanguage() == Languages.ITALIEN){
             monster.buff(-5);
         }
     }
     public static void strong_Italian(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.ITALIAN){
+        if (target.getLanguage() == Languages.ITALIEN){
             monster.buff(+5);
         }
     }

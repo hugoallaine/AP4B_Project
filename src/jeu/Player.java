@@ -132,7 +132,7 @@ public class Player {
         final String classString = this.gameClass == null ? "Aucune" : this.gameClass.toString();
         final String langString = this.lang == null ? "Aucune" : this.lang.toString();
         StringBuilder output = new StringBuilder();
-        output.append("Niveau : ").append(level).append("\n")
+        output.append("Niveau : ").append(level).append(" ".repeat(5)).append("Puissance : ").append(getPower()).append("\n")
               .append("Spécialisation : ").append(classString).append("\n")
               .append("Langue : ").append(langString).append("\n");
         output.append("Équipement : ");
