@@ -1,27 +1,32 @@
-1;5;IT4;tu a le niveau cp felicitation;15;1;1;1;1
-1;5;AP4;Tu sais faire des objet pour ta chambre;15;1;1;1;1
-1;5;IA41;Tu sais maintenant faire un truc plus intelligent que toi wp;15;1;1;1;1
-1;5;SY40;Tu sais maintenant ranger ta chambre tout en faisant des gauffre;15;1;1;1;1
-1;5;REA4;Un défi corsé de réseau;15;1;1;1;1
-10;5;UV trop facile;Validez une UV très simple pour gagner des niveaux;1;15
-20;5;Un stylo;Un stylo qui écrit et peut être utilisé comme arme;5;0;WEAPON;200
-20;5;Feuille;Une feuille de base utilisable comme arme;3;0;WEAPON
-20;5;Feuille Oxford;Une feuille de qualité supérieure, utilisable comme arme;5;0;WEAPON
-20;5;Une regle de 27 cm;elle a surement du etre casser;3;0;WEAPON
-20;5;siege a roulette;permet de ce deplacer;10;0;LEGS
-20;5;Citrouille;Un équipement utile et peut servir de casque;10;0;HELMET
-20;5;Ordinateur portable;peut servir de casque pour une raison que l'on ignore;10;0;HELMET
+1;5;IT4;Tu as le niveau cp felicitation;5;2;1;1;1
+1;5;AP4;Tu sais faire des objet pour ta chambre;10;4;1;1;1
+1;2;IA41;Tu sais maintenant faire un truc plus intelligent que toi wp;15;5;1;1;1
+1;5;SY40;Tu sais maintenant ranger ta chambre tout en faisant des gauffre;5;2;1;1;1
+1;3;REA4;Un défi corsé de réseau;15;5;1;1;1
+1;5;LC02;Une UV de langue relativement simple et relaxée;5;2;1;7;1
+10;5;UV trop facile;Validez une UV très simple pour gagner des niveaux;5;MONSTER_OR_PLAYER
+10;5;Révisions;C'est plus facile quand on sait ce qui se passe;5;SELF
+20;5;Un stylo;Un stylo qui écrit et peut être utilisé comme arme;3;WEAPON;
+20;5;Feuille;Une feuille de base utilisable comme armure;3;TORSO
+20;5;Feuille Oxford;Une feuille de qualité supérieure, utilisable comme armure;5;TORSO
+20;5;Une regle de 27 cm;elle a surement du être cassée;3;WEAPON
+20;5;Siege à roulettes;permet de ce deplacer;10;LEGS
+20;5;Vélo;Ecologique et rapide;5;LEGS
+20;5;Citrouille;Un équipement utile et peut servir de casque;5;HELMET
+20;5;Ordinateur portable;peut servir de casque pour une raison que l'on ignore;7;HELMET
 30;5;INFO;Cours d'informatique;Plongez dans le monde des algorithmes et des langages de programmation, même si ça sent un peu
 30;5;EDIM;Cours d'électronique et informatique de la mesure;Explorez l'univers de l'électronique et de la mesure, même s'ils sont un peu loin
 30;5;IMSI;Cours d'ingénierie des médias et des systèmes d'information;Découvrez les secrets de la production 
 30;5;ENERGY;Cours sur les énergies renouvelables;Apprenez les principes des énergies 
 30;5;GMC;Cours de génie des matériaux et composites;Plongez dans le génie des matériaux et des composites et des truc qui tombe
-40;5;JAPANESE;Cours de japonais;BAKA d'OTAKU, apprenez les subtilités de la langue japonaise avec des enseignements culturels
-40;5;ENGLISH;Cours d'anglais;Cuisine mal, perfectionnez vos compétences linguistiques et culturelles en anglais
-40;5;SPANISH;Cours d'espagnol;Il fait chaud, explorez la beauté de la langue espagnole à travers des activités interactives
-40;5;CHINESE;Cours de chinois;Découvrez les subtilités de la langue chinoise avec des méthodes d'apprentissage dynamiques et apprenez a jouer au Mahjong
-40;5;GERMAN;Cours d'allemand;Plongez-vous dans la langue allemande et découvrez la culture germanique ainsi que de la charcuterie
-40;5;ITALIAN;Cours d'italien;PASTA, savourez la sonorité de l'italien tout en explorant la cuisine et l'art italiens
-50;5;Panne de réveil;Pas de chance vous avez louper votre UV;1;SELF
-50;5;TC 6;Pas de branche pour toi;3;SELF
-50;5;Consolled;Pas de langue pour toi;4;SELF
+40;5;JAPONAIS;Cours de japonais. BAKA d'OTAKU, apprenez les subtilités de la langue japonaise avec des enseignements culturels
+40;5;ANGLAIS;Cours d'anglais. Cuisine mal, perfectionnez vos compétences linguistiques et culturelles en anglais
+40;5;ESPAGNOL;Cours d'espagnol. Il fait chaud, explorez la beauté de la langue espagnole à travers des activités interactives
+40;5;CHINOIS;Cours de chinois. Découvrez les subtilités de la langue chinoise avec des méthodes d'apprentissage dynamiques et apprenez a jouer au Mahjong
+40;5;ALLEMAND;Cours d'allemand. Plongez-vous dans la langue allemande et découvrez la culture germanique ainsi que de la charcuterie
+40;5;ITALIEN;Cours d'italien. PASTA, savourez la sonorité de l'italien tout en explorant la cuisine et l'art italien
+50;5;Panne de réveil;Pas de chance vous avez loupé votre UV (Perds un niveau);1;ANYONE
+50;5;TC 6;Pas de branche pour toi (Retire la spécialisation);3;ANYONE
+50;5;Consolled;Pas de langue pour toi (Retire la langue);4;ANYONE
+50;5;Compliquations du projet;Qui fait le malin tombe dans le ravin (tout le monde perd un niveau);1;EVERYONE
+50;5;Date de rendu expirée;Un peu d'efforts quand même (Retire un équipement aléatoire);5;ANYONE

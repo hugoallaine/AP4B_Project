@@ -55,8 +55,9 @@ public class Combat {
         System.out.println("Player str: " + mainPlayer.getPower());
         System.out.println("Monster str: " + mob.getStrength());
         if(mob.getStrength() <= mainPlayer.getPower()) {
-            mainPlayer.levelUp(mob.getXP());
+            this.mainPlayer.levelUp(this.mob.getXP());
             this.distributeTreasures();
+            this.mob.resetBuffs();
             return true;
         }
         mob.applyEffect(this.mainPlayer);

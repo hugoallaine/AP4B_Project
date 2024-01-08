@@ -31,7 +31,7 @@ public final class MonsterCard extends EventCard {
      * @param onDeathEffectID L'ID de l'effet de mort du monstre
      */
     public MonsterCard(String name, String desc , int strength, int treasure, int xp, int passiveID, int onDeathEffectID){
-        super(name, desc + "(base strength :" + strength + ")", CardTargetMode.SELF);
+        super(name, desc + " (Force de base :" + strength + ")", CardTargetMode.SELF);
         assert strength > 0 && treasure > 0 && xp > 0;
         this.strength = strength;
         this.treasure_amount = treasure;

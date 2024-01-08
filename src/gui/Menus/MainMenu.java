@@ -34,13 +34,12 @@ public final class MainMenu extends MKMenu {
         this.mainPanel.setPreferredSize(new Dimension(900, 600));
         this.mainPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 
-        this.mainLabel = new JLabel("Enter your name");
+        this.mainLabel = new JLabel("Entrez votre nom");
         this.mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.mainLabel.setFont(MKMenu.TITLE_FONT);
         this.mainLabel.setForeground(Color.WHITE);
 
         this.textField = new JTextField();
-        this.textField.setToolTipText(" Name input ");
         this.textField.setFont(GameWindow.DEFAULT_FONT);
         this.textField.setColumns(20);
         this.textField.setPreferredSize(new Dimension(this.mainPanel.getWidth(),50));
@@ -58,8 +57,8 @@ public final class MainMenu extends MKMenu {
         this.textArea.setRows(3);
         // textArea.setPreferredSize(new Dimension(400, 200));
 
-        this.addPlayerButton = new MKButton("Add player");
-        this.startGameButton = new MKButton("Start game");
+        this.addPlayerButton = new MKButton("Ajouter le joueur");
+        this.startGameButton = new MKButton("Commencer la partie");
         this.startGameButton.setEnabled(false);
 
         GridBagConstraints gbc = new GridBagConstraints();

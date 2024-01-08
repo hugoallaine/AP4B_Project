@@ -22,8 +22,8 @@ public final class StuffCard extends TreasureCard {
      * @param id_passif L'ID de la passive de l'équipement
      * @param equipementSlot L'emplacement de l'équipement
      */
-    public StuffCard(String name, String desc, int bonus, int id_passif, String equipementSlot) {
-        super(name, desc + "\n(+"+ bonus +" power)", CardTargetMode.SELF);
+    public StuffCard(String name, String desc, int bonus, String equipementSlot) {
+        super(name, desc + " (+"+ bonus +" puissance)", CardTargetMode.SELF);
         this.bonus = bonus;
         this.equipementSlot = EquipementSlot.getFromString(equipementSlot);
     }

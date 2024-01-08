@@ -12,7 +12,6 @@ public final class Game {
     private static final int MAX_PLAYER_NUM = 6;
     public static final int MIN_PLAYER_NUM = 3;
     public static final int MAX_CARD_IN_HAND = 5;
-    private static final int MAX_LEVEL = 10;
 
     private static final int MONSTER_CARD = 1;
     private static final int SINGLE_USE_CARD = 10;
@@ -110,7 +109,7 @@ public final class Game {
      */
     public Player isGameFinsihed() {
         for (final Player player : players) {
-            if (player.getLevel() >= MAX_LEVEL) {
+            if (player.getLevel() >= Player.MAX_LEVEL) {
                 return player;
             }
         }
@@ -132,12 +131,12 @@ public final class Game {
                     break;
                 case SINGLE_USE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), CardTargetMode.MONSTER_OR_PLAYER, EffectsDefinitions.LEVEL_DOWN));
+                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), card[5]));
                     }
                     break;
                 case STUFF_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6]));
+                        this.addCard(new StuffCard(card[2], card[3], Integer.parseInt(card[4]), card[5]));
                     }
                     break;
                 case CLASS_CARD:
@@ -173,7 +172,7 @@ public final class Game {
 
     /**
      * If the current player is able to change, we set the currentPlayer to be the next player in the list and set {@code hasDrawn}
-     * on the previous player to false
+     * on the previous player to false. Also makes sure that the player changing loses his buffs at the end of the turn
      *
      * @throws TooManyCardsInHandException
      * @throws PlayerMustDrawException
@@ -182,6 +181,7 @@ public final class Game {
         if (this.canFinishTurn()) {
             int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
             this.currentPlayer.setHasDrawn(false);
+            this.currentPlayer.resetBuffs();
             this.currentPlayer = this.players.get((currentPlayerIndex + 1) % this.players.size());
             
         }
@@ -241,7 +241,7 @@ public final class Game {
     }
 
     public Player playerlvmin(){
-        int lvmin = MAX_LEVEL;
+        int lvmin = Player.MAX_LEVEL;
         assert players.size() != 0;
         Player tempPlayer = null;
         for (Player player : players){

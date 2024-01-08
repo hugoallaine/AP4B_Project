@@ -30,39 +30,40 @@ public final class PlayingMenu extends MKMenu {
     private final JTextArea playerInfo;
     private final JLabel playerName;
     private static final int LAYOUT_GAP = 5;
-    private static final Color PLAYING_MENU_BKG = new Color(55, 125, 25);
 
     public PlayingMenu() {
         this.mainPanel = new JPanel();
-        this.mainPanel.setBackground(PLAYING_MENU_BKG);
+        this.mainPanel.setBackground(MKMenu.BACKGROUND_COLOR);
         this.mainPanel.setLayout(new GridBagLayout());
 
         this.playerName = new JLabel();
         this.playerName.setHorizontalAlignment(SwingConstants.CENTER);
         this.playerName.setFont(new Font(null, Font.PLAIN, 36));
+        this.playerName.setForeground(Color.WHITE);
 
         this.playerInfo = new JTextArea();
-        this.playerInfo.setBackground(PLAYING_MENU_BKG);
-        this.playerInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.playerInfo.setBackground(MKMenu.BACKGROUND_COLOR);
+        this.playerInfo.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         this.playerInfo.setFont(GameWindow.DEFAULT_FONT);
         this.playerInfo.setEditable(false);
         this.playerInfo.setRows(4);
+        this.playerInfo.setForeground(Color.WHITE);
 
         this.cardsPanel = new JPanel();
         GridLayout cardLayout = new GridLayout(1,0);
         cardLayout.setHgap(LAYOUT_GAP);
         cardLayout.setVgap(LAYOUT_GAP);
         this.cardsPanel.setLayout(cardLayout);
-        this.cardsPanel.setBackground(PLAYING_MENU_BKG);
+        this.cardsPanel.setBackground(MKMenu.BACKGROUND_COLOR);
     
         JPanel actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(new GridLayout(1,0));
-        actionButtonsPanel.setBackground(PLAYING_MENU_BKG);
+        actionButtonsPanel.setBackground(MKMenu.BACKGROUND_COLOR);
         ((GridLayout)actionButtonsPanel.getLayout()).setHgap(LAYOUT_GAP);
 
-        this.nextPlayerButton = new MKButton("Next Player");
+        this.nextPlayerButton = new MKButton("Joueur suivant");
 
-        this.playCardButton = new MKButton("Play card");
+        this.playCardButton = new MKButton("Jouer la catre");
 
         this.actionButton = new MKButton("ActionButton");
         

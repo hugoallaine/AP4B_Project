@@ -5,12 +5,12 @@ package src.jeu.Cards;
  * @details Les langues sont les suivantes : Japonais, Anglais, Espagnol, Chinois, Allemand, Italien
  */
 public enum Languages {
-    JAPANESE,
-    ENGLISH,
-    SPANISH,
-    CHINESE,
-    GERMAN,
-    ITALIAN;
+    JAPONAIS,
+    ANGLAIS,
+    ESPAGNOL,
+    CHINOIS,
+    ALLEMAND,
+    ITALIEN;
     
     @Override
     public String toString(){

@@ -11,7 +11,7 @@ package src.jeu.Cards;
  */
 public enum CardTargetMode {
     SELF,
-    OTHER_PLAYER,
+    ANYONE,
     EVERYONE,
     MONSTER_OR_PLAYER,;
 
