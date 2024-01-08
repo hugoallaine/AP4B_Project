@@ -2,7 +2,10 @@ package src.jeu.Cards;
 
 import src.jeu.Player;
 
-
+/**
+ * @brief Classe des passives des monstres
+ * @details Les passives des monstres sont des effets d'équilibrage qui sont appliqués à un monstre
+ */
 public class MonsterPassives {
     public static final int weak_Japanese = 1;
     public static final int strong_Japanese = 2;
@@ -23,7 +26,7 @@ public class MonsterPassives {
         }
     }
     public static void strong_Japanese(MonsterCard monster ,Player target){
-        if (target.getLanguage() == Languages.ENGLISH){
+        if (target.getLanguage() == Languages.JAPANESE){
             monster.buff(+5);
         }
     }
@@ -78,6 +81,11 @@ public class MonsterPassives {
         }
     }
 
+    /**
+     * @brief Applique le buff sur le monstre en fonction de la langue du joueur attaquant
+     * @param target Le monstre ciblé
+     * @param fighter Le joueur ciblé
+     */
     public static void applyPassive(MonsterCard target, Player fighter) {
         switch(target.getPassive()) {
             case weak_Japanese:
@@ -120,4 +128,3 @@ public class MonsterPassives {
     }
                 
 }
-

@@ -1,6 +1,11 @@
 package src.jeu;
+
 import src.jeu.Cards.*;
 
+/**
+ * @brief Classe de définition des effets
+ * @details Cette classe contient les effets qui peuvent être appliqués aux joueurs
+ */
 public class EffectsDefinitions {
     // IDs for effects
     public static final int LEVEL_DOWN = 1;
@@ -8,10 +13,18 @@ public class EffectsDefinitions {
     public static final int REMOVE_CLASS = 3;
     public static final int REMOVE_LANGUAGE = 4;
 
+    /**
+     * @brief Fonction qui fait perdre un niveau au joueur
+     * @param target Le joueur cible
+     */
     public static void levelDown(Player target) {
         target.levelUp(-1);
     }
 
+    /**
+     * @brief Fonction qui tue le joueur
+     * @param target Le joueur cible
+     */
     public static void killTarget(Player target){
         for (Card card : target.getHand()){
             target.removeCardFromHand(card);
@@ -22,15 +35,28 @@ public class EffectsDefinitions {
         });
     }
 
+    /**
+     * @brief Fonction qui retire la classe du joueur
+     * @param target Le joueur cible
+     */
     public static void removeClass(Player target) {
         target.setClass(null);
     }
 
+    /**
+     * @brief Fonction qui retire la langue du joueur
+     * @param target Le joueur cible
+     */
     public static void removeLanguage(Player target) {
         target.setLanguage(null);
         
     }
 
+    /**
+     * @brief Fonction qui retourne la fonction d'effet correspondant à l'ID
+     * @param ID L'ID de l'effet
+     * @return La fonction d'effet
+     */
     public static EffectFunction getEffectFunctionFromID(int ID) {
         switch(ID) {
             case LEVEL_DOWN: 
@@ -44,6 +70,5 @@ public class EffectsDefinitions {
             default:
                 return null;
         }
-    }
-    
+    } 
 }
