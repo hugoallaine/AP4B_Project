@@ -27,7 +27,6 @@ public final class Game {
     private static final int CLASS_CARD = 30;
     private static final int LANGUAGE_CARD = 40;
     private static final int CURSE_CARD = 50;
-    private static final int LEVEL_UP_CARD = 60;
 
     private final ArrayList<Player> players;
     private final CardStack<TreasureCard> treasureCards;
@@ -163,7 +162,7 @@ public final class Game {
                     break;
                 case SINGLE_USE_CARD:
                     for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), card[5]));
+                        this.addCard(new SingleUseCard(card[2], card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6]));
                     }
                     break;
                 case STUFF_CARD:
@@ -184,11 +183,6 @@ public final class Game {
                 case CURSE_CARD:
                     for (int i = 0; i < cardCount; i++) {
                         this.addCard(new CurseCard(card[2], card[3], Integer.parseInt(card[4]), card[5]));
-                    }
-                    break;
-                case LEVEL_UP_CARD:
-                    for (int i = 0; i < cardCount; i++) {
-                        this.addCard(new LevelUpCard(card[2], card[3]));
                     }
                     break;
                 default:

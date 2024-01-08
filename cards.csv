@@ -4,14 +4,15 @@
 1;5;SY40;Tu sais maintenant ranger ta chambre tout en faisant des gauffre;5;2;1;1;1
 1;3;REA4;Un défi corsé de réseau;15;5;1;1;1
 1;5;LC02;Une UV de langue relativement simple et relaxée;5;2;1;7;1
-10;5;UV trop facile;Validez une UV très simple pour gagner des niveaux;5;MONSTER_OR_PLAYER
-10;5;Révisions;C'est plus facile quand on sait ce qui se passe;5;SELF
-20;5;Un stylo;Un stylo qui écrit et peut être utilisé comme arme;3;WEAPON;
-20;5;Feuille;Une feuille de base utilisable comme armure;3;TORSO
-20;5;Feuille Oxford;Une feuille de qualité supérieure, utilisable comme armure;5;TORSO
-20;5;Une regle de 27 cm;elle a surement du être cassée;3;WEAPON
-20;5;Siege à roulettes;permet de ce deplacer;10;LEGS
-20;5;Vélo;Ecologique et rapide;5;LEGS
+10;5;UV trop facile;Validez une UV très simple pour gagner des niveaux;6;5;MONSTER_OR_PLAYER
+10;5;Révisions;C'est plus facile quand on sait ce qui se passe;6;5;SELF
+10;5;Pleurer dans les bras de Gyslain;Vous avez réussi à vous faire plaindre (Gagne un niveau);7;0;SELF
+20;5;Un stylo;Un stylo qui écrit et peut être utilisé comme arme (Emplacement : ARME);3;WEAPON;
+20;5;Feuille;Une feuille de base utilisable comme armure (Emplacement : TORSE);3;TORSO
+20;5;Feuille Oxford;Une feuille de qualité supérieure, utilisable comme armure (Emplacement : TORSE);5;TORSO
+20;5;Une regle de 27 cm;elle a surement du être cassée (Emplacement : ARME);3;WEAPON
+20;5;Siege à roulettes;permet de ce deplacer (Emplacement : JAMBES);10;LEGS
+20;5;Vélo;Ecologique et rapide (Emplacement : JAMBES);5;LEGS
 20;5;Citrouille;Un équipement utile et peut servir de casque;5;HELMET
 20;5;Ordinateur portable;peut servir de casque pour une raison que l'on ignore;7;HELMET
 30;5;INFO;Cours d'informatique;Plongez dans le monde des algorithmes et des langages de programmation, même si ça sent un peu
@@ -30,4 +31,3 @@
 50;5;Consolled;Pas de langue pour toi (Retire la langue);4;ANYONE
 50;5;Compliquations du projet;Qui fait le malin tombe dans le ravin (tout le monde perd un niveau);1;EVERYONE
 50;5;Date de rendu expirée;Un peu d'efforts quand même (Retire un équipement aléatoire);5;ANYONE
-60;5;Pleurer dans les bras de Gyslain;Vous avez réussi à vous faire plaindre (Gagne un niveau)

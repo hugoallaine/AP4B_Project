@@ -1,5 +1,6 @@
 package src.jeu.Cards;
 
+import src.jeu.EffectsDefinitions;
 import src.jeu.Player;
 
 /**
@@ -19,10 +20,13 @@ public final class SingleUseCard extends TreasureCard {
      * @param targetMode Le mode de ciblage de la carte
      * @param EffectID L'ID de l'effet de la carte
      */
-    public SingleUseCard(String name, String desc, int buff, String targetMode){
+    public SingleUseCard(String name, String desc, int effectID, int buff, String targetMode){
         super(name, desc +" (Augmente la force de la cible de : "+buff+")", CardTargetMode.getTargetModeFromString(targetMode));
-        this.buff = buff;
-        this.effect = ((Player target) -> target.buff(this.buff));
+        this.effect = EffectsDefinitions.getEffectFunctionFromID(effectID);
+        if (effectID == EffectsDefinitions.BUFF) {
+            this.buff = buff;
+            this.effect = ((Player target) -> target.buff(buff));
+        }
     }
 
     /**

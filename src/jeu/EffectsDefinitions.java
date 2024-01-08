@@ -13,6 +13,8 @@ public class EffectsDefinitions {
     public static final int REMOVE_CLASS = 3;
     public static final int REMOVE_LANGUAGE = 4;
     public static final int REMOVE_RANDOM_STUFF = 5;
+    public static final int BUFF = 6;
+    public static final int LEVEL_UP = 7;
 
     /**
      * @brief Fonction qui fait perdre un niveau au joueur
@@ -74,6 +76,10 @@ public class EffectsDefinitions {
                 return ((Player target) -> removeLanguage(target));
             case REMOVE_RANDOM_STUFF:
                 return ((Player target) -> removeRandomStuff(target));
+            case BUFF:
+                return null;
+            case LEVEL_UP:
+                return ((Player target) -> target.levelUp(1));
             default:
                 System.err.println("[ERROR] Invalid effect ID");
                 return null;
