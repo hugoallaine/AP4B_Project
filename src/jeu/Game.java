@@ -262,20 +262,32 @@ public final class Game {
     /**
      * @brief Pioche une carte dans la pile de cartes évènement
      * @return la carte piochée
-     * @throws NoSuchElementException Si la pile de cartes évènement est vide
      */
-    public EventCard drawFromEventStack() throws NoSuchElementException {
+    public EventCard drawFromEventStack() {
+        if(this.eventCards.isEmpty()) {
+            this.reshuffle();
+        }
         this.currentPlayer.setHasDrawn(true);
         final EventCard cardDrawn = this.eventCards.draw();
         return cardDrawn;
     }
 
+    private void reshuffle() {
+        for (final Object obj : this.discardPile) {
+            Card card = (Card) obj;
+            this.addCard(card);
+        }
+        this.eventCards.shuffle();
+    }
+
     /**
      * @brief Pioche une carte dans la pile de cartes trésor
      * @return la carte piochée
-     * @throws NoSuchElementException Si la pile de cartes trésor est vide
      */
-    public TreasureCard drawFromTreasureStack() throws NoSuchElementException {
+    public TreasureCard drawFromTreasureStack() {
+        if(this.treasureCards.isEmpty()) {
+            this.reshuffle();
+        }
         return this.treasureCards.draw();
     }
 

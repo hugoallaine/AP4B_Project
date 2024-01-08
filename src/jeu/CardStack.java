@@ -1,6 +1,7 @@
 package src.jeu;
 
 import java.util.ArrayDeque;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ import src.jeu.Cards.Card;
  * 
  * @param stack La pile de cartes
  */
-public class CardStack<T extends Card>{
+public class CardStack<T extends Card> implements Iterable{
     private final ArrayDeque<T> stack;
     
     /**
@@ -58,6 +59,15 @@ public class CardStack<T extends Card>{
         for (Card card : cards) {
             this.add((T) card);
         }   
+    }
+
+    public boolean isEmpty() {
+        return this.stack.isEmpty();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return this.stack.iterator();
     }
 
     /**
