@@ -2,6 +2,7 @@ package src.jeu.Cards;
 
 import java.util.ArrayList;
 
+import src.jeu.EffectsDefinitions;
 import src.jeu.Player;
 
 /**
@@ -17,8 +18,9 @@ public final class CurseCard extends EventCard {
      * @param id_effect Identifiant de l'effet de la carte
      * @param targetMode Mode de ciblage de la carte
      */
-    public CurseCard(String name, String description,int id_effect, String targetMode) {
+    public CurseCard(String name, String description, int id_effect, String targetMode) {
         super(name, description, CardTargetMode.getTargetModeFromString(targetMode));
+        this.effect = EffectsDefinitions.getEffectFunctionFromID(id_effect);
     }
 
     /**

@@ -44,22 +44,22 @@ public final class App extends GameWindow {
         super.mainMenu.textField.setText("");
         try{
             this.game.addPlayer(text);
-            super.mainMenu.updateTextArea("Current players :\n" + game.getPlayerString());
+            super.mainMenu.updateTextArea("Joueurs présents :\n" + game.getPlayerString());
             if(this.game.getPlayerNum() == Game.MIN_PLAYER_NUM){
                 super.mainMenu.startGameButton.addActionListener(e -> this.startGame());
                 super.mainMenu.startGameButton.setEnabled(true);
             }
         }
         catch(InvalidPlayerNameException invalidNameEx){
-            super.announce("The name you entered is invalid!");
+            super.announce("Le nom que vous avez entré est invalide!");
         }
         catch(SamePlayerException spex){
-            super.announce("Cannot add player: " + text + "\nThis name is already in use!");
+            super.announce("Ne peux pas ajouter : " + text + "\nCe nom est déjà utilisé!");
         }
         catch(TooManyPlayersException ex){
             super.mainMenu.addPlayerButton.removeActionListener(e -> this.nameInputHandler());
             super.mainMenu.addPlayerButton.setEnabled(false);
-            super.announce("Cannot add player: " + text + "\nThere already is 6 players!");
+            super.announce("Ne peux pas ajouter : " + text + "\nIl y a déjà 6 joueurs!");
         }
     }
 
@@ -75,11 +75,11 @@ public final class App extends GameWindow {
         this.update();
         super.playingMenu.getNextPlayerButton().addActionListener(e -> this.nextTurn());
         super.playingMenu.getPlayCardButton().addActionListener(e -> this.playSelectedCard());
-        this.updateActionButton("Draw from event stack", (e -> this.drawFromEventStack()));
+        this.updateActionButton("Piocher", (e -> this.drawFromEventStack()));
     }
 
     private void updateDisplay() {
-        super.playingMenu.setPlayerNameLabelText(this.game.getCurrentPlayer().getName() + "'s turn");
+        super.playingMenu.setPlayerNameLabelText("Tour de " + this.game.getCurrentPlayer().getName());
         super.playingMenu.clearCardButtons();
         super.playingMenu.updatePlayerInfoDisplay(this.game.getCurrentPlayer().getInfoString());
         final ArrayList<Card> currentPlayerHand = this.game.getCurrentPlayer().getHand();
@@ -143,14 +143,14 @@ public final class App extends GameWindow {
         }
         try {
             this.game.nextTurn();
-            this.updateActionButton("Draw from event stack", (e -> this.drawFromEventStack()));
+            this.updateActionButton("Piocher", (e -> this.drawFromEventStack()));
             this.playingMenu.clearCardButtons();
             super.playingMenu.getActionButton().setEnabled(true);
             this.update();
         } catch(TooManyCardsInHandException ex) {
-            super.announce("You have to give up cards to continue");
+            super.announce("Vous devez vous défausser pour continuer");
         } catch(PlayerMustDrawException ex) {
-            super.announce("You have to draw !");
+            super.announce("Vous devez piocher !");
         }
     }
 
@@ -172,20 +172,20 @@ public final class App extends GameWindow {
      */
     private void drawFromEventStack() {
         if(this.game.getCurrentPlayer().getHasDrawn()) {
-            super.announce("You have already drawn a card this turn");
+            super.announce("Vous avez déjà pioché");
             return;
         }
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
-            super.announce("You drew " + cardDrawn.getName());
-            this.updateActionButton("Discard", (e -> this.discardSelectedCard()));
+            super.announce("Vous avez pioché " + cardDrawn.getName());
+            this.updateActionButton("Défausse", (e -> this.discardSelectedCard()));
             if(cardDrawn instanceof CurseCard) {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
             }
 
             else if(cardDrawn instanceof MonsterCard) {
                 MonsterCard monster = ((MonsterCard) cardDrawn);
-                final int fightAnswer = JOptionPane.showConfirmDialog(null, "Do you want to fight " + monster.getName() + "?\nLevel : " + monster.getStrength(), "Test", JOptionPane.YES_NO_OPTION);
+                final int fightAnswer = JOptionPane.showConfirmDialog(null, "Voulez-vous combattre " + monster.getName() + "?\nNiveau : " + monster.getStrength(), "ça devient sérieux", JOptionPane.YES_NO_OPTION);
                 if(fightAnswer == JOptionPane.YES_OPTION) {
                     this.fightCombat((MonsterCard) cardDrawn);
                     return;
@@ -193,21 +193,21 @@ public final class App extends GameWindow {
                 else {
                     int diceResult = this.game.rollDice();
                     if(this.game.getCurrentPlayer().getDodge() < diceResult) {
-                        super.announce("You died !");
+                        super.announce("Vous avez perdu !");
                         return;
                     }
                 }
-                super.announce("You ran away !");
+                super.announce("Vous avez réussi à vous enfuir !");
                 return;
             }
             else {
                 this.game.getCurrentPlayer().addCard(cardDrawn);
             }
-            this.updateActionButton("Discard", (e -> this.discardSelectedCard()));
+            this.updateActionButton("Défausse", (e -> this.discardSelectedCard()));
             this.updateDisplay();
 
         }catch(NoSuchElementException ex) {
-            super.announce("Cannot draw from the event stack");
+            System.err.println("[ERROR] Empty stack");
         }
     }
 
@@ -223,19 +223,18 @@ public final class App extends GameWindow {
             final ArrayList<SingleUseCard> validCards = this.getValidBuffCards(player);
             
             if(validCards.size() != 0) {
-                final int answer = JOptionPane.showOptionDialog(null, player.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
-                System.out.println(answer);
+                final int answer = JOptionPane.showOptionDialog(null, player.getName() + " Choisissez une carte pour affecter le combat", "Vous voulez augmenter la difficulté", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
                 if(answer >= 0) {
                     final SingleUseCard chosenCard = validCards.get(answer);
                     if(player.equals(this.game.getCurrentPlayer())) {
                         this.game.getCurrentPlayer().buff(chosenCard.getBuff());
+                    }else {
+                        result.add(chosenCard);
                     }
-                    result.add(chosenCard);
                     player.getHand().remove(chosenCard);
+                    
                 }
-                System.out.println("Cards to help the monster : " + result);
             }
-            
         }
         return result;
     }
@@ -255,17 +254,8 @@ public final class App extends GameWindow {
         return validCards;
     }
 
-    // private void drawFromTreasureStack() {
-    //     try{
-    //         this.game.getCurrentPlayer().addCard(this.game.drawFromTreasureStack());
-    //         this.updateDisplay();
-    //     }catch(NoSuchElementException ex) {
-    //         super.announce("Cannot draw from the treasure card stack");
-    //     }
-    // }
-
     /**
-     * Plays the card that the player selected via the card button
+     * Joue la carte sélectionnée par le joueur
      */
     private void playSelectedCard(){
         if(this.selectedCardButton == null) {
@@ -286,7 +276,7 @@ public final class App extends GameWindow {
         if(selectedCard.getTargetMode() == CardTargetMode.SELF) {
             selectedCard.applyEffect(this.game.getCurrentPlayer());
         }
-        else if (selectedCard.getTargetMode() == CardTargetMode.OTHER_PLAYER) {
+        else if (selectedCard.getTargetMode() == CardTargetMode.ANYONE) {
             final Player target = this.askForTarget();
             if(target != null) {
                 selectedCard.applyEffect(target);
@@ -302,7 +292,7 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Selects a card button by outlining it in a white outline
+     * Entoure le bouton carte cliqué par le joueur par une bordure
      * @param cb
      */
     private void selectCardButton(final CardButton cb) {
@@ -317,7 +307,7 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Removes the white outline of the selected card button
+     * Enlève la bordure du bouton si il y en a une
      * @param cb
      */
     private void unselectCardButton(final CardButton cb) {
@@ -332,9 +322,8 @@ public final class App extends GameWindow {
     }
 
     /**
-     * When the player plays a card that targets some other player,
-     * this method is called and creates a popup window asking which player the current player wants to target
-     * @return the player chosen to be targeted
+     * Quand le joueur joue une carte qui doit cibler un joueur autre que lui même, ouvre une fenêtre popup pour demander la cible
+     * @return Le joueur choisi pour cible
      */
     private Player askForTarget() {
         final String[] playerNames =  this.playersToStringArray();
@@ -347,7 +336,7 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Get the players' names in a string array suitable to be displayed in a multiple choice option dialog
+     * Retourne les noms des joueurs dans une liste pour pouvoir les afficher dans les popups
      * @return
      */
     private String[] playersToStringArray() {
@@ -370,10 +359,10 @@ public final class App extends GameWindow {
         
         final boolean playerWon = c.fight();
         if(!playerWon) {
-            super.announce("You lost the fight!");
+            super.announce("Vous avez perdu le combat !");
             return;
         }
-        super.announce("You won, yay!");
+        super.announce("Vous avez gagné le combat !");
         this.updateDisplay();
         return;
     }

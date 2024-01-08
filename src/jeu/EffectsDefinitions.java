@@ -12,6 +12,7 @@ public class EffectsDefinitions {
     public static final int DEATH = 2;
     public static final int REMOVE_CLASS = 3;
     public static final int REMOVE_LANGUAGE = 4;
+    public static final int REMOVE_RANDOM_STUFF = 5;
 
     /**
      * @brief Fonction qui fait perdre un niveau au joueur
@@ -52,6 +53,10 @@ public class EffectsDefinitions {
         
     }
 
+    public static void removeRandomStuff(Player target) {
+        target.removeRandomStuff();
+    }
+
     /**
      * @brief Fonction qui retourne la fonction d'effet correspondant à l'ID
      * @param ID L'ID de l'effet
@@ -67,7 +72,10 @@ public class EffectsDefinitions {
                 return ((Player target) -> removeClass(target));
             case REMOVE_LANGUAGE:
                 return ((Player target) -> removeLanguage(target));
+            case REMOVE_RANDOM_STUFF:
+                return ((Player target) -> removeRandomStuff(target));
             default:
+                System.err.println("[ERROR] Invalid effect ID");
                 return null;
         }
     } 

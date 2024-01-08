@@ -24,6 +24,9 @@ import src.jeu.Cards.StuffCard;
  * @param buffs Buffs du joueur
  */
 public class Player {
+    public static final int MAX_LEVEL = 10;
+    public static final int MIN_LEVEL = 1;
+
     private int level;
     private final String name;
     private final ArrayList<Card> hand;
@@ -95,6 +98,11 @@ public class Player {
      */
     public void levelUp(int i) {
         this.level += i;
+        if(this.level > MAX_LEVEL) {
+            this.level = MAX_LEVEL;
+        }else if(this.level < MIN_LEVEL) {
+            this.level = MIN_LEVEL;
+        }
     }
 
     /**
@@ -108,7 +116,7 @@ public class Player {
     /**
      * @brief Réinitialise les buffs du joueur à 0
      */
-    public void resetBuff() {
+    public void resetBuffs() {
         this.buffs = 0;
     }
 
@@ -185,6 +193,17 @@ public class Player {
         return this.stuff;
     }
 
+    public void removeRandomStuff() {
+        if(this.stuff.isEmpty()) {
+            return;
+        }
+        EquipementSlot rand;
+        do{
+            rand = EquipementSlot.getRandom();
+        }while(this.stuff.containsKey(rand));
+        System.out.println(this.stuff.remove(rand));
+    }
+
     /**
      * @brief Getter de la puissance de l'équipement du joueur
      * @return Puissance de l'équipement du joueur
@@ -202,13 +221,13 @@ public class Player {
      * @return Chaine de caractère contenant les informations du joueur
      */
     public String getInfoString() {
-        final String classString = this.gameClass == null ? "None" : this.gameClass.toString();
-        final String langString = this.lang == null ? "None" : this.lang.toString();
+        final String classString = this.gameClass == null ? "Aucune" : this.gameClass.toString();
+        final String langString = this.lang == null ? "Aucune" : this.lang.toString();
         StringBuilder output = new StringBuilder();
-        output.append("Level : ").append(level).append("\n")
-              .append("Class : ").append(classString).append("\n")
-              .append("Language : ").append(langString).append("\n");
-        output.append("Stuff : ");
+        output.append("Niveau : ").append(level).append("\n")
+              .append("Spécialisation : ").append(classString).append("\n")
+              .append("Langue : ").append(langString).append("\n");
+        output.append("Équipement : ");
         AtomicInteger size = new AtomicInteger(this.stuff.size());
         this.stuff.forEach((k,card) -> {
             output.append(card).append("(+").append(card.getBonus()).append(")");

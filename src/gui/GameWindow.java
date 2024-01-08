@@ -17,7 +17,6 @@ public class GameWindow extends JFrame{
     private final JPanel panel;
     protected final MainMenu mainMenu;
     protected final PlayingMenu playingMenu;
-    protected final PlayerSelectMenu pSelectMenu;
     protected final EndMenu endMenu;
 
     public final static Font DEFAULT_FONT = new Font(null, Font.PLAIN, 24);
@@ -43,8 +42,6 @@ public class GameWindow extends JFrame{
         this.addMenu(this.mainMenu);
         this.playingMenu = new PlayingMenu();
         this.addMenu(this.playingMenu);
-        this.pSelectMenu = new PlayerSelectMenu();
-        this.addMenu(this.pSelectMenu);
         this.endMenu = new EndMenu();
         this.addMenu(endMenu);
         super.setVisible(true);
@@ -61,9 +58,6 @@ public class GameWindow extends JFrame{
             gbc.fill = GridBagConstraints.BOTH;
         }
         this.panel.add(menu.getPanel(), gbc);
-        if(menu instanceof PlayerSelectMenu) {
-            // this.setComponentZOrder(menu.getPanel(), 1);
-        }
     }
 
     public void setLNF(){
