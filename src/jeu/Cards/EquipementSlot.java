@@ -11,7 +11,6 @@ public enum EquipementSlot {
     GLOVES,
     HELMET,;
 
-
     public static int size = EquipementSlot.values().length;
     
     public static EquipementSlot getFromString(String equipementSlot) {
