@@ -228,7 +228,7 @@ public final class App extends GameWindow {
                 if(answer >= 0) {
                     final SingleUseCard chosenCard = validCards.get(answer);
                     if(player.equals(this.game.getCurrentPlayer())) {
-                        this.game.getCurrentPlayer().buff(chosenCard.getBuff());
+                        chosenCard.applyEffect(player);
                     }else {
                         result.add(chosenCard);
                     }

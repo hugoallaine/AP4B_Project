@@ -73,7 +73,7 @@ public class Player {
      * @return Puissance du joueur
      */
     public int getPower() {
-        return this.level+this.getStuffPower();
+        return this.level+this.getStuffPower()+this.buffs;
     }
 
     /**
