@@ -235,6 +235,9 @@ public class Player {
                 output.append(" | ");
             }
         });
+        if(this.stuff.isEmpty()) {
+            output.append("rien :(");
+        }
         return output.toString();
     }
 
