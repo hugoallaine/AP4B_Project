@@ -90,7 +90,7 @@ public class GameWindow extends JFrame{
     }
 
     public void quit() {
-        int answer = JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION);
+        int answer = JOptionPane.showConfirmDialog(this, "Êtes vous sur de vouloir quitter ?", "Quitter", JOptionPane.YES_NO_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
             this.dispose();
             System.exit(0);

@@ -52,8 +52,6 @@ public class Combat {
      * @return true si le joueur gagne, false sinon
      */
     public boolean fight() {
-        System.out.println("Player str: " + mainPlayer.getPower());
-        System.out.println("Monster str: " + mob.getStrength());
         if(mob.getStrength() <= mainPlayer.getPower()) {
             this.mainPlayer.levelUp(this.mob.getXP());
             this.distributeTreasures();
