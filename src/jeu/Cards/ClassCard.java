@@ -3,7 +3,7 @@ package src.jeu.Cards;
 import src.jeu.Player;
 
 /**
- * @brief Classe représentant une carte de classe (permet de changer de classe)
+ * @brief Classe représentant une carte de classe (permet de changer de classe) (enfant de EventCard)
  * @details Une carte de classe est caractérisée par un nom, une description et une classe
  * 
  * @param gameClass Classe de la carte
