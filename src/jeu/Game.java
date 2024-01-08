@@ -367,11 +367,9 @@ public final class Game {
      */
     public Combat startCombat(Player player, MonsterCard monster, List<SingleUseCard> effectCards) {
         final Combat combat = new Combat(this.currentPlayer, monster, this);
-        System.out.println("Strength before buff :" + combat.gMonsterCard().getStrength());
         for (final SingleUseCard card : effectCards) {
             combat.changeMonsterStats(card.getBuff());
         }
-        System.out.println("Strength after buff :" + combat.gMonsterCard().getStrength());
         return combat;
     }
     

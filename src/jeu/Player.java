@@ -201,7 +201,6 @@ public class Player {
         do{
             rand = EquipementSlot.getRandom();
         }while(this.stuff.containsKey(rand));
-        System.out.println(this.stuff.remove(rand));
     }
 
     /**
