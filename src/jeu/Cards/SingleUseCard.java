@@ -22,7 +22,7 @@ public final class SingleUseCard extends TreasureCard {
     public SingleUseCard(String name, String desc, int buff, String targetMode){
         super(name, desc +" (Augmente la force de la cible de : "+buff+")", CardTargetMode.getTargetModeFromString(targetMode));
         this.buff = buff;
-        this.effect = ((Player target) -> target.buff(buff));
+        this.effect = ((Player target) -> target.buff(this.buff));
     }
 
     /**
@@ -40,14 +40,5 @@ public final class SingleUseCard extends TreasureCard {
     @Override
     public void applyEffect(Player target) {
         this.effect.effect(target);
-    }
-
-    /**
-     * @brief Vérifie si l'effet de la carte peut être appliqué à un joueur
-     * @param target Le joueur ciblé par la carte
-     * @return true si l'effet peut être appliqué, false sinon
-     */
-    public boolean canApplyEffect(Player target){
-        return target.getLevel() != 9;
     }
 }

@@ -25,7 +25,7 @@
 40;5;CHINOIS;Cours de chinois. Découvrez les subtilités de la langue chinoise avec des méthodes d'apprentissage dynamiques et apprenez a jouer au Mahjong
 40;5;ALLEMAND;Cours d'allemand. Plongez-vous dans la langue allemande et découvrez la culture germanique ainsi que de la charcuterie
 40;5;ITALIEN;Cours d'italien. PASTA, savourez la sonorité de l'italien tout en explorant la cuisine et l'art italien
-50;5;Panne de réveil;Pas de chance vous avez loupé votre UV (Perds un niveau);1;ANYONE
+50;5;Panne de réveil;Pas de chance vous avez loupé votre UV (Vous perdez un niveau);1;ANYONE
 50;5;TC 6;Pas de branche pour toi (Retire la spécialisation);3;ANYONE
 50;5;Consolled;Pas de langue pour toi (Retire la langue);4;ANYONE
 50;5;Compliquations du projet;Qui fait le malin tombe dans le ravin (tout le monde perd un niveau);1;EVERYONE

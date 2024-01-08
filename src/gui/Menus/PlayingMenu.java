@@ -63,7 +63,7 @@ public final class PlayingMenu extends MKMenu {
 
         this.nextPlayerButton = new MKButton("Joueur suivant");
 
-        this.playCardButton = new MKButton("Jouer la catre");
+        this.playCardButton = new MKButton("Jouer la carte");
 
         this.actionButton = new MKButton("ActionButton");
         
