@@ -224,14 +224,15 @@ public final class App extends GameWindow {
             
             if(validCards.size() != 0) {
                 final int answer = JOptionPane.showOptionDialog(null, player.getName() + " choose a card to affect the current fight", "Choose a card", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
-                System.out.println(answer);
                 if(answer >= 0) {
                     final SingleUseCard chosenCard = validCards.get(answer);
                     if(player.equals(this.game.getCurrentPlayer())) {
                         this.game.getCurrentPlayer().buff(chosenCard.getBuff());
+                    }else {
+                        result.add(chosenCard);
                     }
-                    result.add(chosenCard);
                     player.getHand().remove(chosenCard);
+                    
                 }
                 System.out.println("Cards to help the monster : " + result);
             }
