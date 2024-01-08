@@ -178,13 +178,14 @@ public final class App extends GameWindow {
         }
         try{
             final EventCard cardDrawn = this.game.drawFromEventStack();
-            super.announce("Vous avez pioché " + cardDrawn.getName());
             this.updateActionButton("Défausse", (e -> this.discardSelectedCard()));
             if(cardDrawn instanceof CurseCard) {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
+                super.announce("Vous avez pioché " + cardDrawn.getName() + "\n" + cardDrawn.getDescription());
             }
 
             else if(cardDrawn instanceof MonsterCard) {
+                super.announce("Vous avez pioché " + cardDrawn.getName());
                 MonsterCard monster = ((MonsterCard) cardDrawn);
                 final int fightAnswer = JOptionPane.showConfirmDialog(null, "Voulez-vous combattre " + monster.getName() + "?\nNiveau : " + monster.getStrength(), "ça devient sérieux", JOptionPane.YES_NO_OPTION);
                 if(fightAnswer == JOptionPane.YES_OPTION) {
@@ -202,6 +203,7 @@ public final class App extends GameWindow {
                 return;
             }
             else {
+                super.announce("Vous avez pioché " + cardDrawn.getName());
                 this.game.getCurrentPlayer().addCard(cardDrawn);
             }
             this.updateActionButton("Défausse", (e -> this.discardSelectedCard()));
@@ -260,7 +262,7 @@ public final class App extends GameWindow {
      */
     private void playSelectedCard(){
         if(this.selectedCardButton == null) {
-            super.announce("Cannot play a card because none are selected!");
+            super.announce("Ne peux pas jouer la carte car aucune n'est sélectionnée!");
             return;
         }
         final Card selectedCard = this.selectedCardButton.getCard();
@@ -328,7 +330,7 @@ public final class App extends GameWindow {
      */
     private Player askForTarget() {
         final String[] playerNames =  this.playersToStringArray();
-        int playerAnswer = JOptionPane.showOptionDialog(null, "Choose a target", "Choose a target", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
+        int playerAnswer = JOptionPane.showOptionDialog(null, "Choisissez une cible", "Choisissez une cible", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
         try {
             return this.game.getPlayers().get(playerAnswer);
         }catch(IndexOutOfBoundsException e) {
@@ -346,7 +348,7 @@ public final class App extends GameWindow {
         for(final Player p : this.game.getPlayers()) {
             String pName = p.getName();
             if(p.equals(this.game.getCurrentPlayer())){
-                pName += " (you)";
+                pName += " (vous)";
             }
             players[i] = pName;
             i++;
