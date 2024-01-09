@@ -79,26 +79,6 @@ public class GameWindow extends JFrame{
     }
 
     /**
-     * @brief 
-     */
-    public void setLNF(){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }catch (UnsupportedLookAndFeelException ex){
-            System.err.println("[WARNING] Defaulting to Cross Platform Look and Feel");
-            try {
-                UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            }catch (Exception ex1){
-                ex1.printStackTrace();
-                System.err.println("[ERROR] Unsupported Look and Feel");
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-            System.err.println("[ERROR] Unsupported Look and Feel");
-        }
-    }
-
-    /**
      * @brief Centre la fenêtre sur l'écran
      */
     private void centerWindow(){
