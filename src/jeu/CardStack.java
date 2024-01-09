@@ -12,7 +12,7 @@ import src.jeu.Cards.Card;
  * 
  * @param stack La pile de cartes
  */
-public class CardStack<T extends Card> implements Iterable{
+public class CardStack<T extends Card> implements Iterable<T>{
     private final ArrayDeque<T> stack;
     
     /**
