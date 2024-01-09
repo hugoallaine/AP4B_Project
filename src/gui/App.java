@@ -25,6 +25,15 @@ import src.jeu.Exceptions.SamePlayerException;
 import src.jeu.Exceptions.TooManyCardsInHandException;
 import src.jeu.Exceptions.TooManyPlayersException;
 
+/**
+ * @brief Classe principale de l'application
+ * 
+ * @param APP_TITLE Titre de l'application
+ * @param APP_WIDTH Largeur de l'application
+ * @param APP_HEIGHT Hauteur de l'application
+ * @param game Instance de la classe Game
+ * @param selectedCardButton Bouton de carte sélectionné par le joueur
+ */
 public final class App extends GameWindow {
     private static final String APP_TITLE = "Munchkin UTBM";
     private static final int APP_WIDTH    = 1600;
@@ -33,12 +42,19 @@ public final class App extends GameWindow {
     private final Game game;
     private CardButton selectedCardButton;
 
+    /**
+     * @brief Constructeur de l'application
+     */
     public App(){
         super(APP_TITLE, APP_WIDTH, APP_HEIGHT);
         this.game = new Game();
         this.selectedCardButton = null;
     }
 
+    /**
+     * @brief Zone de saisie du nom du joueur
+     * @details Ajoute le joueur à la partie si le nom est valide
+     */
     private void nameInputHandler(){
         final String text = super.mainMenu.textField.getText();
         super.mainMenu.textField.setText("");
@@ -63,11 +79,19 @@ public final class App extends GameWindow {
         }
     }
 
+    /**
+     * @brief Lance l'application
+     * @details Ajoute les listeners aux boutons du menu principal
+     */
     public void launch(){
         super.mainMenu.textField.addActionListener(e -> nameInputHandler());
         super.mainMenu.addPlayerButton.addActionListener(e -> nameInputHandler());
     }
 
+    /**
+     * @brief Lance la partie
+     * @details Cache le menu principal et affiche le menu de jeu
+     */
     public void startGame(){
         super.mainMenu.hide();
         this.game.start();
@@ -78,6 +102,10 @@ public final class App extends GameWindow {
         this.updateActionButton("Piocher", (e -> this.drawFromEventStack()));
     }
 
+    /**
+     * @brief Met à jour l'affichage
+     * @details Met à jour le nom du joueur, les informations du joueur, les boutons de cartes
+     */
     private void updateDisplay() {
         super.playingMenu.setPlayerNameLabelText("Tour de " + this.game.getCurrentPlayer().getName());
         super.playingMenu.clearCardButtons();
@@ -95,8 +123,8 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Sets the background color of a given card button in function of the card assigned
-     * @param cardButton
+     * @brief Applique une couleur de fond au bouton de carte
+     * @param cardButton Bouton de carte
      */
     private void applyBackgroundColor(CardButton cardButton) {
         Color backgroundColor = Color.green;
@@ -117,10 +145,17 @@ public final class App extends GameWindow {
         cardButton.setBackground(backgroundColor);
     }
 
+    /**
+     * @brief Met à jour l'affichage
+     */
     private void update() {
         this.updateDisplay();
     }
 
+    /**
+     * @brief Crée une chaîne de caractères contenant les informations de la partie
+     * @return Chaîne de caractères contenant les informations de la partie
+     */
     private String getGameStateString() {
         final StringBuilder sb = new StringBuilder();
         for(final Player p : this.game.getPlayers()) {
@@ -130,7 +165,8 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Checks if the player can end their turn and if so, refreshes the interface and changes the current player
+     * @brief Passe au tour suivant
+     * @details Vérifie si la partie est terminée, sinon passe au tour suivant
      */
     private void nextTurn() {
         Player player;
@@ -154,6 +190,9 @@ public final class App extends GameWindow {
         }
     }
 
+    /**
+     * Défausse la carte sélectionnée par le joueur
+     */
     private void discardSelectedCard() {
         if(this.selectedCardButton == null) {
             return;
@@ -166,10 +205,13 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Pops the card at the top of the event cards stack and the following happens:
-     * - if it is a curse: it is played immediatly
-     * - if it is a monster: a fight between the monster and the current player starts
-     * - otherwise, the card is put the current player's hand
+     * @brief Pioche une carte dans la pile d'événements
+     * @details Si la carte est une carte malédiction, applique l'effet de la carte
+     * Sinon, ajoute la carte à la main du joueur
+     * Si la carte est un monstre, demande au joueur s'il veut combattre le monstre
+     * Si le joueur accepte, lance le combat
+     * Sinon, lance un dé pour savoir si le joueur s'enfuit
+     * Si le joueur s'enfuit, affiche un message
      */
     private void drawFromEventStack() {
         if(this.game.getCurrentPlayer().getHasDrawn()) {
@@ -183,7 +225,6 @@ public final class App extends GameWindow {
                 this.game.applyCurseEffect((CurseCard) cardDrawn);
                 super.announce("Vous avez pioché " + cardDrawn.getName() + "\n" + cardDrawn.getDescription());
             }
-
             else if(cardDrawn instanceof MonsterCard) {
                 super.announce("Vous avez pioché " + cardDrawn.getName());
                 MonsterCard monster = ((MonsterCard) cardDrawn);
@@ -215,16 +256,13 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Asks all the players which card they wish to play in the current fight
-     * TODO: pour le moment on peut juste prendre une carte par joueur et on ne peut pas cibler le monstre ou le joueur (peut etre faire en sorte que on peut juste cibler le monstre)
-     * @return
+     * @brief Demande au joueur s'il veut utiliser une carte pour affecter le combat
+     * @return Liste des cartes sélectionnées par le joueur
      */
     private ArrayList<SingleUseCard> askForEffectCards() {
         final ArrayList<SingleUseCard> result = new ArrayList<>();
         for(final Player player : this.game.getPlayers()) {
-            // Selects only cards which are able to affect the monster
             final ArrayList<SingleUseCard> validCards = this.getValidBuffCards(player);
-            
             if(validCards.size() != 0) {
                 final int answer = JOptionPane.showOptionDialog(null, player.getName() + " Choisissez une carte pour affecter le combat", "Vous voulez augmenter la difficulté", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, validCards.toArray(), validCards.get(0));
                 if(answer >= 0) {
@@ -243,9 +281,9 @@ public final class App extends GameWindow {
     }
 
     /**
-     * 
-     * @param player
-     * @return
+     * @brief Retourne la liste des cartes qui peuvent être utilisées pour affecter le combat
+     * @param player Joueur dont on veut récupérer les cartes
+     * @return Liste des cartes qui peuvent être utilisées pour affecter le combat
      */
     private ArrayList<SingleUseCard> getValidBuffCards(Player player) {
         final ArrayList<SingleUseCard> validCards = new ArrayList<>();
@@ -258,7 +296,7 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Joue la carte sélectionnée par le joueur
+     * @brief Joue la carte sélectionnée par le joueur
      */
     private void playSelectedCard(){
         if(this.selectedCardButton == null) {
@@ -270,12 +308,10 @@ public final class App extends GameWindow {
         this.game.discard(selectedCard);
         this.unselectCardButton(selectedCardButton);
         this.update();
-
         if(selectedCard instanceof MonsterCard) {
             this.fightCombat((MonsterCard)selectedCard);
             return;
         }
-
         if(selectedCard.getTargetMode() == CardTargetMode.SELF) {
             selectedCard.applyEffect(this.game.getCurrentPlayer());
         }
@@ -290,13 +326,12 @@ public final class App extends GameWindow {
             final CurseCard selectedCurseCard = ((CurseCard)selectedCard);
             selectedCurseCard.applyEffect(this.game.getPlayers());
         }
- 
         this.update();
     }
 
     /**
-     * Entoure le bouton carte cliqué par le joueur par une bordure
-     * @param cb
+     * @brief Fonction appelée quand le joueur clique sur une carte pour la surligner
+     * @param cb Bouton de carte
      */
     private void selectCardButton(final CardButton cb) {
         if(this.selectedCardButton != null) {
@@ -310,8 +345,8 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Enlève la bordure du bouton si il y en a une
-     * @param cb
+     * @brief Fonction appelée quand le joueur clique sur une carte pour la désélectionner
+     * @param cb Bouton de carte
      */
     private void unselectCardButton(final CardButton cb) {
         if(cb == null) {
@@ -325,22 +360,22 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Quand le joueur joue une carte qui doit cibler un joueur autre que lui même, ouvre une fenêtre popup pour demander la cible
-     * @return Le joueur choisi pour cible
+     * @brief Demande au joueur de choisir une cible
+     * @return Joueur ciblé
      */
     private Player askForTarget() {
         final String[] playerNames =  this.playersToStringArray();
         int playerAnswer = JOptionPane.showOptionDialog(null, "Choisissez une cible", "Choisissez une cible", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
         try {
             return this.game.getPlayers().get(playerAnswer);
-        }catch(IndexOutOfBoundsException e) {
+        } catch(IndexOutOfBoundsException e) {
             return null;
         }
     }
 
     /**
-     * Retourne les noms des joueurs dans une liste pour pouvoir les afficher dans les popups
-     * @return
+     * @brief Transforme la liste des joueurs en tableau de chaînes de caractères
+     * @return Tableau de chaînes de caractères
      */
     private String[] playersToStringArray() {
         final String[] players = new String[this.game.getPlayers().size()];
@@ -356,6 +391,10 @@ public final class App extends GameWindow {
         return players;
     }
 
+    /**
+     * @brief Lance un combat contre un monstre
+     * @param monster Monstre
+     */
     private void fightCombat(MonsterCard monster) {
         final ArrayList<SingleUseCard> effectCards = this.askForEffectCards();
         final Combat c = this.game.startCombat(this.game.getCurrentPlayer(), (MonsterCard) monster, effectCards);
@@ -371,11 +410,10 @@ public final class App extends GameWindow {
     }
 
     /**
-     * Changes the text and the action listener of the {@code actionButton} in the {@code PlayingMenu} class
-     * Also removes every listeners present on the button
-     * 
-     * @param buttonText the text you want to diplay
-     * @param l the new action listener for the button
+     * @brief Met à jour le bouton d'action
+     * @details Change le texte du bouton d'action et ajoute un listener
+     * @param buttonText Texte du bouton
+     * @param l Listener
      */
     private void updateActionButton(String buttonText, ActionListener l) {
         final MKButton actionButton = super.playingMenu.getActionButton();

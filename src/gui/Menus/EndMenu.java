@@ -14,8 +14,16 @@ import javax.swing.SwingConstants;
 import src.gui.GameWindow;
 import src.gui.MKMenu;
 
+/**
+ * @brief Classe du menu de fin de partie
+ * @details Affiche le gagnant et les statistiques de fin de partie
+ * 
+ * @param mainPanel JPanel du menu
+ * @param winnerText JLabel du gagnant
+ * @param textArea JTextArea des statistiques
+ * @param box JPanel contenant le JLabel et le JTextArea
+ */
 public class EndMenu extends MKMenu {
-
     private static final int LAYOUT_GAP = 20;
 
     private final JPanel mainPanel;
@@ -23,6 +31,10 @@ public class EndMenu extends MKMenu {
     private final JTextArea textArea;
     private final JPanel box;
 
+    /**
+     * @brief Constructeur du menu de fin de partie
+     * @details Initialise les composants du menu
+     */
     public EndMenu() {
         this.mainPanel = new JPanel();
         this.mainPanel.setLayout(new GridBagLayout());
@@ -33,7 +45,6 @@ public class EndMenu extends MKMenu {
         this.textArea.setFont(GameWindow.DEFAULT_FONT);
         this.textArea.setForeground(Color.WHITE);
         this.textArea.setEditable(false);
-        // this.textArea.setFocusable(false);
 
         this.winnerText = new JLabel();
         this.winnerText.setFont(MKMenu.TITLE_FONT);
@@ -60,6 +71,11 @@ public class EndMenu extends MKMenu {
         this.hide();
     }
 
+    /**
+     * @brief Affiche le gagnant et les statistiques de fin de partie
+     * @param winnerName Nom du gagnant
+     * @param endStats Statistiques de fin de partie
+     */
     public void setText(String winnerName, String endStats) {
         String[] lines = endStats.split("\n");
         this.winnerText.setText(winnerName + " won the game");
@@ -67,18 +83,28 @@ public class EndMenu extends MKMenu {
         this.textArea.setText(endStats);
     }
 
+    /**
+     * @brief Affiche le menu de fin de partie
+     */
     @Override
     public void show() {
         this.mainPanel.setVisible(true);
         this.textArea.setVisible(true);
     }
 
+    /**
+     * @brief Cache le menu de fin de partie
+     */
     @Override
     public void hide() {
         this.mainPanel.setVisible(false);
         this.textArea.setVisible(false);
     }
 
+    /**
+     * @brief Retourne le JPanel du menu de fin de partie
+     * @return JPanel du menu de fin de partie
+     */
     @Override
     public JPanel getPanel() {
         return this.mainPanel;

@@ -8,6 +8,15 @@ import javax.swing.BorderFactory;
 
 import src.jeu.Cards.Card;
 
+/**
+ * @brief Bouton représentant une carte dans l'interface graphique
+ * @details Cette classe hérite de MKButton et permet de représenter une carte
+ * dans l'interface graphique. Elle permet de mettre à jour le bouton en fonction
+ * de la carte qu'il représente et de mettre en place un système de surbrillance
+ * pour indiquer que le joueur peut jouer cette carte.
+ * 
+ * @param card La carte représentée par le bouton
+ */
 public class CardButton extends MKButton{
     private static final int BORDER_WIDTH      = 2;
     public static final Color MONSTER_COLOR    = new Color(200, 50, 20);
@@ -19,6 +28,10 @@ public class CardButton extends MKButton{
     
     private final Card card;
 
+    /**
+     * @brief Constructeur de la classe CardButton
+     * @param card La carte représentée par le bouton
+     */
     public CardButton(Card card) {
         super("");
         this.removeHighlight();
@@ -29,10 +42,17 @@ public class CardButton extends MKButton{
         super.setToolTipText(this.card.getDescription());
     }
 
+    /**
+     * @brief Getter de la carte représentée par le bouton
+     * @return La carte représentée par le bouton
+     */
     public Card getCard(){
         return this.card;
     }
 
+    /**
+     * @brief Met à jour le bouton en fonction de la carte qu'il représente
+     */
     public void update() {
         if(this.card != null) {
             this.MKShow();
@@ -43,20 +63,33 @@ public class CardButton extends MKButton{
         }
     }
 
+    /**
+     * @brief Met en place un système de surbrillance pour indiquer que le joueur peut jouer cette carte
+     */
     public void highlight() {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE, BORDER_WIDTH));
     }
 
+    /**
+     * @brief Supprime la surbrillance du bouton
+     */
     public void removeHighlight() {
         this.setBorder(BorderFactory.createEmptyBorder(BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH));
     }
 
+    /**
+     * @brief Supprime tous les listeners du bouton
+     */
     public void clearListeners() {
         for(ActionListener l : this.getActionListeners()) {
             this.removeActionListener(l);
         }
     }
 
+    /**
+     * @brief Retourne une représentation textuelle du bouton
+     * @return Une représentation textuelle du bouton
+     */
     @Override
     public String toString() {
         return card.toString();

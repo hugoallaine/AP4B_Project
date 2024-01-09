@@ -17,6 +17,17 @@ import src.gui.GameWindow;
 import src.gui.MKButton;
 import src.gui.MKMenu;
 
+/**
+ * @brief Classe du menu principal
+ * @details Affiche le menu principal
+ * 
+ * @param mainPanel JPanel du menu
+ * @param mainLabel JLabel du titre
+ * @param textField JTextField pour entrer le nom du joueur
+ * @param textArea JTextArea pour afficher les joueurs
+ * @param addPlayerButton MKButton pour ajouter un joueur
+ * @param startGameButton MKButton pour commencer la partie
+ */
 public final class MainMenu extends MKMenu {
     public final JLabel mainLabel;
     public final JTextField textField;
@@ -25,12 +36,14 @@ public final class MainMenu extends MKMenu {
     public final MKButton addPlayerButton;
     public final MKButton startGameButton;
     
-
+    /**
+     * @brief Constructeur du menu principal
+     * @details Initialise les composants du menu
+     */
     public MainMenu(){
         this.mainPanel = new JPanel();
         this.mainPanel.setLayout(new GridBagLayout());
         this.mainPanel.setBackground(MKMenu.BACKGROUND_COLOR);
-        // mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.mainPanel.setPreferredSize(new Dimension(900, 600));
         this.mainPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 
@@ -55,7 +68,6 @@ public final class MainMenu extends MKMenu {
         this.textArea.setBackground(Color.GRAY);
         this.textArea.setForeground(Color.WHITE);
         this.textArea.setRows(3);
-        // textArea.setPreferredSize(new Dimension(400, 200));
 
         this.addPlayerButton = new MKButton("Ajouter le joueur");
         this.startGameButton = new MKButton("Commencer la partie");
@@ -84,17 +96,28 @@ public final class MainMenu extends MKMenu {
         mainPanel.add(addPlayerButton, gbc);
     }
 
+    /**
+     * @brief Met à jour le JTextArea
+     * @param text Texte à afficher
+     */
     public void updateTextArea(String text) {
         final int lines = text.split("\n").length;
         this.textArea.setRows(lines);
         this.textArea.setText(text);
     }
 
+    /**
+     * @brief Getter du JPanel du menu
+     * @return JPanel du menu
+     */
     @Override
     public JPanel getPanel() {
         return this.mainPanel;
     }
 
+    /**
+     * @brief Cache le menu
+     */
     @Override
     public void hide() {
         this.addPlayerButton.MKHide();
@@ -105,6 +128,9 @@ public final class MainMenu extends MKMenu {
         this.textField.setVisible(false);
     }
 
+    /**
+     * @brief Affiche le menu
+     */
     @Override
     public void show() {
         this.addPlayerButton.MKShow();

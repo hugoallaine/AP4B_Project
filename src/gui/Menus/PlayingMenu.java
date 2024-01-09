@@ -20,6 +20,19 @@ import src.gui.MKButton;
 import src.gui.MKMenu;
 import src.jeu.Game;
 
+/**
+ * @brief Classe du menu de jeu
+ * @details Affiche le menu de jeu
+ * 
+ * @param mainPanel JPanel du menu
+ * @param cardButtons ArrayList de CardButton pour afficher les cartes
+ * @param nextPlayerButton MKButton pour passer au joueur suivant
+ * @param playCardButton MKButton pour jouer une carte
+ * @param cardsPanel JPanel pour afficher les cartes
+ * @param actionButton MKButton pour effectuer une action
+ * @param playerInfo JTextArea pour afficher les informations du joueur
+ * @param playerName JLabel pour afficher le nom du joueur
+ */
 public final class PlayingMenu extends MKMenu {
     private final JPanel mainPanel;
     private final ArrayList<CardButton> cardButtons;
@@ -31,6 +44,10 @@ public final class PlayingMenu extends MKMenu {
     private final JLabel playerName;
     private static final int LAYOUT_GAP = 5;
 
+    /**
+     * @brief Constructeur du menu de jeu
+     * @details Initialise les composants du menu
+     */
     public PlayingMenu() {
         this.mainPanel = new JPanel();
         this.mainPanel.setBackground(MKMenu.BACKGROUND_COLOR);
@@ -83,7 +100,6 @@ public final class PlayingMenu extends MKMenu {
         this.cardButtons = new ArrayList<>(Game.MAX_CARD_IN_HAND);
         this.mainPanel.add(this.cardsPanel, gbc);
 
-
         gbc.weightx = 1.0f;
         gbc.weighty = 1.0f;
         actionButtonsPanel.add(this.nextPlayerButton, gbc);
@@ -94,34 +110,60 @@ public final class PlayingMenu extends MKMenu {
         this.hide();
     }
 
+    /**
+     * @brief Getter du bouton d'action
+     * @return le bouton d'action
+     */
     public MKButton getActionButton() {
         return this.actionButton;
     }
 
-
+    /**
+     * @brief Getter du bouton de joueur suivant
+     * @return le bouton de joueur suivant
+     */
     public MKButton getNextPlayerButton() {
         return this.nextPlayerButton;
     }
 
+    /**
+     * @brief Getter du bouton de jouer une carte
+     * @return le bouton de jouer une carte
+     */
     public MKButton getPlayCardButton() {
         return this.playCardButton;
     }
     
+    /**
+     * @brief Getter du JPanel du menu
+     * @return JPanel du menu
+     */
     @Override
     public JPanel getPanel() {
         return this.mainPanel;
     }
 
+    /**
+     * @brief Setter du nom du joueur
+     * @param playerName Nom du joueur
+     */
     public void setPlayerNameLabelText(String playerName) {
         this.playerName.setText(playerName);
     }
 
+    /**
+     * @brief Ajoute un bouton de carte
+     * @param cb Bouton de carte à ajouter
+     */
     public void addCardButton(CardButton cb) {
         this.cardButtons.add(cb);
         this.cardsPanel.add(cb);
         this.cardsPanel.validate();
     } 
 
+    /**
+     * @brief Supprime tous les boutons de carte
+     */
     public void clearCardButtons() {
         for(CardButton cb : this.cardButtons) {
             this.cardsPanel.remove(cb);
@@ -129,6 +171,9 @@ public final class PlayingMenu extends MKMenu {
         this.cardButtons.clear();
     }
 
+    /**
+     * @brief Cache le menu
+     */
     @Override
     public void hide() {
         this.mainPanel.setVisible(false);
@@ -141,6 +186,9 @@ public final class PlayingMenu extends MKMenu {
         this.playerName.setVisible(false);
     }
 
+    /**
+     * @brief Affiche le menu
+     */
     @Override
     public void show() {
         this.mainPanel.setVisible(true);
@@ -153,6 +201,10 @@ public final class PlayingMenu extends MKMenu {
         this.playerName.setVisible(true);
     }
 
+    /**
+     * @brief Met à jour les informations du joueur
+     * @param playerInfoString Informations du joueur
+     */
     public void updatePlayerInfoDisplay(String playerInfoString) {
         this.playerInfo.setText(playerInfoString);
     }
