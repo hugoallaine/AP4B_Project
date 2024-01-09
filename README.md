@@ -2,12 +2,17 @@
 
 ### AP4B Project from UTBM
 
-Rendu:
+Développé par :
+- Hugo Allainé
+- Estouan Gachelin
+- Guillaume Py
+
+Rendu :
 - Rapport_AP4B_NomEquipe.pdf
 - Video_AP4B_NomEquipe.mp4
 - Code_AP4B_NomEquipe.zip
 
-Rapport:
+Rapport :
 - Intro
 - Phase conception
 - Phase Dev
